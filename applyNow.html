@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google" content="notranslate">
+
+  <title>Application Update</title> 
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body{
+      overflow-y: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .min-h-screen {
+      min-height: calc(100vh - 4rem);
+    }
+
+    body {
+      margin: 0;
+    }
+
+    .fixed-bottom-button {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      z-index: 50;
+    }
+
+    .loader {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .custom-bg {
+      background-color: #4269b6;
+    }
+
+    .loader::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 200%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.5);
+      animation: loading 1s linear;
+    }
+
+    @keyframes loading {
+      0% {
+        left: -100%;
+      }
+
+      100% {
+        left: 100%;
+      }
+    }
+
+    .slide-over-enter {
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slide-over-leave {
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .backdrop-enter {
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .backdrop-leave {
+      transition: opacity 0.5s ease-in-out;
+    }
+  </style>
+</head>
+
+<body class="notranslate">
+  <div class="overflow-hidden min-h-screen">
+    <!-- Header Section -->
+    <div class="block max-w-4xl mx-auto bg-blue-600 sm:relative sm:h-[80px] overflow-hidden">
+      <div class="flex justify-center items-center text-center">
+        <div class="w-screen">
+          <div class="mx-auto my-4 mb-20 rounded-md text-white font-bold">
+            <nav class="absolute top-2 w-full">
+              <div class="grid grid-cols-12 my-4">
+                <div class="col-span-2 flex justify-start px-5 items-center clickable-div" onclick="window.history.back()">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
+                    <path fill-rule="evenodd"
+                      d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div class="col-span-8 flex justify-start items-center text-lg font-semibold" id="ipoTitle">
+                  IPO's
+                </div>
+                <div class="col-span-2 flex justify-end px-5 items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                    stroke="currentColor" class="h-6 w-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
+                  </svg>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="loading" class="w-full h-full p-6 bg-white rounded-lg shadow-md space-y-4">
+      <!-- Title Skeleton -->
+      <div class="h-6 w-3/4 bg-gray-300 rounded animate-pulse"></div>
+      <!-- Subtitle Price -->
+      <div class="h-4 w-1/3 bg-gray-300 rounded animate-pulse"></div>
+    
+      <!-- Tabs -->
+      <div class="flex gap-2">
+        <div class="h-8 w-16 bg-gray-300 rounded-full animate-pulse"></div>
+        <div class="h-8 w-16 bg-gray-300 rounded-full animate-pulse"></div>
+        <div class="h-8 w-16 bg-gray-300 rounded-full animate-pulse"></div>
+      </div>
+    
+      <!-- Number of lots -->
+      <div class="space-y-2">
+        <div class="h-4 w-1/2 bg-gray-300 rounded animate-pulse"></div>
+        <div class="flex items-center gap-2">
+          <div class="h-10 w-10 bg-gray-300 rounded animate-pulse"></div>
+          <div class="h-10 w-16 bg-gray-300 rounded animate-pulse"></div>
+          <div class="h-10 w-10 bg-gray-300 rounded animate-pulse"></div>
+        </div>
+        <div class="h-4 w-2/3 bg-gray-200 rounded animate-pulse"></div>
+      </div>
+    
+      <!-- Price Input -->
+      <div class="h-10 w-full bg-gray-300 rounded animate-pulse"></div>
+    
+      <!-- Switch Info -->
+      <div class="flex items-center justify-between h-12 bg-gray-200 rounded px-4 animate-pulse">
+        <div class="h-4 w-1/2 bg-gray-300 rounded"></div>
+        <div class="h-4 w-12 bg-gray-300 rounded"></div>
+      </div>
+    
+      <!-- UPI ID -->
+      <div class="space-y-2">
+        <div class="h-4 w-1/3 bg-gray-300 rounded animate-pulse"></div>
+        <div class="h-10 w-full bg-gray-300 rounded animate-pulse"></div>
+      </div>
+    </div>
+    
+    <!-- Main content -->
+    <div id="maincontent" class="flex hidden justify-center items-center absolute top-12 left-0 right-0 overflow-hidden">
+      <div class="rounded-md border mt-5 bg-white shadow-lg w-full max-w-4xl">
+        <!-- IPO Information -->
+        <div class="w-full flex px-2">
+
+          <div
+          class="size-12 flex items-center text-center justify-center  mt-4  px-2 font-semibold rounded-lg bg-white object-cover ring-1 ring-gray-900/10 ">
+          <img src="" id="logoimage" alt="" class="size-12 rounded-full object-cover" />
+        </div>
+          <div class="w-full flex flex-col  px-2 py-2 ">
+            <div class="w-full flex items-center gap-2">
+              <span id="companyName" class="text-2xl font-bold">Loading...</span>
+              <span id="mode"
+                class="rounded-sm bg-indigo-50 px-1 text-[10px] font-medium text-indigo-700 ring-1 ring-inset ring-indigo-600/10 flex text-center items-center my-2"></span>
+
+              <span id="status"
+                class="rounded-sm bg-indigo-50 px-1 text-[10px] font-medium text-indigo-700 ring-1 ring-inset ring-indigo-600/10 flex text-center items-center my-2"></span>
+
+            </div>
+            <div class="text-gray-500 text-lg " id="priceRange">
+              Loading...
+            </div>
+          </div>
+
+
+        </div>
+        <div class="bg-gray-100 h-2"></div>
+        <div id="investorTypesContainer" class="px-2 py-1">
+
+
+
+        </div>
+        <div class="flex justify-between px-5 py-1">
+
+
+
+
+          <div class="text-gray-600">Number of lots</div>
+          <div class="text-gray-600 hidden">
+            Lot size:
+            <span id="lotSize"
+              class="rounded-sm  bg-indigo-50 px-1 py-0.5 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-600/10">Loading...</span>
+          </div>
+        </div>
+        <div class="px-5">
+          <div class="grid grid-cols-12 gap-x-2">
+            <div class="col-span-2">
+              <div id="decrement"
+                class="p-1 text-2xl font-bold rounded-md border border-gray-900/5 flex justify-center bg-gray-100 flex item-center text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="h-8 w-8 py-2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                </svg>
+              </div>
+            </div>
+            <div class="col-span-8">
+              <div class="p-2 rounded-md border border-gray-900/5 flex justify-center">
+                <span id="lotCount">1</span>
+              </div>
+            </div>
+            <div class="col-span-2">
+              <div id="increment"
+                class="p-1 text-2xl font-bold rounded-md border border-gray-900/5 flex justify-center bg-gray-100 flex item-center text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="h-8 w-8 py-2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full flex justify-between">
+          <div class="px-5 py-2 text-gray-600 lotsizeget text-sm flex justify-start"></div>
+
+          <!-- <div class="sumlots p-1 flex gap-1 px-6">
+              <p class="text-gray-500" id="lotssum"></p><p class="text-gray-500">Shares</p>
+            </div> -->
+            <div class=" p-1 flex gap-1 px-6">
+              <p class="text-gray-500">Maximum Lot Size:</p><p class="text-gray-500" id="maxlotsin"></p>
+            </div>
+        </div>
+
+        <div class="px-5">
+
+          <input type="number" id="price" class="px-4  py-2 rounded-md border-2 w-full focus:outline-blue-500" />
+
+          <span id="errormsg" class="text-red-500"></span>
+
+        </div>
+        <div class="py-1 my-2 bg-gray-100"></div>
+        <div class="flex justify-between hidden px-5 py-2 bg-gray-100 m-2 rounded-md" id="nseretail">
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="blue" class="h-6 w-6">
+              <path fill-rule="evenodd"
+                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 0 1 .67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 1 1-.671-1.34l.041-.022ZM12 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
+                clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div>Switch to HNI to buy more lots</div>
+          <div class="font-bold text-sm text-blue-600 mt-1">
+            <button type="button" onclick="modifyBtn()">MODIFY</button>
+          </div>
+        </div>
+        <div class="px-5 py-1">
+          <label class="block text-gray-600">Enter UPI ID</label>
+          <p class="text-gray-500 text-sm py-2">
+            Use UPI ID linked to your bank account
+          </p>
+          <div class="flex items-center mt-2">
+            <img alt="UPI logo" class="w-6 h-6" height="40" src="images/images.png" width="50" />
+            <input id="upiIdInput" class="w-full ml-2 px-4 py-2 border border-gray-300 rounded focus:outline-blue-500"
+              type="text" placeholder="Enter your UPI (xxx@Bankname)" />
+            <i class="fas fa-check-circle text-green-500 ml-2"> </i>
+          </div>
+        </div>
+        <div class="">
+          <label class="block text-gray-600 px-5 py-2"></label>
+          <p class="bg-white text-sm h-[400px]"></p>
+        </div>
+
+        <!-- UPI Information Section -->
+        <div class="px-5 py-2" id="upiInfoSection">
+          <h3 class="text-gray-600 font-bold">UPI Information</h3>
+          <ul id="upiList" class="list-disc pl-5 text-gray-600"></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="fixed-bottom-button bg-white w-full mx-auto" >
+      <div class="flex justify-between px-4 w-full py-2" >
+        <div class="flex cursor-pointer " id="open-drawer-btn" >
+          Total Payable amount
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="h-3 w-3 mx-3 my-2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+            </svg>
+          </span>
+        </div>
+        <div class="px-4 font-bold"><span id="totalAmount"></span> </div>
+      </div>
+    <div class="px-2">
+      <button type="button" disabled
+      class="rounded-md custom-bg py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus:outline-none  w-full disabled:opacity-50 disabled:cursor-not-allowed"
+      id="applyButton">
+      Apply for IPO
+    </button>
+    </div>
+
+      <div class="py-2 flex justify-center text-gray-500 text-sm">
+        By applying, you accept the
+        <span class="text-blue-500 px-2">Terms and Conditions</span>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div id="responseModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white rounded-lg p-6 w-11/12 max-w-md">
+      <h2 class="text-lg font-bold mb-4" id="modalTitle">Response</h2>
+      <p id="modalMessage">Your message will appear here.</p>
+      <div class="flex justify-end mt-4">
+        <button id="closeModal" class="bg-blue-600 text-white px-4 py-2 rounded">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="w-full" id="hiddencontent">
+
+  </div>
+  <input type="text" class="hidden" id="qty">
+  <input type="text" class="hidden" id="minval">
+  <input type="text" class="hidden" id="maxval">
+
+  <input type="text" class="hidden" id="shareval">
+
+  <input type="text" class="hidden" id="minvalbse">
+  <input type="text" class="hidden" id="maxvalbse">
+
+  <input type="text" class="hidden" id="maxlots">
+  <input type="text" class="hidden" id="finalamount">
+
+
+
+  <div id="slide-over" class="relative z-10 hidden" aria-labelledby="slide-over-title" role="dialog"
+  aria-modal="true">
+  <!-- Background backdrop -->
+  <div class="fixed inset-0 bg-gray-500/75 opacity-0 transition-opacity" id="backdrop" aria-hidden="true">
+  </div>
+
+  <div class="fixed inset-0 overflow-hidden">
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="pointer-events-none fixed inset-x-0 bottom-0 flex max-h-full">
+        <!-- Slide-over panel (bottom to top) -->
+        <div
+          class="pointer-events-auto relative w-full max-h-[50vh] transform translate-y-full transition-transform duration-500 ease-in-out"
+          id="panel">
+          <!-- Close button -->
+          <div class="absolute right-0 top-0 pr-4 pt-2">
+            <button id="close-drawer-btn" type="button"
+              class="relative rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
+              <span class="absolute -inset-2.5"></span>
+             
+            </button>
+          </div>
+
+          <div class="flex h-full flex-col overflow-y-scroll bg-white py-4 shadow-xl">
+            <div class="px-4 sm:px-6">
+              
+            </div>
+            <div class="relative mt-4 flex-1 px-4 sm:px-6">
+              <!-- Your content here -->
+              <div class="w-full" style="height: 200px;">
+
+                <div class="w-full flex gap-2 mt-2">
+                  <div class="w-full ">
+                    <p class="text-left text-gray-600">Total Amount</p>
+                  </div>
+                  <div class="w-full ">
+                    <p class="text-right text-gray-600 px-4" id="amount"></p>
+                  </div>
+                </div>
+                <div class="w-full flex gap-2 mt-2">
+                  <div class="w-full">
+                    <p class="text-left text-gray-600">Discount Amount (-)</p>
+                  </div>
+                  <div class="w-full px-4">
+                    <p class="text-right text-gray-600" id="discountamount"></p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <script src="js/drawer.js"></script>
+  <script>
+
+    // const clickableDivs = document.querySelectorAll(".clickable-div");
+    // clickableDivs.forEach((div) => {
+    //   div.addEventListener("click", function () {
+    //     const targetPage = this.getAttribute("data-target");
+    //     window.location.href = targetPage;
+    //   });
+    // });
+
+
+
+    function getDecryptedData() {
+      var urlParams = new URLSearchParams(window.location.search);
+      var encryptedData = urlParams.get('data');
+      if (encryptedData) {
+        var secretKey = "ipodetailsdata01";
+        var decodedData = decodeURIComponent(encryptedData);
+        var bytes = CryptoJS.AES.decrypt(decodedData, secretKey);
+        var decryptedJson = bytes.toString(CryptoJS.enc.Utf8);
+        var iporequiredDetails = JSON.parse(decryptedJson);
+        return iporequiredDetails
+
+
+      }
+    }
+
+    window.onload = function () {
+      getDecryptedData();
+
+      aboutdetails()
+
+    };
+
+
+
+    async function aboutdetails() {
+
+      let symbolval=getDecryptedData()
+    
+      const apiurl = `https://ipo.acumengroup.in/admin/ipo-info-entry/info.php?symbol=${symbolval.ipoSymbol}`;
+      try {
+        const response = await fetch(apiurl, {
+          method: 'GET',
+        });
+
+        if (!response.ok) {
+          throw new Error(`Network error, please try again. Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data) {
+         
+          if (data.success === true) {
+           
+            const image = data.data.SymbolLogo
+
+
+
+document.getElementById('logoimage').src = image
+
+         
+          }
+          else if (data.success === false) {
+        
+          document.getElementById('logoimage').src="./images/image.png"
+        }
+
+        }
+
+      
+
+
+      } catch (error) {
+        console.error('Error fetching IPO details:', error.message);
+      }
+    }
+
+    
+
+    let no_of_share_amount;
+
+    let lotmain;
+
+
+
+
+    function displayIpoDetails() {
+      const ipoDetails = getDecryptedData();
+
+      console.log(ipoDetails)
+
+      if (ipoDetails.isCompanyFrom === "BSE") {
+        const urlParams = ''
+        const isin = ''
+
+
+        // Call the BSE API
+        fetch(`https://ipo.acumengroup.in/api/bse/v1/ipolist/${ipoDetails.isin}`, {
+          method: "GET",
+          headers: {
+            Authorization: "21279C8DC0753CD1A90DEBF3C1C5CEDB8B5B77E0455EE804C9CA03BB706CD02A",
+            Cookie: "PHPSESSID=86ikmrbq26d8cv7lbqr7r1q07u"
+          },
+
+        })
+          .then((response) => response.json())
+          .then((data) => {
+           document.getElementById('loading').classList.add('hidden')
+            document.getElementById('maincontent').classList.remove('hidden')
+            if (data.metaData[ipoDetails.isin]) {
+
+              document.getElementById('status').innerText = data.metaData[ipoDetails.isin].issuetype
+              document.getElementById("companyName").textContent = data.metaData[ipoDetails.isin].companyName || "N/A";
+              document.getElementById("priceRange").textContent = `₹ ${data.metaData[ipoDetails.isin].floorprice} - ₹ ${data.metaData[ipoDetails.isin].ceilingprice}`;
+              document.getElementById('lotSize').innerText = data.metaData[ipoDetails.isin].tradinglot
+              document.getElementById('minvalbse').value = data.metaData[ipoDetails.isin].floorprice
+              document.getElementById('maxvalbse').value = data.metaData[ipoDetails.isin].ceilingprice
+              const lotSize = parseInt(data.metaData[ipoDetails.isin].tradinglot) || 0;
+              document.getElementById('shareval').value = lotSize
+              document.querySelector(".lotsizeget").innerHTML = `Note : 1 lot = ${parseInt(data.metaData[ipoDetails.isin].tradinglot)} shares`
+
+
+
+              const minPrice = data.metaData[ipoDetails.isin].floorprice || 0;
+              const maxPrice = data.metaData[ipoDetails.isin].ceilingprice || 0;
+
+              document.getElementById('minval').value = minPrice
+              document.getElementById('maxval').value = maxPrice
+              document.getElementById('price').value = Number(maxPrice)
+
+              if (data.metaData[ipoDetails.isin].category) {
+                const categories = data.metaData[ipoDetails.isin].category;
+                const investortype = [];
+
+                document.getElementById('hiddencontent').innerHTML = ''; // clear previous inputs
+
+                categories.forEach((item) => {
+                  if (item.asbanonasba == '1') {
+                    let code = item.category;
+                    if (code === 'IND') {
+                      code = "Retail"
+                    }
+
+
+                    if (code === 'Retail') investortype.unshift(code);
+                    else investortype.push(code);
+
+                    document.getElementById('hiddencontent').innerHTML += `
+              <input type="text" id="${code}-discountprice" value="${item.discountPrice || '0'}">
+              <input type="text" id="${code}-minprice" value="${item.minbidvalue}">
+              <input type="text" id="${code}-maxprice" value="${item.maxbidvalue}">
+            `;
+                  }
+                });
+
+                const container = document.getElementById('investorTypesContainer');
+                container.innerHTML = '';
+                let activeButton = null;
+                investortype.forEach((type, index) => {
+
+                  const button = document.createElement('button');
+                  button.innerText = type;
+                  button.className = 'rounded-md outline-none bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm';
+
+                  button.addEventListener('click', () => {
+                    if (activeButton) {
+                      activeButton.classList.remove('bg-green-500');
+                      activeButton.classList.add('bg-white');
+                    }
+                    button.classList.remove('bg-white');
+                    button.classList.add('bg-green-500');
+                    activeButton = button;
+
+
+
+                    investmentfunction(type)
+
+
+                  });
+                  container.appendChild(button);
+                  if (index === 0) {
+
+                    button.click();
+                  }
+                });
+
+
+
+
+              }
+
+
+
+
+
+
+
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      } else {
+
+        fetchIpoInfo();
+      }
+    }
+
+    const fetchIpoInfo = async () => {
+      const ipoDetails = getDecryptedData();
+
+      try {
+        const isin = ipoDetails.isin;
+        const symbol = ipoDetails.ipoSymbol;
+        const investormode = ipoDetails.investortype;
+
+        document.getElementById('maxlots').value = ipoDetails.lotsvalue;
+
+        const response = await fetch(
+          `https://ipo.acumengroup.in/nse-api/api-ipo-info.php?isin=${isin}&symbol=${symbol}`
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const nse = data?.nse;
+
+        if (nse) {
+          document.getElementById('loading').classList.add('hidden')
+          document.getElementById('maincontent').classList.remove('hidden')
+
+          document.getElementById("companyName").textContent = nse.ipoName || "N/A";
+          document.getElementById("priceRange").textContent = `₹ ${nse.minPrice} - ₹ ${nse.maxPrice}`;
+
+          const lotSize = parseInt(nse.lotSize) || 0;
+          document.getElementById("shareval").value = lotSize;
+          lotmain = lotSize;
+
+          document.querySelector(".lotsizeget").innerHTML = `Note : 1 lot = ${lotSize} shares`;
+          document.getElementById("lotSize").textContent = lotSize || "N/A";
+          document.getElementById('price').value = nse.maxPrice;
+          document.getElementById('status').innerText = nse.subType || 'MAINBOARD';
+
+          document.getElementById('minval').value = nse.minPrice;
+          document.getElementById('maxval').value = nse.maxPrice;
+
+          if (nse.subCategorySettings) {
+            const subcategories = nse.subCategorySettings;
+            const investortype = [];
+
+            document.getElementById('hiddencontent').innerHTML = ''; // clear previous inputs
+
+            subcategories.forEach((item) => {
+              if (item.allowUpi) {
+                let code = item.caCode;
+                if (code === 'RETAIL') code = "Retail";
+                else if (code === 'NIB') code = 'HNI';
+                else if (code === 'EMPRET') code = 'EMP';
+
+                // Insert Retail first
+                if (code === 'Retail') investortype.unshift(code);
+                else investortype.push(code);
+
+                document.getElementById('hiddencontent').innerHTML += `
+              <input type="text" id="${code}-discountprice" value="${item.discountPrice || '0'}">
+              <input type="text" id="${code}-minprice" value="${item.minValue}">
+              <input type="text" id="${code}-maxprice" value="${item.maxUpiLimit}">
+            `;
+              }
+            });
+
+          
+            const container = document.getElementById('investorTypesContainer');
+            container.innerHTML = '';
+            let activeButton = null;
+
+            investortype.forEach((type) => {
+              console.log(type, "type")
+              const button = document.createElement('button');
+              button.innerText = type;
+              button.className = 'rounded-md outline-none bg-white ml-2 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm';
+
+              button.addEventListener('click', () => {
+                if (activeButton) {
+                  activeButton.classList.remove('bg-green-500');
+                  activeButton.classList.add('bg-white');
+                }
+
+                button.classList.remove('bg-white');
+                button.classList.add('bg-green-500');
+                activeButton = button;
+
+
+                investmentfunction(type);
+              });
+
+              container.appendChild(button);
+
+
+              if (type.toLowerCase() === investormode.toLowerCase()) {
+                button.click();
+              }
+
+
+            });
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching IPO info:", error);
+      }
+    };
+
+
+    function modifyBtn() {
+  const hniButton = Array.from(document.querySelectorAll('#investorTypesContainer button'))
+    .find(btn => btn.textContent.trim().toUpperCase() === 'HNI');
+
+  if (hniButton) {
+    hniButton.click(); // Programmatically trigger the click
+  } else {
+    console.error('HNI button not found');
+  }
+}
+
+
+    // let investor
+    // const investmentfunction = (cacode) => {
+    //   const ipoDetails = getDecryptedData();
+    //   console.log("khiu", cacode, ipoDetails)
+
+    //   if (cacode === 'Retail' && ipoDetails.isCompanyFrom === 'NSE') {
+    //     document.getElementById('nseretail').classList.remove('hidden')
+    //   } else {
+    //     document.getElementById('nseretail').classList.add('hidden')
+    //   }
+
+
+    //   document.getElementById('lotCount').innerText = 1
+
+    //   investor = cacode
+    //   updateTotalAmount(1, document.getElementById('price').value)
+    //   checkInputs()
+    //   const lotCountDisplay = document.getElementById("lotCount");
+    //   let lotCount = 1;
+    //   const incrementButton = document.getElementById("increment");
+    //   const decrementButton = document.getElementById("decrement");
+    //   const priceAmount = document.getElementById('price');
+
+
+    //   function updateTotalAmount(lotSize, price) {
+
+    //     const discountInput = document.getElementById(`${cacode}-discountprice`);
+    //     const minInput = document.getElementById(`${cacode}-minprice`);
+    //     const maxInput = document.getElementById(`${cacode}-maxprice`);
+
+    //     const shareval = document.getElementById('shareval').value
+
+    //     const calculation = lotSize * price;
+    //     const totalval = calculation * shareval
+    //     document.getElementById('qty').value = lotSize * shareval
+    //     const discountrate = lotSize * (shareval * discountInput.value)
+
+    //     const finalamount = totalval - discountrate
+    //     document.getElementById('amount').innerText = "₹" + " " + totalval
+    //     document.getElementById('discountamount').innerText = "₹" + " " + discountrate
+    //     document.getElementById('finalamount').value = finalamount
+    //     document.getElementById('totalAmount').innerText = "₹" + " " + finalamount;
+
+
+    //   }
+
+
+    //   priceAmount.addEventListener('input', function () {
+    //     const price = parseFloat(priceAmount.value) || 0;
+    //     const lotCountVal = parseInt(lotCountDisplay.innerText, 10);
+    //     updateTotalAmount(lotCountVal, price);
+    //     checkInputs()
+    //   });
+    //   incrementButton.addEventListener("click", () => {
+
+    //     const maxLotSize = parseInt(
+    //       document.getElementById("lotSize").textContent
+    //     );
+    //     if (lotCount < maxLotSize) {
+    //       lotCount++;
+    //       lotCountDisplay.textContent = lotCount;
+    //       const price = parseFloat(priceAmount.value) || 0;
+    //       updateTotalAmount(
+    //         lotCount, price
+    //       );
+    //       checkInputs()
+    //     }
+    //   });
+
+    //   decrementButton.addEventListener("click", () => {
+
+    //     if (lotCount > 1) {
+    //       lotCount--;
+    //       lotCountDisplay.textContent = lotCount;
+    //       const price = parseFloat(priceAmount.value) || 0;
+
+    //       updateTotalAmount(
+    //         lotCount, price
+    //       );
+    //       checkInputs()
+
+    //     }
+    //   });
+    // };
+
+    
+    let investor
+        const investmentfunction = (cacode) => {
+  const ipoDetails = getDecryptedData();
+  
+  // Show/hide NSE retail switch message
+  if (cacode === 'Retail' && ipoDetails.isCompanyFrom === 'NSE') {
+    document.getElementById('nseretail').classList.remove('hidden');
+  } else {
+    document.getElementById('nseretail').classList.add('hidden');
+  }
+
+  // Reset lot count to 1 when switching investor types
+  document.getElementById('lotCount').innerText = 1;
+  investor = cacode;
+
+  // Get the investor-specific values
+  const discountInput = document.getElementById(`${cacode}-discountprice`);
+  const minInput = document.getElementById(`${cacode}-minprice`);
+  const maxInput = document.getElementById(`${cacode}-maxprice`);
+  const shareval = document.getElementById('shareval').value;
+  const price = parseFloat(document.getElementById('price').value) || 0;
+
+  // Calculate maximum lots based on investor type
+  const maxInvestment = parseFloat(maxInput.value);
+  const maxPricePerLot = price * shareval;
+  const maxLots = Math.floor(maxInvestment / maxPricePerLot);
+
+  // Store the max lots in hidden field
+  document.getElementById('maxlots').value = maxLots;
+
+
+  document.getElementById('maxlotsin').innerText = maxLots;
+
+  // Update the total amount display
+  updateTotalAmount(1, price);
+  checkInputs();
+
+  const lotCountDisplay = document.getElementById("lotCount");
+  let lotCount = 1;
+  const incrementButton = document.getElementById("increment");
+  const decrementButton = document.getElementById("decrement");
+  const priceAmount = document.getElementById('price');
+
+  function updateTotalAmount(lotSize, price) {
+    const shareval = document.getElementById('shareval').value;
+    const discountInput = document.getElementById(`${cacode}-discountprice`);
+    
+    const calculation = lotSize * price;
+    const totalval = calculation * shareval;
+    document.getElementById('qty').value = lotSize * shareval;
+    const discountrate = lotSize * (shareval * discountInput.value);
+    const finalamount = totalval - discountrate;
+    
+    document.getElementById('amount').innerText = "₹" + " " + totalval;
+    document.getElementById('discountamount').innerText = "₹" + " " + discountrate;
+    document.getElementById('finalamount').value = finalamount;
+    document.getElementById('totalAmount').innerText = "₹" + " " + finalamount;
+  }
+
+  priceAmount.addEventListener('input', function() {
+    const price = parseFloat(priceAmount.value) || 0;
+    const lotCountVal = parseInt(lotCountDisplay.innerText, 10);
+    updateTotalAmount(lotCountVal, price);
+    checkInputs();
+  });
+
+  incrementButton.addEventListener("click", () => {
+    const maxLots = parseInt(document.getElementById('maxlots').value);
+    if (lotCount < maxLots) {
+      lotCount++;
+      lotCountDisplay.textContent = lotCount;
+      const price = parseFloat(priceAmount.value) || 0;
+      updateTotalAmount(lotCount, price);
+      checkInputs();
+    }
+  });
+
+  decrementButton.addEventListener("click", () => {
+    if (lotCount > 1) {
+      lotCount--;
+      lotCountDisplay.textContent = lotCount;
+      const price = parseFloat(priceAmount.value) || 0;
+      updateTotalAmount(lotCount, price);
+      checkInputs();
+    }
+  });
+};
+
+
+
+    function showModal(title, message) {
+      document.getElementById("modalTitle").textContent = title;
+      document.getElementById("modalMessage").textContent = message;
+      document.getElementById("responseModal").classList.remove("hidden");
+    }
+
+    document.getElementById("closeModal").addEventListener("click", () => {
+  const ipoDetails = getDecryptedData();
+
+  document.getElementById("responseModal").classList.add("hidden");
+
+  let appValue = "yourapplication";
+  let clientCode = ipoDetails.clientCode;
+
+  const url = `index.html?app=${encodeURIComponent(appValue)}&clientcode=${encodeURIComponent(clientCode)}`;
+  window.location.href = url;
+});
+
+
+    let selectedInvestorType = "Retail";
+    let selectedMinValue = null;
+    const upiSettings = [];
+
+
+
+
+    displayIpoDetails();
+
+
+    const upid = document.getElementById('upiIdInput');
+const price = document.getElementById('price');
+const applybutton = document.getElementById('applyButton');
+
+function checkInputs() {
+  let cacode = investor;
+
+  const minInput = document.getElementById(`${cacode}-minprice`);
+  const maxInput = document.getElementById(`${cacode}-maxprice`);
+  const minvalinput = Number(minInput.value);
+  const maxvalinput = Number(maxInput.value);
+  const finalvalue = Number(document.getElementById('finalamount').value);
+
+  const minprice = Number(document.getElementById('minval').value);
+  const maxprice = Number(document.getElementById('maxval').value);
+  const priceValue = Number(price.value);
+
+  const isPriceInRange = priceValue >= minprice && priceValue <= maxprice;
+
+  // Show error ONLY if price is out of range
+  if (price.value && !isPriceInRange) {
+    document.getElementById('errormsg').innerText = `Please enter a value between ${minprice} - ${maxprice}`;
+  } else {
+    document.getElementById('errormsg').innerText = "";
+  }
+
+  const isValid =
+    upid.value &&
+    price.value &&
+    isPriceInRange &&
+    finalvalue >= minvalinput &&
+    finalvalue <= maxvalinput;
+
+  if (isValid) {
+    applybutton.disabled = false;
+    applybutton.classList.remove('bg-gray-400', 'cursor-not-allowed');
+    applybutton.classList.add('bg-blue-500', 'hover:bg-blue-600', 'cursor-pointer');
+  } else {
+    applybutton.disabled = true;
+    applybutton.classList.add('bg-gray-400', 'cursor-not-allowed');
+    applybutton.classList.remove('bg-blue-500', 'hover:bg-blue-600', 'cursor-pointer');
+  }
+}
+
+upid.addEventListener('input', checkInputs);
+price.addEventListener('input', checkInputs);
+
+
+
+
+    document.getElementById('applyButton').addEventListener('click', async function () {
+  const ipoDetails = getDecryptedData();
+
+  console.log(ipoDetails, "details")
+const clientCode=ipoDetails.clientCode;
+  const isin = ipoDetails.isin;
+  const symbol = ipoDetails.ipoSymbol;
+  const source = ipoDetails.isCompanyFrom;
+
+  let investorModeRaw = ipoDetails.investortype;
+  let investorMode = (investorModeRaw === 'Retail' || investorModeRaw === 'HNI') ? 'IND' : 'OTHER';
+
+  const upiId = document.getElementById('upiIdInput').value.trim();
+  const qty = document.getElementById('qty').value.trim();
+  const allowedPricesRaw = document.getElementById('maxval').value.trim();
+  const allowedPrices = allowedPricesRaw.split(',').map(p => Number(p.trim()));
+  const priceInput = Number(document.getElementById('price').value.trim());
+
+  // Corrected cutOff logic
+  let cutOffValue = allowedPrices.includes(priceInput);
+  let cutOff = '';
+
+  if (source === 'BSE') {
+    cutOff = cutOffValue ? '1' : '0';
+  } else {
+    cutOff = cutOffValue ? 'true' : 'false';
+  }
+
+  let apiUrl = '';
+  let authorization = '';
+
+  if (source === 'NSE') {
+    apiUrl = 'https://ipo.acumengroup.in/nse-api/api-apply-ipo.php';
+  } else if (source === 'BSE') {
+    apiUrl = 'https://ipo.acumengroup.in/api/bse/v1/applyipo';
+    authorization = '21279C8DC0753CD1A90DEBF3C1C5CEDB8B5B77E0455EE804C9CA03BB706CD02A';
+  } else {
+    console.error('Invalid IPO source');
+    showModal('Error', 'Invalid IPO source');
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('clientCode', clientCode);
+  formData.append('ipoSymbol', symbol);
+  formData.append('isin', isin);
+  formData.append('upiId', upiId);
+  formData.append('category', investorMode);
+  formData.append('qty', qty);
+  formData.append('price', priceInput);
+  formData.append('cutOff', cutOff);
+  formData.append('clientCategory', investorModeRaw);
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: authorization ? { 'Authorization': authorization } : {},
+      body: formData
+    });
+
+    if (!response.ok) {
+      throw new Error('Network error, please try again. Status: ' + response.status);
+    }
+
+    const data = await response.json();
+    console.log(data);
+
+    const title = "Application Status";
+    showModal(title, data.message || 'Response received');
+  } catch (error) {
+    console.error('Error:', error.message);
+    showModal('Error', error.message);
+  }
+});
+
+
+
+
+
+  </script>
+</body>
+
+</html>
