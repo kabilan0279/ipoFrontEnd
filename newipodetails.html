@@ -576,7 +576,7 @@
                     </div>
 
                     <div class="hidden md:block  bottom-0 px-2 w-full  bg-white py-1">
-                    <button type="button" id="applyNowButton" disabled onclick="redirect()"
+                    <button type="button" id="applyNowButtonDesktop" disabled onclick="redirect()"
                         class="rounded-md bg-blue-800 py-4 w-full text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus:outline-none  disabled:opacity-50 disabled:cursor-not-allowed">
                         Apply Now
                     </button>
@@ -595,631 +595,726 @@
         </div>
     </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <script>
 
-        const para = document.getElementById("aboutCompany");
-        const btn = document.getElementById("toggleBtn");
+    const para = document.getElementById("aboutCompany");
+    const btn = document.getElementById("toggleBtn");
 
-        let expanded = false;
+    let expanded = false;
 
-        btn.addEventListener("click", () => {
-            expanded = !expanded;
+    btn.addEventListener("click", () => {
+      expanded = !expanded;
 
-            if (expanded) {
-                para.style.maxHeight = para.scrollHeight + "px";
-                btn.textContent = "Read Less";
-            } else {
-                para.style.maxHeight = "3rem";
-                btn.textContent = "Read More";
-            }
+      if (expanded) {
+        para.style.maxHeight = para.scrollHeight + "px";
+        btn.textContent = "Read Less";
+      } else {
+        para.style.maxHeight = "3rem";
+        btn.textContent = "Read More";
+      }
+    });
+    // const clickableDivs = document.querySelectorAll(".clickable-div");
+    // clickableDivs.forEach((div) => {
+    //   div.addEventListener("click", function () {
+    //     const targetPage = this.getAttribute("data-target");
+    //     window.location.href = targetPage;
+    //   });
+    // });
+
+
+
+
+    function getDecryptedData() {
+      var urlParams = new URLSearchParams(window.location.search);
+      var encryptedData = urlParams.get('data');
+
+      if (encryptedData) {
+        var secretKey = "ipodetailsdata01";
+        var decodedData = decodeURIComponent(encryptedData);
+        var bytes = CryptoJS.AES.decrypt(decodedData, secretKey);
+        var decryptedJson = bytes.toString(CryptoJS.enc.Utf8);
+
+        // Convert JSON string back to JS object
+        var iporequiredDetails = JSON.parse(decryptedJson);
+        return iporequiredDetails
+
+
+      }
+    }
+
+    window.onload = function () {
+      getDecryptedData();
+      console.log(getDecryptedData(), "getDecryptedData");
+      infoDetails();
+    };
+
+
+    const infoDetails = async () => {
+      const parametersObject = getDecryptedData();
+
+      let apiUrl = '';
+      const headers = {};
+
+      if (parametersObject.isCompanyFrom === 'NSE') {
+        apiUrl = `https://ipo.acumengroup.in/nse-api/api-ipo-info.php?isin=${parametersObject.isin}&symbol=${parametersObject.ipoSymbol}`;
+      } else if (parametersObject.isCompanyFrom === 'BSE') {
+        apiUrl = `https://ipo.acumengroup.in/api/bse/v1/ipolist/${parametersObject.isin}`;
+        headers['Authorization'] = '21279C8DC0753CD1A90DEBF3C1C5CEDB8B5B77E0455EE804C9CA03BB706CD02A';
+        headers['Cookie'] = 'PHPSESSID=86ikmrbq26d8cv7lbqr7r1q07u';
+      } else {
+        console.error('Invalid company source');
+        return;
+      }
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'GET',
+          headers: headers
         });
-        // const clickableDivs = document.querySelectorAll(".clickable-div");
-        // clickableDivs.forEach((div) => {
-        //   div.addEventListener("click", function () {
-        //     const targetPage = this.getAttribute("data-target");
-        //     window.location.href = targetPage;
-        //   });
-        // });
 
-
-
-
-        function getDecryptedData() {
-            var urlParams = new URLSearchParams(window.location.search);
-            var encryptedData = urlParams.get('data');
-
-            if (encryptedData) {
-                var secretKey = "ipodetailsdata01";
-                var decodedData = decodeURIComponent(encryptedData);
-                var bytes = CryptoJS.AES.decrypt(decodedData, secretKey);
-                var decryptedJson = bytes.toString(CryptoJS.enc.Utf8);
-
-                // Convert JSON string back to JS object
-                var iporequiredDetails = JSON.parse(decryptedJson);
-                return iporequiredDetails
-
-
-            }
+        if (!response.ok) {
+          throw new Error(`Network error, please try again. Status: ${response.status}`);
         }
 
-        window.onload = function () {
-            getDecryptedData();
-            console.log(getDecryptedData(), "getDecryptedData");
-            infoDetails();
-        };
+        const data = await response.json();
+
+        if (data) {
+          document.getElementById('loading').classList.add('hidden');
+          document.getElementById('maincontent').classList.remove('hidden');
+          datarendering(data)
+          aboutdetails(data, parametersObject.isin)
+        }
 
 
-        const infoDetails = async () => {
-            const parametersObject = getDecryptedData();
+      } catch (error) {
+        console.error('Error fetching IPO details:', error.message);
+      }
+    };
 
-            let apiUrl = '';
-            const headers = {};
 
-            if (parametersObject.isCompanyFrom === 'NSE') {
-                apiUrl = `https://ipo.acumengroup.in/nse-api/api-ipo-info.php?isin=${parametersObject.isin}&symbol=${parametersObject.ipoSymbol}`;
-            } else if (parametersObject.isCompanyFrom === 'BSE') {
-                apiUrl = `https://ipo.acumengroup.in/api/bse/v1/ipolist/${parametersObject.isin}`;
-                headers['Authorization'] = '21279C8DC0753CD1A90DEBF3C1C5CEDB8B5B77E0455EE804C9CA03BB706CD02A';
-                headers['Cookie'] = 'PHPSESSID=86ikmrbq26d8cv7lbqr7r1q07u';
-            } else {
-                console.error('Invalid company source');
-                return;
+    async function aboutdetails(datasymbol, isin) {
+      let symbol;
+
+      if (datasymbol.metaData && datasymbol.metaData[isin]) {
+        symbol = datasymbol.metaData[isin].symbol;
+      } else if (datasymbol.nse && datasymbol.nse.isin === isin) {
+        symbol = datasymbol.nse.ipoSymbol;
+      } else {
+        // fallback if nothing matches
+        console.warn("Symbol not found for ISIN:", isin);
+        symbol = null;
+      }
+
+      //console.log(, "datasymbol")
+
+      const apiurl = `https://ipo.acumengroup.in/admin/ipo-info-entry/info.php?symbol=${symbol}`
+      try {
+        const response = await fetch(apiurl, {
+          method: 'GET',
+        });
+
+        if (!response.ok) {
+          throw new Error(`Network error, please try again. Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data) {
+          console.log(data)
+          if (data.success === true) {
+            function formatDate(isoDate) {
+              if (!isoDate) return ''; // Handle null or undefined
+              const [year, month, day] = isoDate.split('-');
+              return `${day}-${month}-${year}`;
             }
 
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'GET',
-                    headers: headers
-                });
+            document.getElementById('date1').innerText = formatDate(data.data.AllotmentDate);
+            document.getElementById('date2').innerText = formatDate(data.data.CreditOfSharesToDemat);
+            document.getElementById('date3').innerText = formatDate(data.data.IPOOpenDate);
+            document.getElementById('date4').innerText = formatDate(data.data.IPOCloseDate);
+            document.getElementById('date5').innerText = formatDate(data.data.InitiationOfRefunds);
+            document.getElementById('date6').innerText = formatDate(data.data.ListingDate);
+            document.getElementById('aboutCompany').innerText = data.data.AboutCompany;
+            document.getElementById('objectOfIssue').innerText = data.data.ObjectiveOfIssue;
+            document.getElementById('preIssuePromoters').innerText = data.data.ShareHoldingPreIssue + " %";
+            document.getElementById('postIssuePromoters').innerText = data.data.ShareHoldingPostIssue + " %";
+            const strengthsString = data.data.Strengths;
+            const strengthsArray = strengthsString.split('\r\n').filter(item => item.trim() !== '');
+            const container = document.getElementById('strengthsContainer');
+            container.innerHTML = '';
 
-                if (!response.ok) {
-                    throw new Error(`Network error, please try again. Status: ${response.status}`);
-                }
+            strengthsArray.forEach(strength => {
+              const li = document.createElement('li');
+              li.textContent = strength;
+              container.appendChild(li);
+            });
+            const risksString = data.data.Risks;
+            const risksArray = risksString.split('\r\n').filter(item => item.trim() !== '');
 
-                const data = await response.json();
+            const risksContainer = document.getElementById('risksContainer');
+            risksContainer.innerHTML = '';
 
-                if (data) {
-                    document.getElementById('loading').classList.add('hidden');
-                    document.getElementById('maincontent').classList.remove('hidden');
-                    datarendering(data)
-                    aboutdetails(data, parametersObject.isin)
-                }
+            risksArray.forEach(risk => {
+              const li = document.createElement('li');
+              li.textContent = risk;
+              risksContainer.appendChild(li);
+            });
+            const pdfUrl = data.data.baseurl + data.data.DHRP_PDF_File;
+
+            document.getElementById('downloadLink').addEventListener('click', function () {
+              this.href = pdfUrl;
+            });
+            const image = data.data.SymbolLogo
 
 
-            } catch (error) {
-                console.error('Error fetching IPO details:', error.message);
+
+            document.getElementById('logoimage').src = image
+
+
+            const input = data.data;
+            const result = [];
+
+            const keys = Object.keys(input);
+            const indexSet = new Set();
+
+            // Extract all unique index numbers from keys (e.g. 1 from Name11, 2 from Name21, etc.)
+            keys.forEach(key => {
+              const match = key.match(/^Name(\d+)[12]$/);
+              if (match) {
+                indexSet.add(match[1]);
+              }
+            });
+
+            let total = 0;
+            let count = 0;
+
+            // For each index, grab the corresponding name and value
+            indexSet.forEach(index => {
+              const name = input[`Name${index}1`];
+              const valueStr = input[`Name${index}2`];
+              const value = parseFloat(valueStr);
+
+              if (name || valueStr) {
+                result.push({ name, value });
+              }
+
+              if (!isNaN(value)) {
+                total += value;
+                count++;
+              }
+            });
+
+            // Add the total row
+            if (count > 0) {
+              result.push({ name: "Total", value: (total / count).toFixed(2) });
+
             }
-        };
 
-
-        async function aboutdetails(datasymbol, isin) {
-            let symbol;
-
-            if (datasymbol.metaData && datasymbol.metaData[isin]) {
-                symbol = datasymbol.metaData[isin].symbol;
-            } else if (datasymbol.nse && datasymbol.nse.isin === isin) {
-                symbol = datasymbol.nse.ipoSymbol;
-            } else {
-                // fallback if nothing matches
-                console.warn("Symbol not found for ISIN:", isin);
-                symbol = null;
-            }
-
-            //console.log(, "datasymbol")
-
-            const apiurl = `https://ipo.acumengroup.in/admin/ipo-info-entry/info.php?symbol=${symbol}`
-            try {
-                const response = await fetch(apiurl, {
-                    method: 'GET',
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Network error, please try again. Status: ${response.status}`);
-                }
-
-                const data = await response.json();
-
-                if (data) {
-                    console.log(data)
-                    if (data.success === true) {
-                        function formatDate(isoDate) {
-                            if (!isoDate) return ''; // Handle null or undefined
-                            const [year, month, day] = isoDate.split('-');
-                            return `${day}-${month}-${year}`;
-                        }
-
-                        document.getElementById('date1').innerText = formatDate(data.data.AllotmentDate);
-                        document.getElementById('date2').innerText = formatDate(data.data.CreditOfSharesToDemat);
-                        document.getElementById('date3').innerText = formatDate(data.data.IPOOpenDate);
-                        document.getElementById('date4').innerText = formatDate(data.data.IPOCloseDate);
-                        document.getElementById('date5').innerText = formatDate(data.data.InitiationOfRefunds);
-                        document.getElementById('date6').innerText = formatDate(data.data.ListingDate);
-                        document.getElementById('aboutCompany').innerText = data.data.AboutCompany;
-                        document.getElementById('objectOfIssue').innerText = data.data.ObjectiveOfIssue;
-                        document.getElementById('preIssuePromoters').innerText = data.data.ShareHoldingPreIssue + " %";
-                        document.getElementById('postIssuePromoters').innerText = data.data.ShareHoldingPostIssue + " %";
-                        const strengthsString = data.data.Strengths;
-                        const strengthsArray = strengthsString.split('\r\n').filter(item => item.trim() !== '');
-                        const container = document.getElementById('strengthsContainer');
-                        container.innerHTML = '';
-
-                        strengthsArray.forEach(strength => {
-                            const li = document.createElement('li');
-                            li.textContent = strength;
-                            container.appendChild(li);
-                        });
-                        const risksString = data.data.Risks;
-                        const risksArray = risksString.split('\r\n').filter(item => item.trim() !== '');
-
-                        const risksContainer = document.getElementById('risksContainer');
-                        risksContainer.innerHTML = '';
-
-                        risksArray.forEach(risk => {
-                            const li = document.createElement('li');
-                            li.textContent = risk;
-                            risksContainer.appendChild(li);
-                        });
-                        const pdfUrl = data.data.baseurl + data.data.DHRP_PDF_File;
-
-                        document.getElementById('downloadLink').addEventListener('click', function () {
-                            this.href = pdfUrl;
-                        });
-                        const image = data.data.SymbolLogo
-
-
-
-                        document.getElementById('logoimage').src = image
-
-
-                        const input = data.data;
-                        const result = [];
-
-                        const keys = Object.keys(input);
-                        const indexSet = new Set();
-
-                        // Extract all unique index numbers from keys (e.g. 1 from Name11, 2 from Name21, etc.)
-                        keys.forEach(key => {
-                            const match = key.match(/^Name(\d+)[12]$/);
-                            if (match) {
-                                indexSet.add(match[1]);
-                            }
-                        });
-
-                        let total = 0;
-                        let count = 0;
-
-                        // For each index, grab the corresponding name and value
-                        indexSet.forEach(index => {
-                            const name = input[`Name${index}1`];
-                            const valueStr = input[`Name${index}2`];
-                            const value = parseFloat(valueStr);
-
-                            if (name || valueStr) {
-                                result.push({ name, value });
-                            }
-
-                            if (!isNaN(value)) {
-                                total += value;
-                                count++;
-                            }
-                        });
-
-                        // Add the total row
-                        if (count > 0) {
-                            result.push({ name: "Total", value: (total / count).toFixed(2) });
-
-                        }
-
-                        console.log(result);
+            console.log(result);
 
 
 
 
-                        document.getElementById('subscriptionDataContainer').innerHTML = '';
-                        result.forEach(item => {
-                            const row = document.createElement('tr');
-                            const nameCell = document.createElement('td');
-                            const valueCell = document.createElement('td');
-                            nameCell.className = 'whitespace-nowrap px-3 py-4 text-sm text-gray-700';
-                            valueCell.className = 'whitespace-nowrap px-3 text-right py-4 text-sm text-gray-700';
-                            nameCell.innerText = item.name;
-                            valueCell.innerText = item.value;
-                            row.appendChild(nameCell);
-                            row.appendChild(valueCell);
-                            document.getElementById('subscriptionDataContainer').appendChild(row);
-                        });
-                    }
-                    else if (data.success === false) {
+            document.getElementById('subscriptionDataContainer').innerHTML = '';
+            result.forEach(item => {
+              const row = document.createElement('tr');
+              const nameCell = document.createElement('td');
+              const valueCell = document.createElement('td');
+              nameCell.className = 'whitespace-nowrap px-3 py-4 text-sm text-gray-700';
+              valueCell.className = 'whitespace-nowrap px-3 text-right py-4 text-sm text-gray-700';
+              nameCell.innerText = item.name;
+              valueCell.innerText = item.value;
+              row.appendChild(nameCell);
+              row.appendChild(valueCell);
+              document.getElementById('subscriptionDataContainer').appendChild(row);
+            });
+          }
+          else if (data.success === false) {
 
-                        document.getElementById('logoimage').src = "./images/image.png"
-                    }
+            document.getElementById('logoimage').src = "./images/image.png"
+          }
 
-                }
-
-
-
-
-            } catch (error) {
-                console.error('Error fetching IPO details:', error.message);
-            }
         }
 
 
 
-        const datarendering = (ipodetails) => {
-            if (ipodetails.nse) {
-                const parametersObject = getDecryptedData();
+
+      } catch (error) {
+        console.error('Error fetching IPO details:', error.message);
+      }
+    }
 
 
 
-                document.getElementById('companyName').innerText = ipodetails.nse.ipoName
-                const symbol = ipodetails.nse.ipoSymbol;
-                document.getElementById('companysymbol').innerText = "Symbol:" + " " + "(" + symbol + ")"
-                document.getElementById('mode').innerHTML = parametersObject.isCompanyFrom
-                document.getElementById('status').innerHTML = ipodetails.nse.subType || 'N/A'
-                document.getElementById('bidPrice').innerHTML = "₹" + " " + ipodetails.nse.minPrice + " " + "-" + " " + "₹" + ipodetails.nse.maxPrice
-                document.getElementById('lotSize').innerHTML = ipodetails.nse.lotSize + " " + "Shares"
-                document.getElementById('offerType').innerHTML = ipodetails.nse.subType || 'N/A'
-                document.getElementById('ipoType').innerHTML = ipodetails.nse.issueType
-                document.getElementById('issueSize').innerHTML = ipodetails.nse.issueSize
+    const datarendering = (ipodetails) => {
+      if (ipodetails.nse) {
+        const parametersObject = getDecryptedData();
 
 
 
-                const endDate = new Date(ipodetails.nse.biddingEndDate);
-
-                const today = new Date();
-
-                // Normalize both dates to YYYY-MM-DD (ignore time)
-                const normalize = date => new Date(date.getFullYear(), date.getMonth(), date.getDate());
-                const normalizedEndDate = normalize(endDate);
-                const normalizedToday = normalize(today);
-
-                // Calculate the difference in days
-                const diffTime = normalizedEndDate.getTime() - normalizedToday.getTime();
-                const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
-
-                // Determine the message
-
-                if (diffDays === 0) {
-                    document.getElementById('biddingMessage').innerText = "Today";
-                } else if (diffDays > 0) {
-                    document.getElementById('biddingMessage').innerText = `${diffDays} day${diffDays > 1 ? "s" : ""} more`;
-                } else {
-                    document.getElementById('biddingMessage').innerText = `Expired ${Math.abs(diffDays)} day${Math.abs(diffDays) > 1 ? "s" : ""} ago`;
-                }
+        document.getElementById('companyName').innerText = ipodetails.nse.ipoName
+        const symbol = ipodetails.nse.ipoSymbol;
+        document.getElementById('companysymbol').innerText = "Symbol:" + " " + "(" + symbol + ")"
+        document.getElementById('mode').innerHTML = parametersObject.isCompanyFrom
+        document.getElementById('status').innerHTML = ipodetails.nse.subType || 'N/A'
+        document.getElementById('bidPrice').innerHTML = "₹" + " " + ipodetails.nse.minPrice + " " + "-" + " " + "₹" + ipodetails.nse.maxPrice
+        document.getElementById('lotSize').innerHTML = ipodetails.nse.lotSize + " " + "Shares"
+        document.getElementById('offerType').innerHTML = ipodetails.nse.subType || 'N/A'
+        document.getElementById('ipoType').innerHTML = ipodetails.nse.issueType
+        document.getElementById('issueSize').innerHTML = ipodetails.nse.issueSize
 
 
-                const startdate = ipodetails.nse.biddingStartDate
-                const enddate = ipodetails.nse.biddingEndDate
 
-                const startDateObj = new Date(startdate);
-                const endDateObj = new Date(enddate);
+        const endDate = new Date(ipodetails.nse.biddingEndDate);
 
-                // Get the current date
-                const currentDate = new Date();
+        const today = new Date();
 
-                // Function to enable/disable the button based on the date range
-                function checkDateRangense() {
-                    const applyNowButton = document.getElementById("applyNowButton");
+        // Normalize both dates to YYYY-MM-DD (ignore time)
+        const normalize = date => new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        const normalizedEndDate = normalize(endDate);
+        const normalizedToday = normalize(today);
 
-                    // Compare if current date is within the range
-                    if (currentDate >= startDateObj && currentDate <= endDateObj) {
-                        applyNowButton.disabled = false; // Enable button
-                    } else {
-                        applyNowButton.disabled = true; // Disable button
-                    }
-                }
+        // Calculate the difference in days
+        const diffTime = normalizedEndDate.getTime() - normalizedToday.getTime();
+        const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
 
-                // Call the function to check date range on page load
-                checkDateRangense();
-                if (ipodetails.nse.subCategorySettings) {
-                    const subCategorySettings = ipodetails.nse.subCategorySettings;
-                    let investortype = [];
+        // Determine the message
 
-                    subCategorySettings.forEach((category) => {
-                        if (category.allowUpi) {
-                            let code = category.caCode;
-                            if (code === 'RETAIL') {
-                                code = "Retail"
-                            }
-                            else if (code === 'NIB') {
-                                code = 'HNI';
+        if (diffDays === 0) {
+          document.getElementById('biddingMessage').innerText = "Today";
+        } else if (diffDays > 0) {
+          document.getElementById('biddingMessage').innerText = `${diffDays} day${diffDays > 1 ? "s" : ""} more`;
+        } else {
+          document.getElementById('biddingMessage').innerText = `Expired ${Math.abs(diffDays)} day${Math.abs(diffDays) > 1 ? "s" : ""} ago`;
+        }
 
-                            } else if (code === 'EMPRET') {
-                                code = 'EMP';
 
-                            }
+        const startdate = ipodetails.nse.biddingStartDate
+        const enddate = ipodetails.nse.biddingEndDate
 
-                            if (code === 'Retail') {
-                                investortype.unshift(code);
+        const startDateObj = new Date(startdate);
+        const endDateObj = new Date(enddate);
 
-                            } else {
-                                investortype.push(code);
-                            }
+        // Get the current date
+        const currentDate = new Date();
 
-                            const hiddenContent = document.getElementById('hiddencontent');
+        // Function to enable/disable the button based on the date range
+        function checkDateRangense() {
+          const applyNowButton = document.getElementById("applyNowButton");
+          const applyNowButtonDesktop = document.getElementById("applyNowButtonDesktop");
 
-                            hiddenContent.innerHTML += `
+          // Compare if current date is within the range
+          if (currentDate >= startDateObj && currentDate <= endDateObj) {
+            applyNowButton.disabled = false; // Enable button
+            applyNowButtonDesktop.disabled = false; // Enable button
+          } else {
+            applyNowButton.disabled = true; // Disable button
+            applyNowButtonDesktop.disabled = true; // Disable button
+          }
+        }
+
+        // Call the function to check date range on page load
+        checkDateRangense();
+        if (ipodetails.nse.subCategorySettings) {
+          const subCategorySettings = ipodetails.nse.subCategorySettings;
+          let investortype = [];
+
+          subCategorySettings.forEach((category) => {
+            if (category.allowUpi) {
+              let code = category.caCode;
+              if (code === 'RETAIL') {
+                code = "Retail"
+              }
+              else if (code === 'NIB') {
+                code = 'HNI';
+
+              } else if (code === 'EMPRET') {
+                code = 'EMP';
+
+              }
+
+              if (code === 'Retail') {
+                investortype.unshift(code);
+
+              } else {
+                investortype.push(code);
+              }
+
+              const hiddenContent = document.getElementById('hiddencontent');
+
+              hiddenContent.innerHTML += `
     <input type="text" class="hidden"  id="${code}-discountprice" value="${category.discountPrice || '0'}">
     <input type="text" class="hidden"  id="${code}-minprice" value="${category.minValue}">
     <input type="text" class="hidden"   id="${code}-maxprice" value="${category.maxUpiLimit}">
   `;
 
 
-                        }
-                    });
-
-
-
-                    const container = document.getElementById('investorTypesContainer');
-                    container.innerHTML = '';
-                    let activeButton = null;
-                    investortype.forEach((type, index) => {
-                        const button = document.createElement('button');
-                        button.innerText = type;
-                        button.className = 'rounded-md outline-none bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm';
-
-                        button.addEventListener('click', () => {
-                            if (activeButton) {
-                                activeButton.classList.remove('bg-green-500');
-                                activeButton.classList.add('bg-white');
-                            }
-                            button.classList.remove('bg-white');
-                            button.classList.add('bg-green-500');
-                            activeButton = button;
-
-                            document.getElementById('catetype').innerHTML = type
-
-                            investmentfunction(type, ipodetails)
-
-
-                        });
-                        container.appendChild(button);
-                        if (index === 0) {
-
-                            button.click();
-                        }
-                    });
-
-
-
-
-                }
-
             }
-            else if (ipodetails.metaData) {
-                console.log("this is bse")
-
-                const parametersObject = getDecryptedData();
-                console.log(parametersObject)
-                document.getElementById('companyName').innerText = ipodetails.metaData[parametersObject.isin].companyName
-                const symbol = ipodetails.metaData[parametersObject.isin].symbol;
-                document.getElementById('companysymbol').innerText = "Symbol:" + " " + "(" + symbol + ")"
-                document.getElementById('mode').innerHTML = parametersObject.isCompanyFrom
-                document.getElementById('status').innerHTML = ipodetails.metaData[parametersObject.isin].issuetype
-                document.getElementById('bidPrice').innerHTML = "₹" + " " + ipodetails.metaData[parametersObject.isin].floorprice + " " + "-" + " " + "₹" + ipodetails.metaData[parametersObject.isin].ceilingprice
-                document.getElementById('lotSize').innerHTML = ipodetails.metaData[parametersObject.isin].tradinglot + " " + "Shares"
-                document.getElementById('offerType').innerHTML = ipodetails.metaData[parametersObject.isin].issuetype || 'N/A'
-                document.getElementById('ipoType').innerHTML = 'N/A'
-                document.getElementById('issueSize').innerHTML = ipodetails.metaData[parametersObject.isin].issuesize
+          });
 
 
 
-                const endDate = new Date(ipodetails.metaData[parametersObject.isin].closedate);
+          const container = document.getElementById('investorTypesContainer');
+          container.innerHTML = '';
+          let activeButton = null;
+          investortype.forEach((type, index) => {
+            const button = document.createElement('button');
+            button.innerText = type;
+            button.className = 'rounded-md outline-none bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm';
 
-                const today = new Date();
+            button.addEventListener('click', () => {
+              if (activeButton) {
+                activeButton.classList.remove('bg-green-500');
+                activeButton.classList.add('bg-white');
+              }
+              button.classList.remove('bg-white');
+              button.classList.add('bg-green-500');
+              activeButton = button;
 
-                //Normalize both dates to YYYY-MM-DD (ignore time)
-                const normalize = date => new Date(date.getFullYear(), date.getMonth(), date.getDate());
-                const normalizedEndDate = normalize(endDate);
-                const normalizedToday = normalize(today);
+              document.getElementById('catetype').innerHTML = type
 
-                // Calculate the difference in days
-                const diffTime = normalizedEndDate.getTime() - normalizedToday.getTime();
-                const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+              investmentfunction(type, ipodetails)
 
-                // Determine the message
 
-                if (diffDays === 0) {
-                    document.getElementById('biddingMessage').innerText = "Today";
-                } else if (diffDays > 0) {
-                    document.getElementById('biddingMessage').innerText = `${diffDays} day${diffDays > 1 ? "s" : ""} more`;
-                } else {
-                    document.getElementById('biddingMessage').innerText = `Expired ${Math.abs(diffDays)} day${Math.abs(diffDays) > 1 ? "s" : ""} ago`;
-                }
+            });
+            container.appendChild(button);
+            if (index === 0) {
 
-                const startdate = ipodetails.metaData[parametersObject.isin].opendate
-                const enddate = ipodetails.metaData[parametersObject.isin].closedate
-
-                // Convert startdate and enddate to Date objects
-
-                const startDateObj = new Date(startdate);
-                const endDateObj = new Date(enddate);
-
-                // Get the current date
-                const currentDate = new Date();
-
-                // Function to enable/disable the button based on the date range
-                function checkDateRange() {
-                    const applyNowButton = document.getElementById("applyNowButton");
-
-                    // Compare if current date is within the range
-                    if (currentDate >= startDateObj && currentDate <= endDateObj) {
-                        applyNowButton.disabled = false; // Enable button
-                    } else {
-                        applyNowButton.disabled = true; // Disable button
-                    }
-                }
-
-                // Call the function to check date range on page load
-                checkDateRange();
+              button.click();
+            }
+          });
 
 
 
-                if (ipodetails.metaData[parametersObject.isin].category) {
-                    const subCategorySettings = ipodetails.metaData[parametersObject.isin].category;
-                    let investortype = [];
 
-                    subCategorySettings.forEach((category) => {
-                        if (category.asbanonasba == '1') {
-                            let code = category.category
-                            if (code = 'IND') {
-                                code = "Retail"
-                            }
-                            if (code === 'Retail') {
-                                investortype.unshift(code);
+        }
 
-                            } else {
-                                investortype.push(code);
-                            }
+      }
+      else if (ipodetails.metaData) {
+        console.log("this is bse")
+
+        const parametersObject = getDecryptedData();
+        console.log(parametersObject)
+        document.getElementById('companyName').innerText = ipodetails.metaData[parametersObject.isin].companyName
+        const symbol = ipodetails.metaData[parametersObject.isin].symbol;
+        document.getElementById('companysymbol').innerText = "Symbol:" + " " + "(" + symbol + ")"
+        document.getElementById('mode').innerHTML = parametersObject.isCompanyFrom
+        document.getElementById('status').innerHTML = ipodetails.metaData[parametersObject.isin].issuetype
+        document.getElementById('bidPrice').innerHTML = "₹" + " " + ipodetails.metaData[parametersObject.isin].floorprice + " " + "-" + " " + "₹" + ipodetails.metaData[parametersObject.isin].ceilingprice
+        document.getElementById('lotSize').innerHTML = ipodetails.metaData[parametersObject.isin].tradinglot + " " + "Shares"
+        document.getElementById('offerType').innerHTML = ipodetails.metaData[parametersObject.isin].issuetype || 'N/A'
+        document.getElementById('ipoType').innerHTML = 'N/A'
+        document.getElementById('issueSize').innerHTML = ipodetails.metaData[parametersObject.isin].issuesize
 
 
-                            const hiddenContent = document.getElementById('hiddencontent');
 
-                            hiddenContent.innerHTML += `
+        const endDate = new Date(ipodetails.metaData[parametersObject.isin].closedate);
+
+        const today = new Date();
+
+        //Normalize both dates to YYYY-MM-DD (ignore time)
+        const normalize = date => new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        const normalizedEndDate = normalize(endDate);
+        const normalizedToday = normalize(today);
+
+        // Calculate the difference in days
+        const diffTime = normalizedEndDate.getTime() - normalizedToday.getTime();
+        const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+
+        // Determine the message
+
+        if (diffDays === 0) {
+          document.getElementById('biddingMessage').innerText = "Today";
+        } else if (diffDays > 0) {
+          document.getElementById('biddingMessage').innerText = `${diffDays} day${diffDays > 1 ? "s" : ""} more`;
+        } else {
+          document.getElementById('biddingMessage').innerText = `Expired ${Math.abs(diffDays)} day${Math.abs(diffDays) > 1 ? "s" : ""} ago`;
+        }
+
+        const startdate = ipodetails.metaData[parametersObject.isin].opendate
+        const enddate = ipodetails.metaData[parametersObject.isin].closedate
+
+        // Convert startdate and enddate to Date objects
+
+        const startDateObj = new Date(startdate);
+        const endDateObj = new Date(enddate);
+
+        // Get the current date
+        const currentDate = new Date();
+
+        // Function to enable/disable the button based on the date range
+        function checkDateRange() {
+          const applyNowButton = document.getElementById("applyNowButton");
+          const applyNowButtonDesktop = document.getElementById("applyNowButtonDesktop");
+
+          // Compare if current date is within the range
+          if (currentDate >= startDateObj && currentDate <= endDateObj) {
+            applyNowButton.disabled = false; // Enable button
+            applyNowButtonDesktop.disabled = false; // Enable button
+          } else {
+            applyNowButton.disabled = true; // Disable button
+            applyNowButtonDesktop.disabled = true; // Disable button
+          }
+        }
+
+        // Call the function to check date range on page load
+        checkDateRange();
+
+
+
+        if (ipodetails.metaData[parametersObject.isin].category) {
+          const subCategorySettings = ipodetails.metaData[parametersObject.isin].category;
+          let investortype = [];
+
+          subCategorySettings.forEach((category) => {
+            if (category.asbanonasba == '1') {
+              let code = category.category
+              if (code = 'IND') {
+                code = "Retail"
+              }
+              if (code === 'Retail') {
+                investortype.unshift(code);
+
+              } else {
+                investortype.push(code);
+              }
+
+
+              const hiddenContent = document.getElementById('hiddencontent');
+
+              hiddenContent.innerHTML += `
   <input type="text" class="hidden" id="${code}-discountprice" value="${category.discountPrice || '0'}">
   <input type="text" class="hidden"  id="${code}-minprice" value="${category.minbidvalue}">
   <input type="text" class="hidden"  id="${code}-maxprice" value="${category.maxbidvalue}">
 `;
 
 
-                        }
-                    });
-
-
-                    const container = document.getElementById('investorTypesContainer');
-                    container.innerHTML = '';
-                    let activeButton = null;
-                    investortype.forEach((type, index) => {
-                        const button = document.createElement('button');
-                        button.innerText = type;
-                        button.className = 'rounded-md outline-none bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm';
-
-                        button.addEventListener('click', () => {
-                            if (activeButton) {
-                                activeButton.classList.remove('bg-green-500');
-                                activeButton.classList.add('bg-white');
-                            }
-                            button.classList.remove('bg-white');
-                            button.classList.add('bg-green-500');
-                            activeButton = button;
-
-                            document.getElementById('catetype').innerHTML = type
-
-                            investmentfunction(type, ipodetails)
-
-
-                        });
-                        container.appendChild(button);
-                        if (index === 0) {
-
-                            button.click();
-                        }
-                    });
-
-
-
-
-                }
             }
+          });
+
+
+          const container = document.getElementById('investorTypesContainer');
+          container.innerHTML = '';
+          let activeButton = null;
+          investortype.forEach((type, index) => {
+            const button = document.createElement('button');
+            button.innerText = type;
+            button.className = 'rounded-md outline-none bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm';
+
+            button.addEventListener('click', () => {
+              if (activeButton) {
+                activeButton.classList.remove('bg-green-500');
+                activeButton.classList.add('bg-white');
+              }
+              button.classList.remove('bg-white');
+              button.classList.add('bg-green-500');
+              activeButton = button;
+
+              document.getElementById('catetype').innerHTML = type
+
+              investmentfunction(type, ipodetails)
+
+
+            });
+            container.appendChild(button);
+            if (index === 0) {
+
+              button.click();
+            }
+          });
+
+
+
+
+        }
+      }
+    }
+
+    // let investorType;
+    // let discountpricevalue;
+    // let lotsvalue;
+
+    // const investmentfunction = (cacode, responsedata) => {
+    //   investorType = cacode;
+
+    //   const discountInput = document.getElementById(`${cacode}-discountprice`);
+    //   const minInput = document.getElementById(`${cacode}-minprice`);
+    //   const maxInput = document.getElementById(`${cacode}-maxprice`);
+
+    //   const discountPrice = Number(discountInput.value);
+    //   const minPrice = Number(minInput.value);
+    //   const maxPrice = Number(maxInput.value);
+    //   discountpricevalue = discountPrice;
+
+    //   let bidPrice, bidMaxPrice, lotSize;
+
+    //   if (responsedata.nse) {
+    //     bidPrice = Number(responsedata.nse.minPrice);
+    //     bidMaxPrice = Number(responsedata.nse.maxPrice);
+    //     lotSize = Number(responsedata.nse.lotSize);
+    //   } else if (responsedata.metaData) {
+    //     const parametersObject = getDecryptedData();
+    //     const meta = responsedata.metaData[parametersObject.isin];
+    //     bidPrice = Number(meta.floorprice);
+    //     bidMaxPrice = Number(meta.ceilingprice);
+    //     lotSize = Number(meta.tradinglot);
+    //   } else {
+    //     console.error("Invalid data format");
+    //     return;
+    //   }
+
+    //   const minInvestmentPerLot = bidPrice * lotSize;
+    //   const maxInvestmentPerLot = bidMaxPrice * lotSize;
+
+    //   document.getElementById('retailDiscount').innerText = "₹ " + discountPrice.toLocaleString();
+
+    //   const maxLots = Math.floor(maxPrice / maxInvestmentPerLot);
+    //   const totalMaxInvestment = maxLots * maxInvestmentPerLot;
+
+    //   if (minPrice <= 0) {
+    //     document.getElementById('minimumInvestment').innerText = `1 Lot / ₹ ${minInvestmentPerLot.toLocaleString()}`;
+    //     document.getElementById('maximumInvestment').innerText =
+    //       `${maxLots} ${maxLots <= 1 ? "Lot" : "Lots"} / ₹ ${totalMaxInvestment.toLocaleString()}`;
+    //     lotsvalue = maxLots;
+    //   } else {
+    //     let minLots = Math.floor(minPrice / minInvestmentPerLot);
+    //     let totalMinInvestment = minLots * minInvestmentPerLot;
+
+    //     while (totalMinInvestment < minPrice) {
+    //       minLots++;
+    //       totalMinInvestment = minLots * minInvestmentPerLot;
+    //     }
+
+    //     if (totalMinInvestment > totalMaxInvestment) {
+    //       document.getElementById('minimumInvestment').innerText = "Invalid range: min > max";
+    //       document.getElementById('maximumInvestment').innerText = "Please adjust values";
+    //       return;
+    //     }
+
+    //     document.getElementById('minimumInvestment').innerText =
+    //       `${minLots} ${minLots <= 1 ? "Lot" : "Lots"} / ₹ ${totalMinInvestment.toLocaleString()}`;
+    //     document.getElementById('maximumInvestment').innerText =
+    //       `${maxLots} ${maxLots <= 1 ? "Lot" : "Lots"} / ₹ ${totalMaxInvestment.toLocaleString()}`;
+    //     lotsvalue = maxLots;
+    //   }
+    // };
+
+
+    // function redirect() {
+    //   const parametersObject = getDecryptedData();
+
+    //   const applydata = {
+    //     clientCode: parametersObject.clientCode,
+    //     investortype: investorType,
+    //     ipoSymbol: parametersObject.ipoSymbol,
+    //     isCompanyFrom: parametersObject.isCompanyFrom,
+    //     isin: parametersObject.isin
+    //   }
+    //   var jsonString = JSON.stringify(applydata);
+
+    //   var secretKey = "ipodetailsdata01"; // Choose a strong key
+    //   var encrypted = CryptoJS.AES.encrypt(jsonString, secretKey).toString();
+    //   var encoded = encodeURIComponent(encrypted);
+    //   console.log(encoded)
+    //   window.location.href = `applyNow.html?data=${encoded}`
+    // }
+
+
+    let lotsvalue;
+
+    // Declare these variables at a higher scope so they're accessible to both functions
+    let investorType, discountpricevalue, minLots, maxLots;
+
+    const investmentfunction = (cacode, responsedata) => {
+      investorType = cacode;
+
+      const discountInput = document.getElementById(`${cacode}-discountprice`);
+      const minInput = document.getElementById(`${cacode}-minprice`);
+      const maxInput = document.getElementById(`${cacode}-maxprice`);
+
+      const discountPrice = Number(discountInput.value);
+      const minPrice = Number(minInput.value);
+      const maxPrice = Number(maxInput.value);
+      discountpricevalue = discountPrice;
+
+      let bidPrice, bidMaxPrice, lotSize;
+
+      if (responsedata.nse) {
+        bidPrice = Number(responsedata.nse.minPrice);
+        bidMaxPrice = Number(responsedata.nse.maxPrice);
+        lotSize = Number(responsedata.nse.lotSize);
+      } else if (responsedata.metaData) {
+        const parametersObject = getDecryptedData();
+        const meta = responsedata.metaData[parametersObject.isin];
+        bidPrice = Number(meta.floorprice);
+        bidMaxPrice = Number(meta.ceilingprice);
+        lotSize = Number(meta.tradinglot);
+      } else {
+        console.error("Invalid data format");
+        return;
+      }
+
+      const minInvestmentPerLot = bidPrice * lotSize;
+      const maxInvestmentPerLot = bidMaxPrice * lotSize;
+
+      document.getElementById('retailDiscount').innerText = "₹ " + discountPrice.toLocaleString();
+
+      maxLots = Math.floor(maxPrice / maxInvestmentPerLot);
+      const totalMaxInvestment = maxLots * maxInvestmentPerLot;
+
+      if (minPrice <= 0) {
+        minLots = 1; // Default minimum lots
+        document.getElementById('minimumInvestment').innerText = `1 Lot / ₹ ${minInvestmentPerLot.toLocaleString()}`;
+        document.getElementById('maximumInvestment').innerText =
+          `${maxLots} ${maxLots <= 1 ? "Lot" : "Lots"} / ₹ ${totalMaxInvestment.toLocaleString()}`;
+      } else {
+        minLots = Math.floor(minPrice / minInvestmentPerLot);
+        let totalMinInvestment = minLots * minInvestmentPerLot;
+
+        while (totalMinInvestment < minPrice) {
+          minLots++;
+          totalMinInvestment = minLots * minInvestmentPerLot;
         }
 
-
-
-        let lotsvalue;
-
-        // Declare these variables at a higher scope so they're accessible to both functions
-        let investorType, discountpricevalue, minLots, maxLots;
-
-        const investmentfunction = (cacode, responsedata) => {
-            investorType = cacode;
-
-            const discountInput = document.getElementById(`${cacode}-discountprice`);
-            const minInput = document.getElementById(`${cacode}-minprice`);
-            const maxInput = document.getElementById(`${cacode}-maxprice`);
-
-            const discountPrice = Number(discountInput.value);
-            const minPrice = Number(minInput.value);
-            const maxPrice = Number(maxInput.value);
-            discountpricevalue = discountPrice;
-
-            let bidPrice, bidMaxPrice, lotSize;
-
-            if (responsedata.nse) {
-                bidPrice = Number(responsedata.nse.minPrice);
-                bidMaxPrice = Number(responsedata.nse.maxPrice);
-                lotSize = Number(responsedata.nse.lotSize);
-            } else if (responsedata.metaData) {
-                const parametersObject = getDecryptedData();
-                const meta = responsedata.metaData[parametersObject.isin];
-                bidPrice = Number(meta.floorprice);
-                bidMaxPrice = Number(meta.ceilingprice);
-                lotSize = Number(meta.tradinglot);
-            } else {
-                console.error("Invalid data format");
-                return;
-            }
-
-            const minInvestmentPerLot = bidPrice * lotSize;
-            const maxInvestmentPerLot = bidMaxPrice * lotSize;
-
-            document.getElementById('retailDiscount').innerText = "₹ " + discountPrice.toLocaleString();
-
-            maxLots = Math.floor(maxPrice / maxInvestmentPerLot);
-            const totalMaxInvestment = maxLots * maxInvestmentPerLot;
-
-            if (minPrice <= 0) {
-                minLots = 1; // Default minimum lots
-                document.getElementById('minimumInvestment').innerText = `1 Lot / ₹ ${minInvestmentPerLot.toLocaleString()}`;
-                document.getElementById('maximumInvestment').innerText =
-                    `${maxLots} ${maxLots <= 1 ? "Lot" : "Lots"} / ₹ ${totalMaxInvestment.toLocaleString()}`;
-            } else {
-                minLots = Math.floor(minPrice / minInvestmentPerLot);
-                let totalMinInvestment = minLots * minInvestmentPerLot;
-
-                while (totalMinInvestment < minPrice) {
-                    minLots++;
-                    totalMinInvestment = minLots * minInvestmentPerLot;
-                }
-
-                if (totalMinInvestment > totalMaxInvestment) {
-                    document.getElementById('minimumInvestment').innerText = "Invalid range: min > max";
-                    document.getElementById('maximumInvestment').innerText = "Please adjust values";
-                    return;
-                }
-
-                document.getElementById('minimumInvestment').innerText =
-                    `${minLots} ${minLots <= 1 ? "Lot" : "Lots"} / ₹ ${totalMinInvestment.toLocaleString()}`;
-                document.getElementById('maximumInvestment').innerText =
-                    `${maxLots} ${maxLots <= 1 ? "Lot" : "Lots"} / ₹ ${totalMaxInvestment.toLocaleString()}`;
-            }
-        };
-
-        function redirect() {
-            const parametersObject = getDecryptedData();
-
-            const applydata = {
-                clientCode: parametersObject.clientCode,
-                investortype: investorType,
-                ipoSymbol: parametersObject.ipoSymbol,
-                isCompanyFrom: parametersObject.isCompanyFrom,
-                isin: parametersObject.isin,
-                mininves: minLots,  // Add min lots
-                maxinves: maxLots,  // Add max lots
-                discountprice: discountpricevalue
-            };
-
-            var jsonString = JSON.stringify(applydata);
-
-            var secretKey = "ipodetailsdata01"; // Choose a strong key
-            var encrypted = CryptoJS.AES.encrypt(jsonString, secretKey).toString();
-            var encoded = encodeURIComponent(encrypted);
-            console.log(encoded);
-            window.location.href = `applyNow.html?data=${encoded}`;
+        if (totalMinInvestment > totalMaxInvestment) {
+          document.getElementById('minimumInvestment').innerText = "Invalid range: min > max";
+          document.getElementById('maximumInvestment').innerText = "Please adjust values";
+          return;
         }
 
-    </script>
+        document.getElementById('minimumInvestment').innerText =
+          `${minLots} ${minLots <= 1 ? "Lot" : "Lots"} / ₹ ${totalMinInvestment.toLocaleString()}`;
+        document.getElementById('maximumInvestment').innerText =
+          `${maxLots} ${maxLots <= 1 ? "Lot" : "Lots"} / ₹ ${totalMaxInvestment.toLocaleString()}`;
+      }
+    };
+
+    function redirect() {
+      const parametersObject = getDecryptedData();
+
+      const applydata = {
+        clientCode: parametersObject.clientCode,
+        investortype: investorType,
+        ipoSymbol: parametersObject.ipoSymbol,
+        isCompanyFrom: parametersObject.isCompanyFrom,
+        isin: parametersObject.isin,
+        mininves: minLots,  // Add min lots
+        maxinves: maxLots,  // Add max lots
+        discountprice: discountpricevalue
+      };
+
+      var jsonString = JSON.stringify(applydata);
+
+      var secretKey = "ipodetailsdata01"; // Choose a strong key
+      var encrypted = CryptoJS.AES.encrypt(jsonString, secretKey).toString();
+      var encoded = encodeURIComponent(encrypted);
+      console.log(encoded);
+      window.location.href = `applyNow.html?data=${encoded}`;
+    }
+
+  </script>
 </body>
 
 </html>
