@@ -137,6 +137,7 @@
   </header>
 
   <section class="bg-gray-50">
+
     <div id="loading" class="w-full h-full p-6 bg-white rounded-lg shadow-md space-y-4">
       <!-- Title Skeleton -->
       <div class="h-6 w-3/4 bg-gray-300 rounded animate-pulse"></div>
@@ -383,7 +384,8 @@
     </div>
   </section>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
   <script src="js/drawer.js"></script>
   <script>
 
@@ -712,6 +714,93 @@
         console.error('HNI button not found');
       }
     }
+
+
+    // let investor
+    // const investmentfunction = (cacode) => {
+    //   const ipoDetails = getDecryptedData();
+    //   console.log("khiu", cacode, ipoDetails)
+
+    //   if (cacode === 'Retail' && ipoDetails.isCompanyFrom === 'NSE') {
+    //     document.getElementById('nseretail').classList.remove('hidden')
+    //   } else {
+    //     document.getElementById('nseretail').classList.add('hidden')
+    //   }
+
+
+    //   document.getElementById('lotCount').innerText = 1
+
+    //   investor = cacode
+    //   updateTotalAmount(1, document.getElementById('price').value)
+    //   checkInputs()
+    //   const lotCountDisplay = document.getElementById("lotCount");
+    //   let lotCount = 1;
+    //   const incrementButton = document.getElementById("increment");
+    //   const decrementButton = document.getElementById("decrement");
+    //   const priceAmount = document.getElementById('price');
+
+
+    //   function updateTotalAmount(lotSize, price) {
+
+    //     const discountInput = document.getElementById(`${cacode}-discountprice`);
+    //     const minInput = document.getElementById(`${cacode}-minprice`);
+    //     const maxInput = document.getElementById(`${cacode}-maxprice`);
+
+    //     const shareval = document.getElementById('shareval').value
+
+    //     const calculation = lotSize * price;
+    //     const totalval = calculation * shareval
+    //     document.getElementById('qty').value = lotSize * shareval
+    //     const discountrate = lotSize * (shareval * discountInput.value)
+
+    //     const finalamount = totalval - discountrate
+    //     document.getElementById('amount').innerText = "₹" + " " + totalval
+    //     document.getElementById('discountamount').innerText = "₹" + " " + discountrate
+    //     document.getElementById('finalamount').value = finalamount
+    //     document.getElementById('totalAmount').innerText = "₹" + " " + finalamount;
+
+
+    //   }
+
+
+    //   priceAmount.addEventListener('input', function () {
+    //     const price = parseFloat(priceAmount.value) || 0;
+    //     const lotCountVal = parseInt(lotCountDisplay.innerText, 10);
+    //     updateTotalAmount(lotCountVal, price);
+    //     checkInputs()
+    //   });
+    //   incrementButton.addEventListener("click", () => {
+
+    //     const maxLotSize = parseInt(
+    //       document.getElementById("lotSize").textContent
+    //     );
+    //     if (lotCount < maxLotSize) {
+    //       lotCount++;
+    //       lotCountDisplay.textContent = lotCount;
+    //       const price = parseFloat(priceAmount.value) || 0;
+    //       updateTotalAmount(
+    //         lotCount, price
+    //       );
+    //       checkInputs()
+    //     }
+    //   });
+
+    //   decrementButton.addEventListener("click", () => {
+
+    //     if (lotCount > 1) {
+    //       lotCount--;
+    //       lotCountDisplay.textContent = lotCount;
+    //       const price = parseFloat(priceAmount.value) || 0;
+
+    //       updateTotalAmount(
+    //         lotCount, price
+    //       );
+    //       checkInputs()
+
+    //     }
+    //   });
+    // };
+
 
     let investor
     const investmentfunction = (cacode) => {
