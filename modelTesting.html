@@ -2,1224 +2,1432 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="google" content="notranslate">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google" content="notranslate">
 
-    <title>IPO Details</title>
+  <title>IPO Details</title>
 
-    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            user-select: none;
-            -webkit-user-select: none;
-        }
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      user-select: none;
+      -webkit-user-select: none;
+    }
 
-        .tab-titles {
-            display: flex;
-            margin-bottom: 10px;
-            position: relative;
-        }
+    .tab-titles {
+      display: flex;
+      margin-bottom: 10px;
+      position: relative;
+    }
 
-        .tab {
-            padding: 10px;
-            cursor: pointer;
-            flex: 1;
-            text-align: center;
-            /* background-color: #f1f1f1; */
-            transition: background-color 0.3s;
-        }
+    .tab {
+      padding: 10px;
+      cursor: pointer;
+      flex: 1;
+      text-align: center;
+      /* background-color: #f1f1f1; */
+      transition: background-color 0.3s;
+    }
 
-        .tab:hover {
-            /* background-color: #ddd; */
-        }
+    .tab:hover {
+      /* background-color: #ddd; */
+    }
 
-        /* Hide radio buttons */
-        input[type="radio"] {
-            display: none;
-        }
+    /* Hide radio buttons */
+    input[type="radio"] {
+      display: none;
+    }
 
-        /* Tab content styling */
-        /* Tab content styling */
-        .tab-content .content {
-            display: none;
-            /* Hide all content by default */
-        }
+    /* Tab content styling */
+    /* Tab content styling */
+    .tab-content .content {
+      display: none;
+      /* Hide all content by default */
+    }
 
-        #tab1:checked~.tab-titles~.tab-content #content1,
-        #tab2:checked~.tab-titles~.tab-content #content2 {
-            display: block;
-            /* Show the corresponding content */
-        }
+    #tab1:checked~.tab-titles~.tab-content #content1,
+    #tab2:checked~.tab-titles~.tab-content #content2 {
+      display: block;
+      /* Show the corresponding content */
+    }
 
-        /* Border animation */
-        .tab-titles {
-            position: relative;
-            display: flex;
-            margin-bottom: 10px;
-        }
+    /* Border animation */
+    .tab-titles {
+      position: relative;
+      display: flex;
+      margin-bottom: 10px;
+    }
 
-        .tab-titles:before {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50%;
-            /* Adjust to the number of tabs */
-            height: 2px;
-            background-color: #3498db;
-            transition: left 0.3s ease-in-out;
-        }
+    .tab-titles:before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50%;
+      /* Adjust to the number of tabs */
+      height: 2px;
+      background-color: #3498db;
+      transition: left 0.3s ease-in-out;
+    }
 
-        #tab1:checked~.tab-titles:before {
-            left: 0%;
-        }
+    #tab1:checked~.tab-titles:before {
+      left: 0%;
+    }
 
-        #tab2:checked~.tab-titles:before {
-            left: 50%;
-        }
+    #tab2:checked~.tab-titles:before {
+      left: 50%;
+    }
 
-        .stepper {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            padding: 20px;
-        }
+    .stepper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      padding: 20px;
+    }
 
-        .step {
-            flex: 1;
-            text-align: center;
-            position: relative;
-            padding: 10px;
-            opacity: 0.5;
-            transition: opacity 0.3s ease;
-        }
+    .step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      padding: 10px;
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+    }
 
-        .step.active {
-            opacity: 1;
-        }
+    .step.active {
+      opacity: 1;
+    }
 
-        .step-number {
-            width: 30px;
-            height: 30px;
-            line-height: 30px;
-            border-radius: 50%;
-            background-color: #ccc;
-            color: #fff;
-            margin: 0 auto 10px;
-            font-weight: bold;
-        }
+    .step-number {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 50%;
+      background-color: #ccc;
+      color: #fff;
+      margin: 0 auto 10px;
+      font-weight: bold;
+    }
 
-        .step-label {
-            font-size: 14px;
-            color: #333;
-        }
+    .step-label {
+      font-size: 14px;
+      color: #333;
+    }
 
-        /* Bar between steps */
-        .step::after {
-            content: '';
-            position: absolute;
-            top: 15px;
-            /* Adjust this to align with the middle of the step number */
-            left: 50%;
-            /* Start from the middle of the current step */
-            width: 100%;
-            /* Span the entire width to the next step */
-            height: 2px;
-            background-color: #ccc;
-            z-index: -1;
-        }
+    /* Bar between steps */
+    .step::after {
+      content: '';
+      position: absolute;
+      top: 15px;
+      /* Adjust this to align with the middle of the step number */
+      left: 50%;
+      /* Start from the middle of the current step */
+      width: 100%;
+      /* Span the entire width to the next step */
+      height: 2px;
+      background-color: #ccc;
+      z-index: -1;
+    }
 
-        /* Remove the bar after the last step */
-        .step:last-child::after {
-            display: none;
-        }
+    /* Remove the bar after the last step */
+    .step:last-child::after {
+      display: none;
+    }
 
-        .step.active::after,
-        .step.active~.step::after {
-            background-color: #4CAF50;
-            /* Green color for completed steps */
-        }
+    .step.active::after,
+    .step.active~.step::after {
+      background-color: #4CAF50;
+      /* Green color for completed steps */
+    }
 
-        .separator {
-            width: 200px;
-            height: 2px;
-            /* Adjust the height as needed */
-            background-color: #e0e0e0;
-            /* Light gray color */
-            margin: 0 auto;
-            /* Center the separator */
-        }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    .separator {
+      width: 200px;
+      height: 2px;
+      /* Adjust the height as needed */
+      background-color: #e0e0e0;
+      /* Light gray color */
+      margin: 0 auto;
+      /* Center the separator */
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
 
 <body class="notranslate">
 
-    <header>
-        <!-- Desktop View Only -->
-        <div
-            class="hidden md:flex items-center justify-between px-6 py-4 desktopView bg-blue-600  shadow-md fixed top-0 w-full z-50">
+  <header>
+    <!-- Desktop View Only -->
+    <div
+      class="hidden md:flex items-center justify-between px-6 py-4 desktopView bg-blue-600  shadow-md fixed top-0 w-full z-50">
 
-            <!-- Back Button (center aligned) -->
-            <div class="flex items-center justify-center space-x-2 clickable-div cursor-pointer p-1 
+      <!-- Back Button (center aligned) -->
+      <div class="flex items-center justify-center space-x-2 clickable-div cursor-pointer p-1 
             " onclick="window.location.href='index.html'">
-                <i class="fa-solid fa-arrow-left text-gray-700 text-lg bg-gray-200 py-1 px-4 rounded 
+        <i class="fa-solid fa-arrow-left text-gray-700 text-lg bg-gray-200 py-1 px-4 rounded 
            transition-all duration-300 hover:text-blue-500 hover:bg-white"></i>
+      </div>
+
+
+      <!-- Logo and Title -->
+      <div class="flex flex-col items-center bg-white p-1 rounded-lg">
+        <img src="images/logo.png" alt="Acumen IPO" class="h-10 w-full object-cover">
+      </div>
+
+      <!-- Logout Icon -->
+      <div class="p-1">
+        <div class="flex items-center space-x-4">
+          <p class="text-md font-medium text-blue-600">IPO's</p>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+            class="h-6 w-6 text-white">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
+          </svg>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- mobile view navbar -->
+    <div class="block md:hidden max-w-4xl mx-auto bg-blue-600 sm:relative sm:h-[100px]">
+      <div class="flex justify-center items-center text-center">
+        <div class="w-screen">
+          <div class="mx-auto  my-4 mb-20 rounded-md text-white font-bold">
+            <nav class="absolute top-2 w-full">
+              <!-- <div class="flex justify-between p-4 font-bold text-xl"> -->
+              <div class="grid grid-cols-12 my-4">
+                <!-- First SVG Icon -->
+                <div class="col-span-2 flex justify-start px-5 items-center clickable-div"
+                  onclick="window.location.href='index.html'">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
+                    <path fill-rule="evenodd"
+                      d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </div>
+
+                <!-- Text (IPO's) -->
+                <div class="col-span-8 flex justify-start items-center text-lg font-semibold">
+                  IPO's
+                </div>
+
+                <!-- Second SVG Icon -->
+                <div class="col-span-2 flex justify-end px-5 items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                    stroke="currentColor" class="h-6 w-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
+                  </svg>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <section class="bg-gray-50">
+
+    
+    <div id="loading" class="w-full h-screen p-4 border rounded-lg shadow-md bg-white animate-pulse space-y-4">
+        <!-- Header -->
+        <div class="flex items-start space-x-4">
+            <div class="bg-gray-300 h-12 w-12 rounded-full"></div>
+            <div class="flex-1 space-y-2">
+                <div class="h-4 bg-gray-300 rounded w-3/4"></div> <!-- Company Name -->
+                <div class="h-3 bg-gray-300 rounded w-1/2"></div> <!-- Symbol -->
+            </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="flex space-x-2">
+            <div class="h-5 w-10 bg-gray-300 rounded"></div>
+            <div class="h-5 w-10 bg-gray-300 rounded"></div>
+        </div>
+
+        <!-- Investor Type + Buttons -->
+        <div class="bg-gray-100 p-4 rounded-lg space-y-3">
+            <div class="h-4 w-24 bg-gray-300 rounded"></div> <!-- Investor Type label -->
+
+            <div class="flex space-x-3">
+                <div class="h-8 w-16 bg-gray-300 rounded"></div> <!-- Retail -->
+                <div class="h-8 w-16 bg-gray-300 rounded"></div> <!-- HNI -->
+                <div class="h-8 w-16 bg-gray-300 rounded"></div> <!-- EMP -->
             </div>
 
-
-            <!-- Logo and Title -->
-            <div class="flex flex-col items-center bg-white p-1 rounded-lg">
-                <img src="images/logo.png" alt="Acumen IPO" class="h-10 w-full object-cover">
+            <!-- Bid Price / Lot Size -->
+            <div class="flex justify-between">
+                <div class="h-4 bg-gray-300 rounded w-24"></div>
+                <div class="h-4 bg-gray-300 rounded w-28"></div>
             </div>
 
-            <!-- Logout Icon -->
-            <div class="p-1">
-                <div class="flex items-center space-x-4">
-                    <p class="text-md font-medium text-blue-600">IPO's</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                        stroke="currentColor" class="h-6 w-6 text-white">
+            <!-- Retail Discount / Issue Size -->
+            <div class="flex justify-between">
+                <div class="h-4 bg-gray-300 rounded w-16"></div>
+                <div class="h-4 bg-gray-300 rounded w-20"></div>
+            </div>
+
+            <!-- Offer Type / IPO Type -->
+            <div class="flex justify-between">
+                <div class="h-4 bg-gray-300 rounded w-14"></div>
+                <div class="h-4 bg-gray-300 rounded w-16"></div>
+            </div>
+
+            <!-- Min Investment -->
+            <div class="flex justify-between">
+                <div class="h-4 bg-gray-300 rounded w-32"></div>
+                <div class="h-4 bg-gray-300 rounded w-28"></div>
+            </div>
+
+            <!-- Max Investment -->
+            <div class="flex justify-between">
+                <div class="h-4 bg-gray-300 rounded w-36"></div>
+                <div class="h-4 bg-gray-300 rounded w-28"></div>
+            </div>
+
+            <!-- Status bar -->
+            <div class="h-8 w-full bg-gray-300 rounded"></div>
+        </div>
+
+        <div>
+            <div class="h-4 bg-gray-300 w-40 mb-2 rounded"></div> <!-- "Important Dates" -->
+            <div class="bg-gray-100 p-4 rounded flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="h-5 w-12 bg-gray-300 rounded"></div> <!-- Day 1 -->
+                    <div class="h-4 w-24 bg-gray-300 rounded"></div> <!-- Overall Subscriptions -->
+                </div>
+                <div class="h-4 w-4 bg-gray-300 rounded-full"></div> <!-- Arrow -->
+            </div>
+        </div>
+
+        <!-- About the Company -->
+        <div>
+            <div class="h-4 bg-gray-300 w-48 mb-2 rounded"></div>
+            <div class="h-4 bg-gray-300 w-full rounded"></div>
+            <div class="h-4 bg-gray-300 w-5/6 mt-1 rounded"></div>
+        </div>
+
+        <!-- Object of the Issue -->
+        <div>
+            <div class="h-4 bg-gray-300 w-48 mb-2 rounded"></div>
+            <div class="h-4 bg-gray-300 w-full rounded"></div>
+            <div class="h-4 bg-gray-300 w-2/3 mt-1 rounded"></div>
+        </div>
+
+        <!-- Shareholding Patterns -->
+        <div>
+            <div class="h-4 bg-gray-300 w-48 mb-3 rounded"></div>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="h-4 bg-gray-300 rounded w-full"></div>
+                <div class="h-4 bg-gray-300 rounded w-full"></div>
+                <div class="h-4 bg-gray-300 rounded w-full"></div>
+            </div>
+            <div class="grid grid-cols-3 gap-4 mt-2">
+                <div class="h-4 bg-gray-300 rounded w-full"></div>
+                <div class="h-4 bg-gray-300 rounded w-full"></div>
+                <div class="h-4 bg-gray-300 rounded w-full"></div>
+            </div>
+        </div>
+
+        <!-- Strengths and Risks Tabs -->
+        <div>
+            <div class="h-4 bg-gray-300 w-48 mb-3 rounded"></div>
+            <div class="flex space-x-4">
+                <div class="h-4 w-24 bg-gray-300 rounded"></div>
+                <div class="h-4 w-20 bg-gray-300 rounded"></div>
+            </div>
+            <div class="h-1 bg-blue-300 w-24 mt-1 rounded"></div> <!-- Underline bar -->
+        </div>
+
+    </div>
+    
+    <div id="maincontent" class="md:px-10 mx-auto md:bg-gray-50 py-2 md:mt-20">
+      <!-- Flex container -->
+      <div class="flex flex-col-reverse md:flex-row md:space-x-4 bg-gray-50">
+        <!-- Left Scrollable Column -->
+        <div class="w-full md:w-1/2 md:h-[620px] md:overflow-y-auto bg-white md:shadow-lg md:rounded-md md:mt-2">
+
+          <!-- Scrollable content Left Side content -->
+          <div class="block md:hidden bg-gray-100 h-2 my-5"></div>
+          <div class="px-4 md:pt-2">
+            <div class="font-bold text-gray-700 text-xl">Important Dates</div>
+            <div class="mx-auto my-2">
+              <div class="grid grid-cols-2 grid-rows-3 gap-2">
+                <div class=" p-1">
+                  <p class="text-gray-700">Allotment Date</p>
+                  <p class="text-gray-500" id="date1"></p>
+                </div>
+                <div class=" p-1">
+                  <p class="text-gray-700 text-right">Credit of Shares ToDemat</p>
+                  <p class="text-gray-500 text-right" id="date2"></p>
+                </div>
+                <div class=" p-1">
+                  <p class="text-gray-700">IPO Open date</p>
+                  <p class="text-gray-500" id="date3"></p>
+                </div>
+                <div class=" p-1">
+                  <p class="text-gray-700 text-right">IPO Close date</p>
+                  <p class="text-gray-500 text-right" id="date4"></p>
+                </div>
+                <div class=" p-1">
+                  <p class="text-gray-700">Initiation of Refunds</p>
+                  <p class="text-gray-500" id="date5"></p>
+                </div>
+                <div class=" p-1">
+                  <p class="text-gray-700 text-right">Listing date</p>
+                  <p class="text-gray-500 text-right" id="date6"></p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="bg-gray-100 h-2 my-5"></div>
+
+
+          <div class="px-4">
+
+            <div class="mx-auto my-2">
+              <div class="grid grid-cols-1  gap-2">
+
+                <table>
+                  <thead>
+                    <tr>
+                      <th class="text-gray-700 text-left">Category </th>
+                      <th class="text-gray-700 text-right">Subscription Time</th>
+                    </tr>
+                  </thead>
+                  <tbody id="subscriptionDataContainer">
+                    <!-- Subscription data will be populated here -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-100 h-2 my-5"></div>
+          <div class="p-3 px-5">
+            <div id="aboutCompanySection">
+
+
+              <div class="font-bold text-gray-700 text-xl">
+                About the Company
+              </div>
+
+              <div class="max-w-md  ">
+                <p id="aboutCompany"
+                  class="text-gray-700 overflow-hidden transition-all duration-300 ease-in-out max-h-24"
+                  style="max-height: 3rem;">
+
+                </p>
+                <button id="toggleBtn" class="mt-2 text-blue-500 hover:underline focus:outline-none">
+                  Read More
+                </button>
+              </div>
+
+
+
+
+            </div>
+            <div id="objectOfIssueSection">
+              <div class="font-bold text-gray-700 text-xl">
+                Object of the Issue
+              </div>
+              <div class=" " id="objectOfIssue"></div>
+            </div>
+          </div>
+
+          <div class="bg-gray-100 h-2 my-5"></div>
+          <div class="p-2 px-5">
+            <div class="font-bold text-gray-700 text-xl">
+              Shareholding Patterns
+            </div>
+            <div class="px-4 sm:px-6 lg:px-8">
+              <div class="flow-root">
+                <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                  <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                    <table class="min-w-full divide-y divide-gray-300">
+                      <thead>
+                        <tr>
+                          <th scope="col"
+                            class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3">
+                            Particulars
+                          </th>
+                          <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">
+                            Pre-Issue
+                          </th>
+                          <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">
+                            Post-Issue
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody class="bg-white" id="shareholdingPatternsContainer">
+                        <tr class="border-b border-gray-200">
+                          <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
+                            Shareholding structure
+                          </td>
+                          <td class="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-700"
+                            id="preIssuePromoters">
+
+                          </td>
+                          <td class="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-700"
+                            id="postIssuePromoters">
+
+                          </td>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-100 h-2 my-5"></div>
+          <div id="hiddencontent">
+
+          </div>
+          <div class="p-3 px-5">
+            <div class="font-bold text-gray-700 text-xl">
+              Strengths and Risks
+            </div>
+
+            <div class="tabs">
+              <input type="radio" id="tab1" name="tab" checked />
+              <input type="radio" id="tab2" name="tab" />
+
+              <div class="tab-titles">
+                <label for="tab1" class="tab">Strengths</label>
+                <label for="tab2" class="tab">Risks</label>
+              </div>
+
+              <div class="tab-content">
+                <div class="content" id="content1">
+                  <ul role="list" id="strengthsContainer"></ul>
+                </div>
+                <div class="content" id="content2">
+                  <ul role="list" id="risksContainer"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-100 h-2 my-3"></div>
+          <div class="px-5 py-2 pb-20">
+            <div class="font-bold text-gray-700 text-xl">Company Report</div>
+            <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none my-2">
+              <ul role="list" class="mt-6">
+                <li class="overflow-hidden rounded-xl border border-gray-200 py-2">
+                  <div class="flex justify-between p-4">
+                    <div>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="red" class="h-6 w-6 my-2">
                         <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
-                    </svg>
-                </div>
+                          d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="font-semibold text-gray-800 text-sm" id="reportTitle">
+                        Company Report
+                      </div>
+                      <div class="text-gray-300 text-sm">
+                        <a href="#" id="reportLink">Download RHP</a>
+                      </div>
+                    </div>
+                    <div>
+                      <a href="" id="downloadLink" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                          stroke="blue" class="h-6 w-6 my-2">
+                          <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
+          </div>
 
         </div>
 
-        <!-- mobile view navbar -->
-        <div class="block md:hidden max-w-4xl mx-auto bg-blue-600 sm:relative sm:h-[100px]">
-            <div class="flex justify-center items-center text-center">
-                <div class="w-screen">
-                    <div class="mx-auto  my-4 mb-20 rounded-md text-white font-bold">
-                        <nav class="absolute top-2 w-full">
-                            <!-- <div class="flex justify-between p-4 font-bold text-xl"> -->
-                            <div class="grid grid-cols-12 my-4">
-                                <!-- First SVG Icon -->
-                                <div class="col-span-2 flex justify-start px-5 items-center clickable-div"
-                                    onclick="window.location.href='index.html'">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                        class="h-6 w-6">
-                                        <path fill-rule="evenodd"
-                                            d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </div>
 
-                                <!-- Text (IPO's) -->
-                                <div class="col-span-8 flex justify-start items-center text-lg font-semibold">
-                                    IPO's
-                                </div>
 
-                                <!-- Second SVG Icon -->
-                                <div class="col-span-2 flex justify-end px-5 items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="2" stroke="currentColor" class="h-6 w-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </nav>
-                    </div>
+
+
+        <!-- Right Non-Scrollable Column -->
+        <div class="w-full md:w-1/2 bg-white md:mt-2 md:shadow-lg md:rounded-md ">
+          <!-- Static content -->
+          <!-- Right Side Content -->
+
+          
+
+
+            <div class="flex px-3 gap-2 py-2 pt-4">
+              <div
+                class="size-12 flex items-center text-center justify-center  mt-4  px-2 font-semibold rounded-lg bg-white object-cover ring-1 ring-gray-900/10 ">
+                <img src="" id="logoimage" alt="" class="size-12 rounded-full object-cover" />
+              </div>
+              <div>
+                <div class="text-xl font-bold text-gray-900  px-4 py-2" id="companyName">
+                  <!-- companyname -->
                 </div>
+                <div class="text-md  font-bold text-gray-700 px-4" id="companysymbol">
+                  <!-- <span class="mt-2"></span><span  ></span> -->
+                </div>
+              </div>
             </div>
-        </div>
-    </header>
 
 
-    <section class="bg-gray-50">
-        <div class="md:px-10 mx-auto md:bg-gray-50 py-2 md:mt-20">
+            <div class="flex gap-x-2 px-4" id="tagsContainer">
+              <span id="mode"
+                class="rounded-sm bg-indigo-50  px-1 py-0.5 text-[10px] font-medium text-indigo-700 ring-1 ring-inset ring-indigo-600/10 flex text-center items-center"></span>
+              <span id="status"
+                class="rounded-sm bg-indigo-50  px-1 py-0.5 text-[10px] font-medium text-indigo-700 ring-1 ring-inset ring-indigo-600/10 flex text-center items-center"></span>
+            </div>
 
-            <!-- Flex container -->
-            <div class="flex flex-col-reverse md:flex-row md:space-x-4 bg-gray-50">
-                <!-- Left Scrollable Column -->
-                <div class="w-full md:w-1/2 md:h-[620px] md:overflow-y-auto bg-white md:shadow-lg md:rounded-md md:mt-2">
+            <div class="mx-auto max-w-7xl px-4 ">
+              <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none my-2">
+                <ul role="list" class="mt-6 grid grid-cols-1 gap-x-6 gap-y-8">
+                  <li class="overflow-hidden rounded-xl border border-gray-200 py-2">
+                    <div class="flex items-center gap-x-2 border-gray-900/5 py-2 px-3">
+                      <div>Investor Type</div>
+                      <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                          stroke="currentColor" class="mt-1 h-6 w-6">
+                          <path stroke-linecap="round" stroke="round"
+                            d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                        </svg>
+                      </div>
 
-                    <!-- Scrollable content Left Side content -->
-                    <div class="block md:hidden bg-gray-100 h-2 my-5"></div>
-                    <div class="px-4 md:pt-2">
-                        <div class="font-bold text-gray-700 text-xl">Important Dates</div>
-                        <div class="mx-auto my-2">
-                            <div class="grid grid-cols-2 grid-rows-3 gap-2">
-                                <div class=" p-1">
-                                    <p class="text-gray-700">Allotment Date</p>
-                                    <p class="text-gray-500" id="date1"></p>
-                                </div>
-                                <div class=" p-1">
-                                    <p class="text-gray-700 text-right">Credit of Shares ToDemat</p>
-                                    <p class="text-gray-500 text-right" id="date2"></p>
-                                </div>
-                                <div class=" p-1">
-                                    <p class="text-gray-700">IPO Open date</p>
-                                    <p class="text-gray-500" id="date3"></p>
-                                </div>
-                                <div class=" p-1">
-                                    <p class="text-gray-700 text-right">IPO Close date</p>
-                                    <p class="text-gray-500 text-right" id="date4"></p>
-                                </div>
-                                <div class=" p-1">
-                                    <p class="text-gray-700">Initiation of Refunds</p>
-                                    <p class="text-gray-500" id="date5"></p>
-                                </div>
-                                <div class=" p-1">
-                                    <p class="text-gray-700 text-right">Listing date</p>
-                                    <p class="text-gray-500 text-right" id="date6"></p>
-                                </div>
-                            </div>
 
-                        </div>
                     </div>
 
-                    <div class="bg-gray-100 h-2 my-5"></div>
+                    <div class="px-3 flex gap-x-2 mt-3" id="investorTypesContainer"></div>
+                    <dl class="-my-3 divide-y divide-gray-100 px-3 py-4 text-sm/6">
+                      <div class="flex justify-between gap-x-4 py-3">
+                        <div>
+                          <dt class="text-gray-500">Bid Price</dt>
+                          <dd class="text-gray-700 font-bold " id="bidPrice">
 
-
-                    <div class="px-4">
-
-                        <div class="mx-auto my-2">
-                            <div class="grid grid-cols-1  gap-2">
-
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th class="text-gray-700 text-left">Category </th>
-                                            <th class="text-gray-700 text-right">Subscription Time</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="subscriptionDataContainer">
-                                        <!-- Subscription data will be populated here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-gray-100 h-2 my-5"></div>
-                    <div class="p-3 px-5">
-                        <div id="aboutCompanySection">
-
-
-                            <div class="font-bold text-gray-700 text-xl">
-                                About the Company
-                            </div>
-
-                            <div class="max-w-md  ">
-                                <p id="aboutCompany"
-                                    class="text-gray-700 overflow-hidden transition-all duration-300 ease-in-out max-h-24"
-                                    style="max-height: 3rem;">
-
-                                </p>
-                                <button id="toggleBtn" class="mt-2 text-blue-500 hover:underline focus:outline-none">
-                                    Read More
-                                </button>
-                            </div>
-
-
-
-
-                        </div>
-                        <div id="objectOfIssueSection">
-                            <div class="font-bold text-gray-700 text-xl">
-                                Object of the Issue
-                            </div>
-                            <div class=" " id="objectOfIssue"></div>
-                        </div>
-                    </div>
-
-                    <div class="bg-gray-100 h-2 my-5"></div>
-                    <div class="p-2 px-5">
-                        <div class="font-bold text-gray-700 text-xl">
-                            Shareholding Patterns
-                        </div>
-                        <div class="px-4 sm:px-6 lg:px-8">
-                            <div class="flow-root">
-                                <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                                    <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                                        <table class="min-w-full divide-y divide-gray-300">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col"
-                                                        class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3">
-                                                        Particulars
-                                                    </th>
-                                                    <th scope="col"
-                                                        class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">
-                                                        Pre-Issue
-                                                    </th>
-                                                    <th scope="col"
-                                                        class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">
-                                                        Post-Issue
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="bg-white" id="shareholdingPatternsContainer">
-                                                <tr class="border-b border-gray-200">
-                                                    <td
-                                                        class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
-                                                        Shareholding structure
-                                                    </td>
-                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-700"
-                                                        id="preIssuePromoters">
-
-                                                    </td>
-                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-700"
-                                                        id="postIssuePromoters">
-
-                                                    </td>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-gray-100 h-2 my-5"></div>
-                    <div id="hiddencontent">
-
-                    </div>
-                    <div class="p-3 px-5">
-                        <div class="font-bold text-gray-700 text-xl">
-                            Strengths and Risks
-                        </div>
-
-                        <div class="tabs">
-                            <input type="radio" id="tab1" name="tab" checked />
-                            <input type="radio" id="tab2" name="tab" />
-
-                            <div class="tab-titles">
-                                <label for="tab1" class="tab">Strengths</label>
-                                <label for="tab2" class="tab">Risks</label>
-                            </div>
-
-                            <div class="tab-content">
-                                <div class="content" id="content1">
-                                    <ul role="list" id="strengthsContainer"></ul>
-                                </div>
-                                <div class="content" id="content2">
-                                    <ul role="list" id="risksContainer"></ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-gray-100 h-2 my-3"></div>
-                    <div class="px-5 py-2 pb-20">
-                        <div class="font-bold text-gray-700 text-xl">Company Report</div>
-                        <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none my-2">
-                            <ul role="list" class="mt-6">
-                                <li class="overflow-hidden rounded-xl border border-gray-200 py-2">
-                                    <div class="flex justify-between p-4">
-                                        <div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="red" class="h-6 w-6 my-2">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <div class="font-semibold text-gray-800 text-sm" id="reportTitle">
-                                                Company Report
-                                            </div>
-                                            <div class="text-gray-300 text-sm">
-                                                <a href="#" id="reportLink">Download RHP</a>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <a href="" id="downloadLink" target="_blank">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="blue" class="h-6 w-6 my-2">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-
-
-
-
-
-                <!-- Right Non-Scrollable Column -->
-                <div class="w-full md:w-1/2 bg-white md:mt-2 md:shadow-lg md:rounded-md">
-                    <!-- Static content -->
-                    <!-- Right Side Content -->
-
-                    <div class="flex px-3 gap-2 py-2 pt-4">
-                        <div
-                            class="size-12 flex items-center text-center justify-center  mt-4  px-2 font-semibold rounded-lg bg-white object-cover ring-1 ring-gray-900/10 ">
-                            <img src="" id="logoimage" alt="" class="size-12 rounded-full object-cover" />
+                          </dd>
                         </div>
                         <div>
-                            <div class="text-xl font-bold text-gray-900  px-4 py-2" id="companyName">
-                                <!-- companyname -->
-                            </div>
-                            <div class="text-md  font-bold text-gray-700 px-4" id="companysymbol">
-                                <!-- <span class="mt-2"></span><span  ></span> -->
-                            </div>
+                          <dt class="text-gray-500 flex justify-end">Lot Size</dt>
+                          <dd class="text-gray-700 font-bold" id="lotSize">
+                            0 Shares
+                          </dd>
                         </div>
-                    </div>
-
-
-                    <div class="flex gap-x-2 px-4" id="tagsContainer">
-                        <span id="mode"
-                            class="rounded-sm bg-indigo-50  px-1 py-0.5 text-[10px] font-medium text-indigo-700 ring-1 ring-inset ring-indigo-600/10 flex text-center items-center"></span>
-                        <span id="status"
-                            class="rounded-sm bg-indigo-50  px-1 py-0.5 text-[10px] font-medium text-indigo-700 ring-1 ring-inset ring-indigo-600/10 flex text-center items-center"></span>
-                    </div>
-
-                    <div class="mx-auto max-w-7xl px-4 ">
-                        <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none my-2">
-                            <ul role="list" class="mt-6 grid grid-cols-1 gap-x-6 gap-y-8">
-                                <li class="overflow-hidden rounded-xl border border-gray-200 py-2">
-                                    <div class="flex items-center gap-x-2 border-gray-900/5 py-2 px-3">
-                                        <div>Investor Type</div>
-                                        <div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="mt-1 h-6 w-6">
-                                                <path stroke-linecap="round" stroke="round"
-                                                    d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
-                                            </svg>
-                                        </div>
-
-
-                                    </div>
-
-                                    <div class="px-3 flex gap-x-2 mt-3" id="investorTypesContainer"></div>
-                                    <dl class="-my-3 divide-y divide-gray-100 px-3 py-4 text-sm/6">
-                                        <div class="flex justify-between gap-x-4 py-3">
-                                            <div>
-                                                <dt class="text-gray-500">Bid Price</dt>
-                                                <dd class="text-gray-700 font-bold " id="bidPrice">
-
-                                                </dd>
-                                            </div>
-                                            <div>
-                                                <dt class="text-gray-500 flex justify-end">Lot Size</dt>
-                                                <dd class="text-gray-700 font-bold" id="lotSize">
-                                                    0 Shares
-                                                </dd>
-                                            </div>
-                                        </div>
-                                        <div class="flex justify-between gap-x-4 py-3">
-                                            <div>
-                                                <dt class="text-gray-500"><span id="catetype"></span> Discount</dt>
-                                                <dd class="text-gray-700 font-bold" id="retailDiscount">
-                                                    ₹ 0.00
-                                                </dd>
-                                            </div>
-                                            <div>
-                                                <dt class="text-gray-500 flex justify-end">
-                                                    Issue Size
-                                                </dt>
-                                                <dd class="text-gray-700 font-bold" id="issueSize">
-                                                    ₹ 0.00
-                                                </dd>
-                                            </div>
-                                        </div>
-                                        <div class="flex justify-between gap-x-4 py-3 border-b border-gray-200">
-                                            <div>
-                                                <dt class="text-gray-500">Offer Type</dt>
-                                                <dd class="text-gray-700 font-bold" id="offerType">
-                                                    N/A
-                                                </dd>
-                                            </div>
-                                            <div>
-                                                <dt class="text-gray-500 flex justify-end">IPO Type</dt>
-                                                <dd class="text-gray-700 font-bold text-right" id="ipoType">
-                                                    N/A
-                                                </dd>
-                                            </div>
-                                        </div>
-                                        <div class="flex justify-between rounded-md my-2">
-                                            <div>
-                                                <dt class="text-gray-500">Minimum Investment</dt>
-                                            </div>
-                                            <div>
-                                                <dd class="text-gray-700 font-bold" id="minimumInvestment">
-                                                    ₹ 0.00
-                                                </dd>
-                                            </div>
-                                        </div>
-                                        <div class="flex justify-between rounded-md my-5">
-                                            <div>
-                                                <dt class="text-gray-500">Maximum Investment</dt>
-                                            </div>
-                                            <div>
-                                                <dd class="text-gray-700 font-bold" id="maximumInvestment">
-                                                    ₹ 0.00
-                                                </dd>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="rounded-md bg-red-50 flex justify-center px-2 py-2 text-xs font-bold text-red-700 ring-1 ring-inset ring-red-600/10"
-                                                id="biddingStatus">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" class="size-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                </svg>
-                                                <span class="py-1 px-2 text-sm" id="biddingMessage">Loading...</span>
-                                            </div>
-                                        </div>
-                                    </dl>
-                                </li>
-                            </ul>
+                      </div>
+                      <div class="flex justify-between gap-x-4 py-3">
+                        <div>
+                          <dt class="text-gray-500"><span id="catetype"></span> Discount</dt>
+                          <dd class="text-gray-700 font-bold" id="retailDiscount">
+                            ₹ 0.00
+                          </dd>
                         </div>
-                    </div>
-
-                    <div class="hidden md:block  bottom-0 px-2 w-full  bg-white py-1">
-                    <button type="button" id="applyNowButton" disabled onclick="redirect()"
-                        class="rounded-md bg-blue-800 py-4 w-full text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus:outline-none  disabled:opacity-50 disabled:cursor-not-allowed">
-                        Apply Now
-                    </button>
-                </div>
-
-                </div>
-
-                <div class="block md:hidden fixed bottom-0 px-2 w-full  bg-white py-4  pz-50">
-                    <button type="button" id="applyNowButton" disabled onclick="redirect()"
-                        class="rounded-md bg-blue-800 py-4 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus:outline-none w-full md:w-26 disabled:opacity-50 disabled:cursor-not-allowed">
-                        Apply Now
-                    </button>
-                </div>
-
+                        <div>
+                          <dt class="text-gray-500 flex justify-end">
+                            Issue Size
+                          </dt>
+                          <dd class="text-gray-700 font-bold" id="issueSize">
+                            ₹ 0.00
+                          </dd>
+                        </div>
+                      </div>
+                      <div class="flex justify-between gap-x-4 py-3 border-b border-gray-200">
+                        <div>
+                          <dt class="text-gray-500">Offer Type</dt>
+                          <dd class="text-gray-700 font-bold" id="offerType">
+                            N/A
+                          </dd>
+                        </div>
+                        <div>
+                          <dt class="text-gray-500 flex justify-end">IPO Type</dt>
+                          <dd class="text-gray-700 font-bold text-right" id="ipoType">
+                            N/A
+                          </dd>
+                        </div>
+                      </div>
+                      <div class="flex justify-between rounded-md my-2">
+                        <div>
+                          <dt class="text-gray-500">Minimum Investment</dt>
+                        </div>
+                        <div>
+                          <dd class="text-gray-700 font-bold" id="minimumInvestment">
+                            ₹ 0.00
+                          </dd>
+                        </div>
+                      </div>
+                      <div class="flex justify-between rounded-md my-5">
+                        <div>
+                          <dt class="text-gray-500">Maximum Investment</dt>
+                        </div>
+                        <div>
+                          <dd class="text-gray-700 font-bold" id="maximumInvestment">
+                            ₹ 0.00
+                          </dd>
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          class="rounded-md bg-red-50 flex justify-center px-2 py-2 text-xs font-bold text-red-700 ring-1 ring-inset ring-red-600/10"
+                          id="biddingStatus">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                          </svg>
+                          <span class="py-1 px-2 text-sm" id="biddingMessage">Loading...</span>
+                        </div>
+                      </div>
+                    </dl>
+                  </li>
+                </ul>
+              </div>
             </div>
+
+            <div class="hidden md:block  bottom-0 px-2 w-full  bg-white py-1">
+              <button type="button" id="applyNowButtonDesktop" disabled onclick="redirect()"
+                class="rounded-md bg-blue-800 py-4 w-full text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus:outline-none  disabled:opacity-50 disabled:cursor-not-allowed">
+                Apply Now
+              </button>
+            </div>
+         
         </div>
-    </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <script>
+        <div class="block md:hidden fixed bottom-0 px-2 w-full  bg-white py-4  pz-50">
+          <button type="button" id="applyNowButton" disabled onclick="redirect()"
+            class="rounded-md bg-blue-800 py-4 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus:outline-none w-full md:w-26 disabled:opacity-50 disabled:cursor-not-allowed">
+            Apply Now
+          </button>
+        </div>
 
-        const para = document.getElementById("aboutCompany");
-        const btn = document.getElementById("toggleBtn");
+      </div>
+    </div>
+  </section>
 
-        let expanded = false;
 
-        btn.addEventListener("click", () => {
-            expanded = !expanded;
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <script>
 
-            if (expanded) {
-                para.style.maxHeight = para.scrollHeight + "px";
-                btn.textContent = "Read Less";
-            } else {
-                para.style.maxHeight = "3rem";
-                btn.textContent = "Read More";
-            }
+    const para = document.getElementById("aboutCompany");
+    const btn = document.getElementById("toggleBtn");
+
+    let expanded = false;
+
+    btn.addEventListener("click", () => {
+      expanded = !expanded;
+
+      if (expanded) {
+        para.style.maxHeight = para.scrollHeight + "px";
+        btn.textContent = "Read Less";
+      } else {
+        para.style.maxHeight = "3rem";
+        btn.textContent = "Read More";
+      }
+    });
+    // const clickableDivs = document.querySelectorAll(".clickable-div");
+    // clickableDivs.forEach((div) => {
+    //   div.addEventListener("click", function () {
+    //     const targetPage = this.getAttribute("data-target");
+    //     window.location.href = targetPage;
+    //   });
+    // });
+
+
+
+
+    function getDecryptedData() {
+      var urlParams = new URLSearchParams(window.location.search);
+      var encryptedData = urlParams.get('data');
+
+      if (encryptedData) {
+        var secretKey = "ipodetailsdata01";
+        var decodedData = decodeURIComponent(encryptedData);
+        var bytes = CryptoJS.AES.decrypt(decodedData, secretKey);
+        var decryptedJson = bytes.toString(CryptoJS.enc.Utf8);
+
+        // Convert JSON string back to JS object
+        var iporequiredDetails = JSON.parse(decryptedJson);
+        return iporequiredDetails
+
+
+      }
+    }
+
+    window.onload = function () {
+      getDecryptedData();
+      console.log(getDecryptedData(), "getDecryptedData");
+      infoDetails();
+    };
+
+
+    const infoDetails = async () => {
+      const parametersObject = getDecryptedData();
+
+      let apiUrl = '';
+      const headers = {};
+
+      if (parametersObject.isCompanyFrom === 'NSE') {
+        apiUrl = `https://ipo.acumengroup.in/nse-api/api-ipo-info.php?isin=${parametersObject.isin}&symbol=${parametersObject.ipoSymbol}`;
+      } else if (parametersObject.isCompanyFrom === 'BSE') {
+        apiUrl = `https://ipo.acumengroup.in/api/bse/v1/ipolist/${parametersObject.isin}`;
+        headers['Authorization'] = '21279C8DC0753CD1A90DEBF3C1C5CEDB8B5B77E0455EE804C9CA03BB706CD02A';
+        headers['Cookie'] = 'PHPSESSID=86ikmrbq26d8cv7lbqr7r1q07u';
+      } else {
+        console.error('Invalid company source');
+        return;
+      }
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'GET',
+          headers: headers
         });
-        // const clickableDivs = document.querySelectorAll(".clickable-div");
-        // clickableDivs.forEach((div) => {
-        //   div.addEventListener("click", function () {
-        //     const targetPage = this.getAttribute("data-target");
-        //     window.location.href = targetPage;
-        //   });
-        // });
 
-
-
-
-        function getDecryptedData() {
-            var urlParams = new URLSearchParams(window.location.search);
-            var encryptedData = urlParams.get('data');
-
-            if (encryptedData) {
-                var secretKey = "ipodetailsdata01";
-                var decodedData = decodeURIComponent(encryptedData);
-                var bytes = CryptoJS.AES.decrypt(decodedData, secretKey);
-                var decryptedJson = bytes.toString(CryptoJS.enc.Utf8);
-
-                // Convert JSON string back to JS object
-                var iporequiredDetails = JSON.parse(decryptedJson);
-                return iporequiredDetails
-
-
-            }
+        if (!response.ok) {
+          throw new Error(`Network error, please try again. Status: ${response.status}`);
         }
 
-        window.onload = function () {
-            getDecryptedData();
-            console.log(getDecryptedData(), "getDecryptedData");
-            infoDetails();
-        };
+        const data = await response.json();
+
+        if (data) {
+          document.getElementById('loading').classList.add('hidden');
+          document.getElementById('maincontent').classList.remove('hidden');
+          datarendering(data)
+          aboutdetails(data, parametersObject.isin)
+        }
 
 
-        const infoDetails = async () => {
-            const parametersObject = getDecryptedData();
+      } catch (error) {
+        console.error('Error fetching IPO details:', error.message);
+      }
+    };
 
-            let apiUrl = '';
-            const headers = {};
 
-            if (parametersObject.isCompanyFrom === 'NSE') {
-                apiUrl = `https://ipo.acumengroup.in/nse-api/api-ipo-info.php?isin=${parametersObject.isin}&symbol=${parametersObject.ipoSymbol}`;
-            } else if (parametersObject.isCompanyFrom === 'BSE') {
-                apiUrl = `https://ipo.acumengroup.in/api/bse/v1/ipolist/${parametersObject.isin}`;
-                headers['Authorization'] = '21279C8DC0753CD1A90DEBF3C1C5CEDB8B5B77E0455EE804C9CA03BB706CD02A';
-                headers['Cookie'] = 'PHPSESSID=86ikmrbq26d8cv7lbqr7r1q07u';
-            } else {
-                console.error('Invalid company source');
-                return;
+    async function aboutdetails(datasymbol, isin) {
+      let symbol;
+
+      if (datasymbol.metaData && datasymbol.metaData[isin]) {
+        symbol = datasymbol.metaData[isin].symbol;
+      } else if (datasymbol.nse && datasymbol.nse.isin === isin) {
+        symbol = datasymbol.nse.ipoSymbol;
+      } else {
+        // fallback if nothing matches
+        console.warn("Symbol not found for ISIN:", isin);
+        symbol = null;
+      }
+
+      //console.log(, "datasymbol")
+
+      const apiurl = `https://ipo.acumengroup.in/admin/ipo-info-entry/info.php?symbol=${symbol}`
+      try {
+        const response = await fetch(apiurl, {
+          method: 'GET',
+        });
+
+        if (!response.ok) {
+          throw new Error(`Network error, please try again. Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data) {
+          console.log(data)
+          if (data.success === true) {
+            function formatDate(isoDate) {
+              if (!isoDate) return ''; // Handle null or undefined
+              const [year, month, day] = isoDate.split('-');
+              return `${day}-${month}-${year}`;
             }
 
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'GET',
-                    headers: headers
-                });
+            document.getElementById('date1').innerText = formatDate(data.data.AllotmentDate);
+            document.getElementById('date2').innerText = formatDate(data.data.CreditOfSharesToDemat);
+            document.getElementById('date3').innerText = formatDate(data.data.IPOOpenDate);
+            document.getElementById('date4').innerText = formatDate(data.data.IPOCloseDate);
+            document.getElementById('date5').innerText = formatDate(data.data.InitiationOfRefunds);
+            document.getElementById('date6').innerText = formatDate(data.data.ListingDate);
+            document.getElementById('aboutCompany').innerText = data.data.AboutCompany;
+            document.getElementById('objectOfIssue').innerText = data.data.ObjectiveOfIssue;
+            document.getElementById('preIssuePromoters').innerText = data.data.ShareHoldingPreIssue + " %";
+            document.getElementById('postIssuePromoters').innerText = data.data.ShareHoldingPostIssue + " %";
+            const strengthsString = data.data.Strengths;
+            const strengthsArray = strengthsString.split('\r\n').filter(item => item.trim() !== '');
+            const container = document.getElementById('strengthsContainer');
+            container.innerHTML = '';
 
-                if (!response.ok) {
-                    throw new Error(`Network error, please try again. Status: ${response.status}`);
-                }
+            strengthsArray.forEach(strength => {
+              const li = document.createElement('li');
+              li.textContent = strength;
+              container.appendChild(li);
+            });
+            const risksString = data.data.Risks;
+            const risksArray = risksString.split('\r\n').filter(item => item.trim() !== '');
 
-                const data = await response.json();
+            const risksContainer = document.getElementById('risksContainer');
+            risksContainer.innerHTML = '';
 
-                if (data) {
-                    document.getElementById('loading').classList.add('hidden');
-                    document.getElementById('maincontent').classList.remove('hidden');
-                    datarendering(data)
-                    aboutdetails(data, parametersObject.isin)
-                }
+            risksArray.forEach(risk => {
+              const li = document.createElement('li');
+              li.textContent = risk;
+              risksContainer.appendChild(li);
+            });
+            const pdfUrl = data.data.baseurl + data.data.DHRP_PDF_File;
+
+            document.getElementById('downloadLink').addEventListener('click', function () {
+              this.href = pdfUrl;
+            });
+            const image = data.data.SymbolLogo
 
 
-            } catch (error) {
-                console.error('Error fetching IPO details:', error.message);
+
+            document.getElementById('logoimage').src = image
+
+
+            const input = data.data;
+            const result = [];
+
+            const keys = Object.keys(input);
+            const indexSet = new Set();
+
+            // Extract all unique index numbers from keys (e.g. 1 from Name11, 2 from Name21, etc.)
+            keys.forEach(key => {
+              const match = key.match(/^Name(\d+)[12]$/);
+              if (match) {
+                indexSet.add(match[1]);
+              }
+            });
+
+            let total = 0;
+            let count = 0;
+
+            // For each index, grab the corresponding name and value
+            indexSet.forEach(index => {
+              const name = input[`Name${index}1`];
+              const valueStr = input[`Name${index}2`];
+              const value = parseFloat(valueStr);
+
+              if (name || valueStr) {
+                result.push({ name, value });
+              }
+
+              if (!isNaN(value)) {
+                total += value;
+                count++;
+              }
+            });
+
+            // Add the total row
+            if (count > 0) {
+              result.push({ name: "Total", value: (total / count).toFixed(2) });
+
             }
-        };
 
-
-        async function aboutdetails(datasymbol, isin) {
-            let symbol;
-
-            if (datasymbol.metaData && datasymbol.metaData[isin]) {
-                symbol = datasymbol.metaData[isin].symbol;
-            } else if (datasymbol.nse && datasymbol.nse.isin === isin) {
-                symbol = datasymbol.nse.ipoSymbol;
-            } else {
-                // fallback if nothing matches
-                console.warn("Symbol not found for ISIN:", isin);
-                symbol = null;
-            }
-
-            //console.log(, "datasymbol")
-
-            const apiurl = `https://ipo.acumengroup.in/admin/ipo-info-entry/info.php?symbol=${symbol}`
-            try {
-                const response = await fetch(apiurl, {
-                    method: 'GET',
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Network error, please try again. Status: ${response.status}`);
-                }
-
-                const data = await response.json();
-
-                if (data) {
-                    console.log(data)
-                    if (data.success === true) {
-                        function formatDate(isoDate) {
-                            if (!isoDate) return ''; // Handle null or undefined
-                            const [year, month, day] = isoDate.split('-');
-                            return `${day}-${month}-${year}`;
-                        }
-
-                        document.getElementById('date1').innerText = formatDate(data.data.AllotmentDate);
-                        document.getElementById('date2').innerText = formatDate(data.data.CreditOfSharesToDemat);
-                        document.getElementById('date3').innerText = formatDate(data.data.IPOOpenDate);
-                        document.getElementById('date4').innerText = formatDate(data.data.IPOCloseDate);
-                        document.getElementById('date5').innerText = formatDate(data.data.InitiationOfRefunds);
-                        document.getElementById('date6').innerText = formatDate(data.data.ListingDate);
-                        document.getElementById('aboutCompany').innerText = data.data.AboutCompany;
-                        document.getElementById('objectOfIssue').innerText = data.data.ObjectiveOfIssue;
-                        document.getElementById('preIssuePromoters').innerText = data.data.ShareHoldingPreIssue + " %";
-                        document.getElementById('postIssuePromoters').innerText = data.data.ShareHoldingPostIssue + " %";
-                        const strengthsString = data.data.Strengths;
-                        const strengthsArray = strengthsString.split('\r\n').filter(item => item.trim() !== '');
-                        const container = document.getElementById('strengthsContainer');
-                        container.innerHTML = '';
-
-                        strengthsArray.forEach(strength => {
-                            const li = document.createElement('li');
-                            li.textContent = strength;
-                            container.appendChild(li);
-                        });
-                        const risksString = data.data.Risks;
-                        const risksArray = risksString.split('\r\n').filter(item => item.trim() !== '');
-
-                        const risksContainer = document.getElementById('risksContainer');
-                        risksContainer.innerHTML = '';
-
-                        risksArray.forEach(risk => {
-                            const li = document.createElement('li');
-                            li.textContent = risk;
-                            risksContainer.appendChild(li);
-                        });
-                        const pdfUrl = data.data.baseurl + data.data.DHRP_PDF_File;
-
-                        document.getElementById('downloadLink').addEventListener('click', function () {
-                            this.href = pdfUrl;
-                        });
-                        const image = data.data.SymbolLogo
-
-
-
-                        document.getElementById('logoimage').src = image
-
-
-                        const input = data.data;
-                        const result = [];
-
-                        const keys = Object.keys(input);
-                        const indexSet = new Set();
-
-                        // Extract all unique index numbers from keys (e.g. 1 from Name11, 2 from Name21, etc.)
-                        keys.forEach(key => {
-                            const match = key.match(/^Name(\d+)[12]$/);
-                            if (match) {
-                                indexSet.add(match[1]);
-                            }
-                        });
-
-                        let total = 0;
-                        let count = 0;
-
-                        // For each index, grab the corresponding name and value
-                        indexSet.forEach(index => {
-                            const name = input[`Name${index}1`];
-                            const valueStr = input[`Name${index}2`];
-                            const value = parseFloat(valueStr);
-
-                            if (name || valueStr) {
-                                result.push({ name, value });
-                            }
-
-                            if (!isNaN(value)) {
-                                total += value;
-                                count++;
-                            }
-                        });
-
-                        // Add the total row
-                        if (count > 0) {
-                            result.push({ name: "Total", value: (total / count).toFixed(2) });
-
-                        }
-
-                        console.log(result);
+            console.log(result);
 
 
 
 
-                        document.getElementById('subscriptionDataContainer').innerHTML = '';
-                        result.forEach(item => {
-                            const row = document.createElement('tr');
-                            const nameCell = document.createElement('td');
-                            const valueCell = document.createElement('td');
-                            nameCell.className = 'whitespace-nowrap px-3 py-4 text-sm text-gray-700';
-                            valueCell.className = 'whitespace-nowrap px-3 text-right py-4 text-sm text-gray-700';
-                            nameCell.innerText = item.name;
-                            valueCell.innerText = item.value;
-                            row.appendChild(nameCell);
-                            row.appendChild(valueCell);
-                            document.getElementById('subscriptionDataContainer').appendChild(row);
-                        });
-                    }
-                    else if (data.success === false) {
+            document.getElementById('subscriptionDataContainer').innerHTML = '';
+            result.forEach(item => {
+              const row = document.createElement('tr');
+              const nameCell = document.createElement('td');
+              const valueCell = document.createElement('td');
+              nameCell.className = 'whitespace-nowrap px-3 py-4 text-sm text-gray-700';
+              valueCell.className = 'whitespace-nowrap px-3 text-right py-4 text-sm text-gray-700';
+              nameCell.innerText = item.name;
+              valueCell.innerText = item.value;
+              row.appendChild(nameCell);
+              row.appendChild(valueCell);
+              document.getElementById('subscriptionDataContainer').appendChild(row);
+            });
+          }
+          else if (data.success === false) {
 
-                        document.getElementById('logoimage').src = "./images/image.png"
-                    }
+            document.getElementById('logoimage').src = "./images/image.png"
+          }
 
-                }
-
-
-
-
-            } catch (error) {
-                console.error('Error fetching IPO details:', error.message);
-            }
         }
 
 
 
-        const datarendering = (ipodetails) => {
-            if (ipodetails.nse) {
-                const parametersObject = getDecryptedData();
+
+      } catch (error) {
+        console.error('Error fetching IPO details:', error.message);
+      }
+    }
 
 
 
-                document.getElementById('companyName').innerText = ipodetails.nse.ipoName
-                const symbol = ipodetails.nse.ipoSymbol;
-                document.getElementById('companysymbol').innerText = "Symbol:" + " " + "(" + symbol + ")"
-                document.getElementById('mode').innerHTML = parametersObject.isCompanyFrom
-                document.getElementById('status').innerHTML = ipodetails.nse.subType || 'N/A'
-                document.getElementById('bidPrice').innerHTML = "₹" + " " + ipodetails.nse.minPrice + " " + "-" + " " + "₹" + ipodetails.nse.maxPrice
-                document.getElementById('lotSize').innerHTML = ipodetails.nse.lotSize + " " + "Shares"
-                document.getElementById('offerType').innerHTML = ipodetails.nse.subType || 'N/A'
-                document.getElementById('ipoType').innerHTML = ipodetails.nse.issueType
-                document.getElementById('issueSize').innerHTML = ipodetails.nse.issueSize
+    const datarendering = (ipodetails) => {
+      if (ipodetails.nse) {
+        const parametersObject = getDecryptedData();
 
 
 
-                const endDate = new Date(ipodetails.nse.biddingEndDate);
-
-                const today = new Date();
-
-                // Normalize both dates to YYYY-MM-DD (ignore time)
-                const normalize = date => new Date(date.getFullYear(), date.getMonth(), date.getDate());
-                const normalizedEndDate = normalize(endDate);
-                const normalizedToday = normalize(today);
-
-                // Calculate the difference in days
-                const diffTime = normalizedEndDate.getTime() - normalizedToday.getTime();
-                const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
-
-                // Determine the message
-
-                if (diffDays === 0) {
-                    document.getElementById('biddingMessage').innerText = "Today";
-                } else if (diffDays > 0) {
-                    document.getElementById('biddingMessage').innerText = `${diffDays} day${diffDays > 1 ? "s" : ""} more`;
-                } else {
-                    document.getElementById('biddingMessage').innerText = `Expired ${Math.abs(diffDays)} day${Math.abs(diffDays) > 1 ? "s" : ""} ago`;
-                }
+        document.getElementById('companyName').innerText = ipodetails.nse.ipoName
+        const symbol = ipodetails.nse.ipoSymbol;
+        document.getElementById('companysymbol').innerText = "Symbol:" + " " + "(" + symbol + ")"
+        document.getElementById('mode').innerHTML = parametersObject.isCompanyFrom
+        document.getElementById('status').innerHTML = ipodetails.nse.subType || 'N/A'
+        document.getElementById('bidPrice').innerHTML = "₹" + " " + ipodetails.nse.minPrice + " " + "-" + " " + "₹" + ipodetails.nse.maxPrice
+        document.getElementById('lotSize').innerHTML = ipodetails.nse.lotSize + " " + "Shares"
+        document.getElementById('offerType').innerHTML = ipodetails.nse.subType || 'N/A'
+        document.getElementById('ipoType').innerHTML = ipodetails.nse.issueType
+        document.getElementById('issueSize').innerHTML = ipodetails.nse.issueSize
 
 
-                const startdate = ipodetails.nse.biddingStartDate
-                const enddate = ipodetails.nse.biddingEndDate
 
-                const startDateObj = new Date(startdate);
-                const endDateObj = new Date(enddate);
+        const endDate = new Date(ipodetails.nse.biddingEndDate);
 
-                // Get the current date
-                const currentDate = new Date();
+        const today = new Date();
 
-                // Function to enable/disable the button based on the date range
-                function checkDateRangense() {
-                    const applyNowButton = document.getElementById("applyNowButton");
+        // Normalize both dates to YYYY-MM-DD (ignore time)
+        const normalize = date => new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        const normalizedEndDate = normalize(endDate);
+        const normalizedToday = normalize(today);
 
-                    // Compare if current date is within the range
-                    if (currentDate >= startDateObj && currentDate <= endDateObj) {
-                        applyNowButton.disabled = false; // Enable button
-                    } else {
-                        applyNowButton.disabled = true; // Disable button
-                    }
-                }
+        // Calculate the difference in days
+        const diffTime = normalizedEndDate.getTime() - normalizedToday.getTime();
+        const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
 
-                // Call the function to check date range on page load
-                checkDateRangense();
-                if (ipodetails.nse.subCategorySettings) {
-                    const subCategorySettings = ipodetails.nse.subCategorySettings;
-                    let investortype = [];
+        // Determine the message
 
-                    subCategorySettings.forEach((category) => {
-                        if (category.allowUpi) {
-                            let code = category.caCode;
-                            if (code === 'RETAIL') {
-                                code = "Retail"
-                            }
-                            else if (code === 'NIB') {
-                                code = 'HNI';
+        if (diffDays === 0) {
+          document.getElementById('biddingMessage').innerText = "Today";
+        } else if (diffDays > 0) {
+          document.getElementById('biddingMessage').innerText = `${diffDays} day${diffDays > 1 ? "s" : ""} more`;
+        } else {
+          document.getElementById('biddingMessage').innerText = `Expired ${Math.abs(diffDays)} day${Math.abs(diffDays) > 1 ? "s" : ""} ago`;
+        }
 
-                            } else if (code === 'EMPRET') {
-                                code = 'EMP';
 
-                            }
+        const startdate = ipodetails.nse.biddingStartDate
+        const enddate = ipodetails.nse.biddingEndDate
 
-                            if (code === 'Retail') {
-                                investortype.unshift(code);
+        const startDateObj = new Date(startdate);
+        const endDateObj = new Date(enddate);
 
-                            } else {
-                                investortype.push(code);
-                            }
+        // Get the current date
+        const currentDate = new Date();
 
-                            const hiddenContent = document.getElementById('hiddencontent');
+        // Function to enable/disable the button based on the date range
+        function checkDateRangense() {
+          const applyNowButton = document.getElementById("applyNowButton");
+          const applyNowButtonDesktop = document.getElementById("applyNowButtonDesktop");
 
-                            hiddenContent.innerHTML += `
+          // Compare if current date is within the range
+          if (currentDate >= startDateObj && currentDate <= endDateObj) {
+            applyNowButton.disabled = false; // Enable button
+            applyNowButtonDesktop.disabled = false; // Enable button
+          } else {
+            applyNowButton.disabled = true; // Disable button
+            applyNowButtonDesktop.disabled = true; // Disable button
+          }
+        }
+
+        // Call the function to check date range on page load
+        checkDateRangense();
+        if (ipodetails.nse.subCategorySettings) {
+          const subCategorySettings = ipodetails.nse.subCategorySettings;
+          let investortype = [];
+
+          subCategorySettings.forEach((category) => {
+            if (category.allowUpi) {
+              let code = category.caCode;
+              if (code === 'RETAIL') {
+                code = "Retail"
+              }
+              else if (code === 'NIB') {
+                code = 'HNI';
+
+              } else if (code === 'EMPRET') {
+                code = 'EMP';
+
+              }
+
+              if (code === 'Retail') {
+                investortype.unshift(code);
+
+              } else {
+                investortype.push(code);
+              }
+
+              const hiddenContent = document.getElementById('hiddencontent');
+
+              hiddenContent.innerHTML += `
     <input type="text" class="hidden"  id="${code}-discountprice" value="${category.discountPrice || '0'}">
     <input type="text" class="hidden"  id="${code}-minprice" value="${category.minValue}">
     <input type="text" class="hidden"   id="${code}-maxprice" value="${category.maxUpiLimit}">
   `;
 
 
-                        }
-                    });
-
-
-
-                    const container = document.getElementById('investorTypesContainer');
-                    container.innerHTML = '';
-                    let activeButton = null;
-                    investortype.forEach((type, index) => {
-                        const button = document.createElement('button');
-                        button.innerText = type;
-                        button.className = 'rounded-md outline-none bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm';
-
-                        button.addEventListener('click', () => {
-                            if (activeButton) {
-                                activeButton.classList.remove('bg-green-500');
-                                activeButton.classList.add('bg-white');
-                            }
-                            button.classList.remove('bg-white');
-                            button.classList.add('bg-green-500');
-                            activeButton = button;
-
-                            document.getElementById('catetype').innerHTML = type
-
-                            investmentfunction(type, ipodetails)
-
-
-                        });
-                        container.appendChild(button);
-                        if (index === 0) {
-
-                            button.click();
-                        }
-                    });
-
-
-
-
-                }
-
             }
-            else if (ipodetails.metaData) {
-                console.log("this is bse")
-
-                const parametersObject = getDecryptedData();
-                console.log(parametersObject)
-                document.getElementById('companyName').innerText = ipodetails.metaData[parametersObject.isin].companyName
-                const symbol = ipodetails.metaData[parametersObject.isin].symbol;
-                document.getElementById('companysymbol').innerText = "Symbol:" + " " + "(" + symbol + ")"
-                document.getElementById('mode').innerHTML = parametersObject.isCompanyFrom
-                document.getElementById('status').innerHTML = ipodetails.metaData[parametersObject.isin].issuetype
-                document.getElementById('bidPrice').innerHTML = "₹" + " " + ipodetails.metaData[parametersObject.isin].floorprice + " " + "-" + " " + "₹" + ipodetails.metaData[parametersObject.isin].ceilingprice
-                document.getElementById('lotSize').innerHTML = ipodetails.metaData[parametersObject.isin].tradinglot + " " + "Shares"
-                document.getElementById('offerType').innerHTML = ipodetails.metaData[parametersObject.isin].issuetype || 'N/A'
-                document.getElementById('ipoType').innerHTML = 'N/A'
-                document.getElementById('issueSize').innerHTML = ipodetails.metaData[parametersObject.isin].issuesize
+          });
 
 
 
-                const endDate = new Date(ipodetails.metaData[parametersObject.isin].closedate);
+          const container = document.getElementById('investorTypesContainer');
+          container.innerHTML = '';
+          let activeButton = null;
+          investortype.forEach((type, index) => {
+            const button = document.createElement('button');
+            button.innerText = type;
+            button.className = 'rounded-md outline-none bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm';
 
-                const today = new Date();
+            button.addEventListener('click', () => {
+              if (activeButton) {
+                activeButton.classList.remove('bg-green-500');
+                activeButton.classList.add('bg-white');
+              }
+              button.classList.remove('bg-white');
+              button.classList.add('bg-green-500');
+              activeButton = button;
 
-                //Normalize both dates to YYYY-MM-DD (ignore time)
-                const normalize = date => new Date(date.getFullYear(), date.getMonth(), date.getDate());
-                const normalizedEndDate = normalize(endDate);
-                const normalizedToday = normalize(today);
+              document.getElementById('catetype').innerHTML = type
 
-                // Calculate the difference in days
-                const diffTime = normalizedEndDate.getTime() - normalizedToday.getTime();
-                const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+              investmentfunction(type, ipodetails)
 
-                // Determine the message
 
-                if (diffDays === 0) {
-                    document.getElementById('biddingMessage').innerText = "Today";
-                } else if (diffDays > 0) {
-                    document.getElementById('biddingMessage').innerText = `${diffDays} day${diffDays > 1 ? "s" : ""} more`;
-                } else {
-                    document.getElementById('biddingMessage').innerText = `Expired ${Math.abs(diffDays)} day${Math.abs(diffDays) > 1 ? "s" : ""} ago`;
-                }
+            });
+            container.appendChild(button);
+            if (index === 0) {
 
-                const startdate = ipodetails.metaData[parametersObject.isin].opendate
-                const enddate = ipodetails.metaData[parametersObject.isin].closedate
-
-                // Convert startdate and enddate to Date objects
-
-                const startDateObj = new Date(startdate);
-                const endDateObj = new Date(enddate);
-
-                // Get the current date
-                const currentDate = new Date();
-
-                // Function to enable/disable the button based on the date range
-                function checkDateRange() {
-                    const applyNowButton = document.getElementById("applyNowButton");
-
-                    // Compare if current date is within the range
-                    if (currentDate >= startDateObj && currentDate <= endDateObj) {
-                        applyNowButton.disabled = false; // Enable button
-                    } else {
-                        applyNowButton.disabled = true; // Disable button
-                    }
-                }
-
-                // Call the function to check date range on page load
-                checkDateRange();
+              button.click();
+            }
+          });
 
 
 
-                if (ipodetails.metaData[parametersObject.isin].category) {
-                    const subCategorySettings = ipodetails.metaData[parametersObject.isin].category;
-                    let investortype = [];
 
-                    subCategorySettings.forEach((category) => {
-                        if (category.asbanonasba == '1') {
-                            let code = category.category
-                            if (code = 'IND') {
-                                code = "Retail"
-                            }
-                            if (code === 'Retail') {
-                                investortype.unshift(code);
+        }
 
-                            } else {
-                                investortype.push(code);
-                            }
+      }
+      else if (ipodetails.metaData) {
+        console.log("this is bse")
+
+        const parametersObject = getDecryptedData();
+        console.log(parametersObject)
+        document.getElementById('companyName').innerText = ipodetails.metaData[parametersObject.isin].companyName
+        const symbol = ipodetails.metaData[parametersObject.isin].symbol;
+        document.getElementById('companysymbol').innerText = "Symbol:" + " " + "(" + symbol + ")"
+        document.getElementById('mode').innerHTML = parametersObject.isCompanyFrom
+        document.getElementById('status').innerHTML = ipodetails.metaData[parametersObject.isin].issuetype
+        document.getElementById('bidPrice').innerHTML = "₹" + " " + ipodetails.metaData[parametersObject.isin].floorprice + " " + "-" + " " + "₹" + ipodetails.metaData[parametersObject.isin].ceilingprice
+        document.getElementById('lotSize').innerHTML = ipodetails.metaData[parametersObject.isin].tradinglot + " " + "Shares"
+        document.getElementById('offerType').innerHTML = ipodetails.metaData[parametersObject.isin].issuetype || 'N/A'
+        document.getElementById('ipoType').innerHTML = 'N/A'
+        document.getElementById('issueSize').innerHTML = ipodetails.metaData[parametersObject.isin].issuesize
 
 
-                            const hiddenContent = document.getElementById('hiddencontent');
 
-                            hiddenContent.innerHTML += `
+        const endDate = new Date(ipodetails.metaData[parametersObject.isin].closedate);
+
+        const today = new Date();
+
+        //Normalize both dates to YYYY-MM-DD (ignore time)
+        const normalize = date => new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        const normalizedEndDate = normalize(endDate);
+        const normalizedToday = normalize(today);
+
+        // Calculate the difference in days
+        const diffTime = normalizedEndDate.getTime() - normalizedToday.getTime();
+        const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+
+        // Determine the message
+
+        if (diffDays === 0) {
+          document.getElementById('biddingMessage').innerText = "Today";
+        } else if (diffDays > 0) {
+          document.getElementById('biddingMessage').innerText = `${diffDays} day${diffDays > 1 ? "s" : ""} more`;
+        } else {
+          document.getElementById('biddingMessage').innerText = `Expired ${Math.abs(diffDays)} day${Math.abs(diffDays) > 1 ? "s" : ""} ago`;
+        }
+
+        const startdate = ipodetails.metaData[parametersObject.isin].opendate
+        const enddate = ipodetails.metaData[parametersObject.isin].closedate
+
+        // Convert startdate and enddate to Date objects
+
+        const startDateObj = new Date(startdate);
+        const endDateObj = new Date(enddate);
+
+        // Get the current date
+        const currentDate = new Date();
+
+        // Function to enable/disable the button based on the date range
+        function checkDateRange() {
+          const applyNowButton = document.getElementById("applyNowButton");
+          const applyNowButtonDesktop = document.getElementById("applyNowButtonDesktop");
+
+          // Compare if current date is within the range
+          if (currentDate >= startDateObj && currentDate <= endDateObj) {
+            applyNowButton.disabled = false; // Enable button
+            applyNowButtonDesktop.disabled = false; // Enable button
+          } else {
+            applyNowButton.disabled = true; // Disable button
+            applyNowButtonDesktop.disabled = true; // Disable button
+          }
+        }
+
+        // Call the function to check date range on page load
+        checkDateRange();
+
+
+
+        if (ipodetails.metaData[parametersObject.isin].category) {
+          const subCategorySettings = ipodetails.metaData[parametersObject.isin].category;
+          let investortype = [];
+
+          subCategorySettings.forEach((category) => {
+            if (category.asbanonasba == '1') {
+              let code = category.category
+              if (code = 'IND') {
+                code = "Retail"
+              }
+              if (code === 'Retail') {
+                investortype.unshift(code);
+
+              } else {
+                investortype.push(code);
+              }
+
+
+              const hiddenContent = document.getElementById('hiddencontent');
+
+              hiddenContent.innerHTML += `
   <input type="text" class="hidden" id="${code}-discountprice" value="${category.discountPrice || '0'}">
   <input type="text" class="hidden"  id="${code}-minprice" value="${category.minbidvalue}">
   <input type="text" class="hidden"  id="${code}-maxprice" value="${category.maxbidvalue}">
 `;
 
 
-                        }
-                    });
-
-
-                    const container = document.getElementById('investorTypesContainer');
-                    container.innerHTML = '';
-                    let activeButton = null;
-                    investortype.forEach((type, index) => {
-                        const button = document.createElement('button');
-                        button.innerText = type;
-                        button.className = 'rounded-md outline-none bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm';
-
-                        button.addEventListener('click', () => {
-                            if (activeButton) {
-                                activeButton.classList.remove('bg-green-500');
-                                activeButton.classList.add('bg-white');
-                            }
-                            button.classList.remove('bg-white');
-                            button.classList.add('bg-green-500');
-                            activeButton = button;
-
-                            document.getElementById('catetype').innerHTML = type
-
-                            investmentfunction(type, ipodetails)
-
-
-                        });
-                        container.appendChild(button);
-                        if (index === 0) {
-
-                            button.click();
-                        }
-                    });
-
-
-
-
-                }
             }
+          });
+
+
+          const container = document.getElementById('investorTypesContainer');
+          container.innerHTML = '';
+          let activeButton = null;
+          investortype.forEach((type, index) => {
+            const button = document.createElement('button');
+            button.innerText = type;
+            button.className = 'rounded-md outline-none bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm';
+
+            button.addEventListener('click', () => {
+              if (activeButton) {
+                activeButton.classList.remove('bg-green-500');
+                activeButton.classList.add('bg-white');
+              }
+              button.classList.remove('bg-white');
+              button.classList.add('bg-green-500');
+              activeButton = button;
+
+              document.getElementById('catetype').innerHTML = type
+
+              investmentfunction(type, ipodetails)
+
+
+            });
+            container.appendChild(button);
+            if (index === 0) {
+
+              button.click();
+            }
+          });
+
+
+
+
+        }
+      }
+    }
+
+    // let investorType;
+    // let discountpricevalue;
+    // let lotsvalue;
+
+    // const investmentfunction = (cacode, responsedata) => {
+    //   investorType = cacode;
+
+    //   const discountInput = document.getElementById(`${cacode}-discountprice`);
+    //   const minInput = document.getElementById(`${cacode}-minprice`);
+    //   const maxInput = document.getElementById(`${cacode}-maxprice`);
+
+    //   const discountPrice = Number(discountInput.value);
+    //   const minPrice = Number(minInput.value);
+    //   const maxPrice = Number(maxInput.value);
+    //   discountpricevalue = discountPrice;
+
+    //   let bidPrice, bidMaxPrice, lotSize;
+
+    //   if (responsedata.nse) {
+    //     bidPrice = Number(responsedata.nse.minPrice);
+    //     bidMaxPrice = Number(responsedata.nse.maxPrice);
+    //     lotSize = Number(responsedata.nse.lotSize);
+    //   } else if (responsedata.metaData) {
+    //     const parametersObject = getDecryptedData();
+    //     const meta = responsedata.metaData[parametersObject.isin];
+    //     bidPrice = Number(meta.floorprice);
+    //     bidMaxPrice = Number(meta.ceilingprice);
+    //     lotSize = Number(meta.tradinglot);
+    //   } else {
+    //     console.error("Invalid data format");
+    //     return;
+    //   }
+
+    //   const minInvestmentPerLot = bidPrice * lotSize;
+    //   const maxInvestmentPerLot = bidMaxPrice * lotSize;
+
+    //   document.getElementById('retailDiscount').innerText = "₹ " + discountPrice.toLocaleString();
+
+    //   const maxLots = Math.floor(maxPrice / maxInvestmentPerLot);
+    //   const totalMaxInvestment = maxLots * maxInvestmentPerLot;
+
+    //   if (minPrice <= 0) {
+    //     document.getElementById('minimumInvestment').innerText = `1 Lot / ₹ ${minInvestmentPerLot.toLocaleString()}`;
+    //     document.getElementById('maximumInvestment').innerText =
+    //       `${maxLots} ${maxLots <= 1 ? "Lot" : "Lots"} / ₹ ${totalMaxInvestment.toLocaleString()}`;
+    //     lotsvalue = maxLots;
+    //   } else {
+    //     let minLots = Math.floor(minPrice / minInvestmentPerLot);
+    //     let totalMinInvestment = minLots * minInvestmentPerLot;
+
+    //     while (totalMinInvestment < minPrice) {
+    //       minLots++;
+    //       totalMinInvestment = minLots * minInvestmentPerLot;
+    //     }
+
+    //     if (totalMinInvestment > totalMaxInvestment) {
+    //       document.getElementById('minimumInvestment').innerText = "Invalid range: min > max";
+    //       document.getElementById('maximumInvestment').innerText = "Please adjust values";
+    //       return;
+    //     }
+
+    //     document.getElementById('minimumInvestment').innerText =
+    //       `${minLots} ${minLots <= 1 ? "Lot" : "Lots"} / ₹ ${totalMinInvestment.toLocaleString()}`;
+    //     document.getElementById('maximumInvestment').innerText =
+    //       `${maxLots} ${maxLots <= 1 ? "Lot" : "Lots"} / ₹ ${totalMaxInvestment.toLocaleString()}`;
+    //     lotsvalue = maxLots;
+    //   }
+    // };
+
+
+    // function redirect() {
+    //   const parametersObject = getDecryptedData();
+
+    //   const applydata = {
+    //     clientCode: parametersObject.clientCode,
+    //     investortype: investorType,
+    //     ipoSymbol: parametersObject.ipoSymbol,
+    //     isCompanyFrom: parametersObject.isCompanyFrom,
+    //     isin: parametersObject.isin
+    //   }
+    //   var jsonString = JSON.stringify(applydata);
+
+    //   var secretKey = "ipodetailsdata01"; // Choose a strong key
+    //   var encrypted = CryptoJS.AES.encrypt(jsonString, secretKey).toString();
+    //   var encoded = encodeURIComponent(encrypted);
+    //   console.log(encoded)
+    //   window.location.href = `applyNow.html?data=${encoded}`
+    // }
+
+
+    let lotsvalue;
+
+    // Declare these variables at a higher scope so they're accessible to both functions
+    let investorType, discountpricevalue, minLots, maxLots;
+
+    const investmentfunction = (cacode, responsedata) => {
+      investorType = cacode;
+
+      const discountInput = document.getElementById(`${cacode}-discountprice`);
+      const minInput = document.getElementById(`${cacode}-minprice`);
+      const maxInput = document.getElementById(`${cacode}-maxprice`);
+
+      const discountPrice = Number(discountInput.value);
+      const minPrice = Number(minInput.value);
+      const maxPrice = Number(maxInput.value);
+      discountpricevalue = discountPrice;
+
+      let bidPrice, bidMaxPrice, lotSize;
+
+      if (responsedata.nse) {
+        bidPrice = Number(responsedata.nse.minPrice);
+        bidMaxPrice = Number(responsedata.nse.maxPrice);
+        lotSize = Number(responsedata.nse.lotSize);
+      } else if (responsedata.metaData) {
+        const parametersObject = getDecryptedData();
+        const meta = responsedata.metaData[parametersObject.isin];
+        bidPrice = Number(meta.floorprice);
+        bidMaxPrice = Number(meta.ceilingprice);
+        lotSize = Number(meta.tradinglot);
+      } else {
+        console.error("Invalid data format");
+        return;
+      }
+
+      const minInvestmentPerLot = bidPrice * lotSize;
+      const maxInvestmentPerLot = bidMaxPrice * lotSize;
+
+      document.getElementById('retailDiscount').innerText = "₹ " + discountPrice.toLocaleString();
+
+      maxLots = Math.floor(maxPrice / maxInvestmentPerLot);
+      const totalMaxInvestment = maxLots * maxInvestmentPerLot;
+
+      if (minPrice <= 0) {
+        minLots = 1; // Default minimum lots
+        document.getElementById('minimumInvestment').innerText = `1 Lot / ₹ ${minInvestmentPerLot.toLocaleString()}`;
+        document.getElementById('maximumInvestment').innerText =
+          `${maxLots} ${maxLots <= 1 ? "Lot" : "Lots"} / ₹ ${totalMaxInvestment.toLocaleString()}`;
+      } else {
+        minLots = Math.floor(minPrice / minInvestmentPerLot);
+        let totalMinInvestment = minLots * minInvestmentPerLot;
+
+        while (totalMinInvestment < minPrice) {
+          minLots++;
+          totalMinInvestment = minLots * minInvestmentPerLot;
         }
 
-
-
-        let lotsvalue;
-
-        // Declare these variables at a higher scope so they're accessible to both functions
-        let investorType, discountpricevalue, minLots, maxLots;
-
-        const investmentfunction = (cacode, responsedata) => {
-            investorType = cacode;
-
-            const discountInput = document.getElementById(`${cacode}-discountprice`);
-            const minInput = document.getElementById(`${cacode}-minprice`);
-            const maxInput = document.getElementById(`${cacode}-maxprice`);
-
-            const discountPrice = Number(discountInput.value);
-            const minPrice = Number(minInput.value);
-            const maxPrice = Number(maxInput.value);
-            discountpricevalue = discountPrice;
-
-            let bidPrice, bidMaxPrice, lotSize;
-
-            if (responsedata.nse) {
-                bidPrice = Number(responsedata.nse.minPrice);
-                bidMaxPrice = Number(responsedata.nse.maxPrice);
-                lotSize = Number(responsedata.nse.lotSize);
-            } else if (responsedata.metaData) {
-                const parametersObject = getDecryptedData();
-                const meta = responsedata.metaData[parametersObject.isin];
-                bidPrice = Number(meta.floorprice);
-                bidMaxPrice = Number(meta.ceilingprice);
-                lotSize = Number(meta.tradinglot);
-            } else {
-                console.error("Invalid data format");
-                return;
-            }
-
-            const minInvestmentPerLot = bidPrice * lotSize;
-            const maxInvestmentPerLot = bidMaxPrice * lotSize;
-
-            document.getElementById('retailDiscount').innerText = "₹ " + discountPrice.toLocaleString();
-
-            maxLots = Math.floor(maxPrice / maxInvestmentPerLot);
-            const totalMaxInvestment = maxLots * maxInvestmentPerLot;
-
-            if (minPrice <= 0) {
-                minLots = 1; // Default minimum lots
-                document.getElementById('minimumInvestment').innerText = `1 Lot / ₹ ${minInvestmentPerLot.toLocaleString()}`;
-                document.getElementById('maximumInvestment').innerText =
-                    `${maxLots} ${maxLots <= 1 ? "Lot" : "Lots"} / ₹ ${totalMaxInvestment.toLocaleString()}`;
-            } else {
-                minLots = Math.floor(minPrice / minInvestmentPerLot);
-                let totalMinInvestment = minLots * minInvestmentPerLot;
-
-                while (totalMinInvestment < minPrice) {
-                    minLots++;
-                    totalMinInvestment = minLots * minInvestmentPerLot;
-                }
-
-                if (totalMinInvestment > totalMaxInvestment) {
-                    document.getElementById('minimumInvestment').innerText = "Invalid range: min > max";
-                    document.getElementById('maximumInvestment').innerText = "Please adjust values";
-                    return;
-                }
-
-                document.getElementById('minimumInvestment').innerText =
-                    `${minLots} ${minLots <= 1 ? "Lot" : "Lots"} / ₹ ${totalMinInvestment.toLocaleString()}`;
-                document.getElementById('maximumInvestment').innerText =
-                    `${maxLots} ${maxLots <= 1 ? "Lot" : "Lots"} / ₹ ${totalMaxInvestment.toLocaleString()}`;
-            }
-        };
-
-        function redirect() {
-            const parametersObject = getDecryptedData();
-
-            const applydata = {
-                clientCode: parametersObject.clientCode,
-                investortype: investorType,
-                ipoSymbol: parametersObject.ipoSymbol,
-                isCompanyFrom: parametersObject.isCompanyFrom,
-                isin: parametersObject.isin,
-                mininves: minLots,  // Add min lots
-                maxinves: maxLots,  // Add max lots
-                discountprice: discountpricevalue
-            };
-
-            var jsonString = JSON.stringify(applydata);
-
-            var secretKey = "ipodetailsdata01"; // Choose a strong key
-            var encrypted = CryptoJS.AES.encrypt(jsonString, secretKey).toString();
-            var encoded = encodeURIComponent(encrypted);
-            console.log(encoded);
-            window.location.href = `applyNow.html?data=${encoded}`;
+        if (totalMinInvestment > totalMaxInvestment) {
+          document.getElementById('minimumInvestment').innerText = "Invalid range: min > max";
+          document.getElementById('maximumInvestment').innerText = "Please adjust values";
+          return;
         }
 
-    </script>
+        document.getElementById('minimumInvestment').innerText =
+          `${minLots} ${minLots <= 1 ? "Lot" : "Lots"} / ₹ ${totalMinInvestment.toLocaleString()}`;
+        document.getElementById('maximumInvestment').innerText =
+          `${maxLots} ${maxLots <= 1 ? "Lot" : "Lots"} / ₹ ${totalMaxInvestment.toLocaleString()}`;
+      }
+    };
+
+    function redirect() {
+      const parametersObject = getDecryptedData();
+
+      const applydata = {
+        clientCode: parametersObject.clientCode,
+        investortype: investorType,
+        ipoSymbol: parametersObject.ipoSymbol,
+        isCompanyFrom: parametersObject.isCompanyFrom,
+        isin: parametersObject.isin,
+        mininves: minLots,  // Add min lots
+        maxinves: maxLots,  // Add max lots
+        discountprice: discountpricevalue
+      };
+
+      var jsonString = JSON.stringify(applydata);
+
+      var secretKey = "ipodetailsdata01"; // Choose a strong key
+      var encrypted = CryptoJS.AES.encrypt(jsonString, secretKey).toString();
+      var encoded = encodeURIComponent(encrypted);
+      console.log(encoded);
+      window.location.href = `applyNow.html?data=${encoded}`;
+    }
+
+  </script>
 </body>
 
 </html>
