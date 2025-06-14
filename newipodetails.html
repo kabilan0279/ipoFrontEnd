@@ -160,7 +160,8 @@
 <body class="notranslate">
 
   <!-- Desktop View Only -->
-  <div class="hidden md:flex items-center justify-between px-6 py-4 desktopView bg-white  shadow-md fixed top-0 w-full z-50">
+  <div
+    class="hidden md:flex items-center justify-between px-6 py-4 desktopView bg-white  shadow-md fixed top-0 w-full z-50">
 
     <!-- Back Button (center aligned) -->
     <div class="flex items-center justify-center space-x-2 clickable-div cursor-pointer p-1 
@@ -177,15 +178,21 @@
 
     <!-- Logout Icon -->
     <div class="p-1">
-      <!-- <i class="fa-solid fa-right-from-bracket text-gray-700 text-xl bg-gray-200 py-1 px-4 rounded 
-           transition-all duration-300 hover:text-white hover:bg-red-600"></i> -->
+      <div class="flex items-center space-x-4">
+        <p class="text-md font-medium text-blue-600">IPO's</p>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
+        </svg>
+      </div>
     </div>
 
   </div>
 
 
 
-<!-- mobile view navbar -->
+  <!-- mobile view navbar -->
   <div class="block md:hidden max-w-4xl mx-auto bg-blue-600 sm:relative sm:h-[100px]">
     <div class="flex justify-center items-center text-center">
       <div class="w-screen">
@@ -224,7 +231,7 @@
   </div>
 
 
-  
+
 
 
 
@@ -343,7 +350,8 @@
   </div>
 
 
-  <div id="maincontent" class="flex hidden justify-center items-center absolute top-12 md:top-20 left-0 right-0 md:px-[20%]">
+  <div id="maincontent"
+    class="flex hidden justify-center items-center absolute top-12 md:top-20 left-0 right-0 md:px-[20%]">
     <div class="rounded-md border mt-5 bg-white shadow-lg w-full max-w-4xl md:max-w-none
       
       ">
