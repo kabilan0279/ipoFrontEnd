@@ -197,30 +197,29 @@
 
 
   <!-- Desktop View Only -->
-<div class="hidden md:flex items-center justify-between px-6 py-4 desktopView bg-white shadow">
-  
-  <!-- Back Button (center aligned) -->
- <div class="flex items-center justify-center space-x-2 clickable-div cursor-pointer pb-10 
-            "
-     onclick="window.location.href='index.html'">
-<i class="fa-solid fa-arrow-left text-gray-700 text-lg bg-gray-200 py-1 px-4 rounded 
+  <div class="hidden md:flex items-center justify-between px-6 py-4 desktopView bg-white shadow">
+
+    <!-- Back Button (center aligned) -->
+    <div class="flex items-center justify-center space-x-2 clickable-div cursor-pointer pb-10 
+            " onclick="window.location.href='index.html'">
+      <i class="fa-solid fa-arrow-left text-gray-700 text-lg bg-gray-200 py-1 px-4 rounded 
            transition-all duration-300 hover:text-white hover:bg-blue-600"></i>
-</div>
+    </div>
 
 
-  <!-- Logo and Title -->
-  <div class="flex flex-col items-center">
-    <img src="images/logo.png" alt="Acumen IPO" class="h-12 w-full object-cover">
-    <div class="text-lg font-semibold mt-1 text-gray-800">IPO's</div>
-  </div>
+    <!-- Logo and Title -->
+    <div class="flex flex-col items-center">
+      <img src="images/logo.png" alt="Acumen IPO" class="h-12 w-full object-cover">
+      <div class="text-lg font-semibold mt-1 text-gray-800">IPO's</div>
+    </div>
 
-  <!-- Logout Icon -->
-  <div class="pb-10">
-    <i class="fa-solid fa-right-from-bracket text-gray-700 text-xl bg-gray-200 py-1 px-4 rounded 
+    <!-- Logout Icon -->
+    <div class="pb-10">
+      <i class="fa-solid fa-right-from-bracket text-gray-700 text-xl bg-gray-200 py-1 px-4 rounded 
            transition-all duration-300 hover:text-white hover:bg-red-600"></i>
-  </div>
+    </div>
 
-</div>
+  </div>
 
 
 
@@ -669,12 +668,15 @@
 
 
       </div>
-      <div class="fixed bottom-0 px-2 w-full bg-white py-4  pz-50">
-        <button type="button" id="applyNowButton" disabled onclick="redirect()"
-          class="rounded-md bg-blue-800 py-4 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus:outline-none w-full md:w-1/2 disabled:opacity-50 disabled:cursor-not-allowed">
-          Apply Now
-        </button>
+      <div class="fixed bottom-0 w-full bg-white py-4 px-2">
+        <div class="flex justify-center">
+          <button type="button" id="applyNowButton" disabled onclick="redirect()"
+            class="rounded-md bg-blue-800 py-4 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus:outline-none w-full md:w-1/2 disabled:opacity-50 disabled:cursor-not-allowed">
+            Apply Now
+          </button>
+        </div>
       </div>
+
     </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
