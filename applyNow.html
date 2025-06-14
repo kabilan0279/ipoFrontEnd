@@ -385,8 +385,11 @@
               </div>
 
               <div class="flex flex-col md:flex-row">
-  <!-- Left Side Container (your original div) -->
-  <div class="w-full md:w-1/2 md:pr-2">
+  <!-- Empty Left Side (to push content to right in desktop) -->
+  <div class="hidden md:block md:w-1/2"></div>
+
+  <!-- Right Side Container (your original div) -->
+  <div class="w-full md:w-1/2">
     <div class="flex h-full flex-col overflow-y-scroll bg-white py-4 shadow-xl">
       <div class="px-4 sm:px-6"></div>
       <div class="relative mt-4 flex-1 px-4 sm:px-6">
@@ -412,6 +415,8 @@
       </div>
     </div>
   </div>
+</div>
+
             </div>
           </div>
         </div>
