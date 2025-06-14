@@ -6,15 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="google" content="notranslate">
 
-  <title>Application Update</title> 
+  <title>Application Update</title>
   <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body{
+    body {
       overflow-y: hidden;
       user-select: none;
       -webkit-user-select: none;
     }
+
     .min-h-screen {
       min-height: calc(100vh - 4rem);
     }
@@ -87,7 +88,8 @@
           <div class="mx-auto my-4 mb-20 rounded-md text-white font-bold">
             <nav class="absolute top-2 w-full">
               <div class="grid grid-cols-12 my-4">
-                <div class="col-span-2 flex justify-start px-5 items-center clickable-div" onclick="window.history.back()">
+                <div class="col-span-2 flex justify-start px-5 items-center clickable-div"
+                  onclick="window.history.back()">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
                     <path fill-rule="evenodd"
                       d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z"
@@ -117,14 +119,14 @@
       <div class="h-6 w-3/4 bg-gray-300 rounded animate-pulse"></div>
       <!-- Subtitle Price -->
       <div class="h-4 w-1/3 bg-gray-300 rounded animate-pulse"></div>
-    
+
       <!-- Tabs -->
       <div class="flex gap-2">
         <div class="h-8 w-16 bg-gray-300 rounded-full animate-pulse"></div>
         <div class="h-8 w-16 bg-gray-300 rounded-full animate-pulse"></div>
         <div class="h-8 w-16 bg-gray-300 rounded-full animate-pulse"></div>
       </div>
-    
+
       <!-- Number of lots -->
       <div class="space-y-2">
         <div class="h-4 w-1/2 bg-gray-300 rounded animate-pulse"></div>
@@ -135,33 +137,34 @@
         </div>
         <div class="h-4 w-2/3 bg-gray-200 rounded animate-pulse"></div>
       </div>
-    
+
       <!-- Price Input -->
       <div class="h-10 w-full bg-gray-300 rounded animate-pulse"></div>
-    
+
       <!-- Switch Info -->
       <div class="flex items-center justify-between h-12 bg-gray-200 rounded px-4 animate-pulse">
         <div class="h-4 w-1/2 bg-gray-300 rounded"></div>
         <div class="h-4 w-12 bg-gray-300 rounded"></div>
       </div>
-    
+
       <!-- UPI ID -->
       <div class="space-y-2">
         <div class="h-4 w-1/3 bg-gray-300 rounded animate-pulse"></div>
         <div class="h-10 w-full bg-gray-300 rounded animate-pulse"></div>
       </div>
     </div>
-    
+
     <!-- Main content -->
-    <div id="maincontent" class="flex hidden justify-center items-center absolute top-12 left-0 right-0 overflow-hidden">
+    <div id="maincontent"
+      class="flex hidden justify-center items-center absolute top-12 left-0 right-0 overflow-hidden">
       <div class="rounded-md border mt-5 bg-white shadow-lg w-full max-w-4xl">
         <!-- IPO Information -->
         <div class="w-full flex px-2">
 
           <div
-          class="size-12 flex items-center text-center justify-center  mt-4  px-2 font-semibold rounded-lg bg-white object-cover ring-1 ring-gray-900/10 ">
-          <img src="" id="logoimage" alt="" class="size-12 rounded-full object-cover" />
-        </div>
+            class="size-12 flex items-center text-center justify-center  mt-4  px-2 font-semibold rounded-lg bg-white object-cover ring-1 ring-gray-900/10 ">
+            <img src="" id="logoimage" alt="" class="size-12 rounded-full object-cover" />
+          </div>
           <div class="w-full flex flex-col  px-2 py-2 ">
             <div class="w-full flex items-center gap-2">
               <span id="companyName" class="text-2xl font-bold">Loading...</span>
@@ -186,9 +189,6 @@
 
         </div>
         <div class="flex justify-between px-5 py-1">
-
-
-
 
           <div class="text-gray-600">Number of lots</div>
           <div class="text-gray-600 hidden">
@@ -230,9 +230,10 @@
           <!-- <div class="sumlots p-1 flex gap-1 px-6">
               <p class="text-gray-500" id="lotssum"></p><p class="text-gray-500">Shares</p>
             </div> -->
-            <div class=" p-1 flex gap-1 px-6">
-              <p class="text-gray-500">Maximum Lot Size:</p><p class="text-gray-500" id="maxlotsin"></p>
-            </div>
+          <div class=" p-1 flex gap-1 px-6">
+            <p class="text-gray-500">Maximum Lot Size:</p>
+            <p class="text-gray-500" id="maxlotsin"></p>
+          </div>
         </div>
 
         <div class="px-5">
@@ -281,9 +282,9 @@
       </div>
     </div>
 
-    <div class="fixed-bottom-button bg-white w-full mx-auto" >
-      <div class="flex justify-between px-4 w-full py-2" >
-        <div class="flex cursor-pointer " id="open-drawer-btn" >
+    <div class="fixed-bottom-button bg-white w-full mx-auto">
+      <div class="flex justify-between px-4 w-full py-2">
+        <div class="flex cursor-pointer " id="open-drawer-btn">
           Total Payable amount
           <span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -294,13 +295,13 @@
         </div>
         <div class="px-4 font-bold"><span id="totalAmount"></span> </div>
       </div>
-    <div class="px-2">
-      <button type="button" disabled
-      class="rounded-md custom-bg py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus:outline-none  w-full disabled:opacity-50 disabled:cursor-not-allowed"
-      id="applyButton">
-      Apply for IPO
-    </button>
-    </div>
+      <div class="px-2">
+        <button type="button" disabled
+          class="rounded-md custom-bg py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus:outline-none  w-full disabled:opacity-50 disabled:cursor-not-allowed"
+          id="applyButton">
+          Apply for IPO
+        </button>
+      </div>
 
       <div class="py-2 flex justify-center text-gray-500 text-sm">
         By applying, you accept the
@@ -339,53 +340,53 @@
 
 
 
-  <div id="slide-over" class="relative z-10 hidden" aria-labelledby="slide-over-title" role="dialog"
-  aria-modal="true">
-  <!-- Background backdrop -->
-  <div class="fixed inset-0 bg-gray-500/75 opacity-0 transition-opacity" id="backdrop" aria-hidden="true">
-  </div>
+  <div id="slide-over" class="relative z-10 hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+    <!-- Background backdrop -->
+    <div class="fixed inset-0 bg-gray-500/75 opacity-0 transition-opacity" id="backdrop" aria-hidden="true">
+    </div>
 
-  <div class="fixed inset-0 overflow-hidden">
-    <div class="absolute inset-0 overflow-hidden">
-      <div class="pointer-events-none fixed inset-x-0 bottom-0 flex max-h-full">
-        <!-- Slide-over panel (bottom to top) -->
-        <div
-          class="pointer-events-auto relative w-full max-h-[50vh] transform translate-y-full transition-transform duration-500 ease-in-out"
-          id="panel">
-          <!-- Close button -->
-          <div class="absolute right-0 top-0 pr-4 pt-2">
-            <button id="close-drawer-btn" type="button"
-              class="relative rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
-              <span class="absolute -inset-2.5"></span>
-             
-            </button>
-          </div>
+    <div class="fixed inset-0 overflow-hidden">
+      <div class="absolute inset-0 overflow-hidden">
+        <div class="pointer-events-none fixed inset-x-0 bottom-0 flex max-h-full">
+          <!-- Slide-over panel (bottom to top) -->
+          <div
+            class="pointer-events-auto relative w-full max-h-[50vh] transform translate-y-full transition-transform duration-500 ease-in-out"
+            id="panel">
+            <!-- Close button -->
+            <div class="absolute right-0 top-0 pr-4 pt-2">
+              <button id="close-drawer-btn" type="button"
+                class="relative rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
+                <span class="absolute -inset-2.5"></span>
 
-          <div class="flex h-full flex-col overflow-y-scroll bg-white py-4 shadow-xl">
-            <div class="px-4 sm:px-6">
-              
+              </button>
             </div>
-            <div class="relative mt-4 flex-1 px-4 sm:px-6">
-              <!-- Your content here -->
-              <div class="w-full" style="height: 200px;">
 
-                <div class="w-full flex gap-2 mt-2">
-                  <div class="w-full ">
-                    <p class="text-left text-gray-600">Total Amount</p>
-                  </div>
-                  <div class="w-full ">
-                    <p class="text-right text-gray-600 px-4" id="amount"></p>
-                  </div>
-                </div>
-                <div class="w-full flex gap-2 mt-2">
-                  <div class="w-full">
-                    <p class="text-left text-gray-600">Discount Amount (-)</p>
-                  </div>
-                  <div class="w-full px-4">
-                    <p class="text-right text-gray-600" id="discountamount"></p>
-                  </div>
-                </div>
+            <div class="flex h-full flex-col overflow-y-scroll bg-white py-4 shadow-xl">
+              <div class="px-4 sm:px-6">
 
+              </div>
+              <div class="relative mt-4 flex-1 px-4 sm:px-6">
+                <!-- Your content here -->
+                <div class="w-full" style="height: 200px;">
+
+                  <div class="w-full flex gap-2 mt-2">
+                    <div class="w-full ">
+                      <p class="text-left text-gray-600">Total Amount</p>
+                    </div>
+                    <div class="w-full ">
+                      <p class="text-right text-gray-600 px-4" id="amount"></p>
+                    </div>
+                  </div>
+                  <div class="w-full flex gap-2 mt-2">
+                    <div class="w-full">
+                      <p class="text-left text-gray-600">Discount Amount (-)</p>
+                    </div>
+                    <div class="w-full px-4">
+                      <p class="text-right text-gray-600" id="discountamount"></p>
+                    </div>
+                  </div>
+
+                </div>
               </div>
             </div>
           </div>
@@ -393,7 +394,6 @@
       </div>
     </div>
   </div>
-</div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
   <script src="js/drawer.js"></script>
@@ -435,8 +435,8 @@
 
     async function aboutdetails() {
 
-      let symbolval=getDecryptedData()
-    
+      let symbolval = getDecryptedData()
+
       const apiurl = `https://ipo.acumengroup.in/admin/ipo-info-entry/info.php?symbol=${symbolval.ipoSymbol}`;
       try {
         const response = await fetch(apiurl, {
@@ -450,25 +450,25 @@
         const data = await response.json();
 
         if (data) {
-         
+
           if (data.success === true) {
-           
+
             const image = data.data.SymbolLogo
 
 
 
-document.getElementById('logoimage').src = image
+            document.getElementById('logoimage').src = image
 
-         
+
           }
           else if (data.success === false) {
-        
-          document.getElementById('logoimage').src="./images/image.png"
-        }
+
+            document.getElementById('logoimage').src = "./images/image.png"
+          }
 
         }
 
-      
+
 
 
       } catch (error) {
@@ -476,7 +476,7 @@ document.getElementById('logoimage').src = image
       }
     }
 
-    
+
 
     let no_of_share_amount;
 
@@ -506,7 +506,7 @@ document.getElementById('logoimage').src = image
         })
           .then((response) => response.json())
           .then((data) => {
-           document.getElementById('loading').classList.add('hidden')
+            document.getElementById('loading').classList.add('hidden')
             document.getElementById('maincontent').classList.remove('hidden')
             if (data.metaData[ipoDetails.isin]) {
 
@@ -672,7 +672,7 @@ document.getElementById('logoimage').src = image
               }
             });
 
-          
+
             const container = document.getElementById('investorTypesContainer');
             container.innerHTML = '';
             let activeButton = null;
@@ -715,15 +715,15 @@ document.getElementById('logoimage').src = image
 
 
     function modifyBtn() {
-  const hniButton = Array.from(document.querySelectorAll('#investorTypesContainer button'))
-    .find(btn => btn.textContent.trim().toUpperCase() === 'HNI');
+      const hniButton = Array.from(document.querySelectorAll('#investorTypesContainer button'))
+        .find(btn => btn.textContent.trim().toUpperCase() === 'HNI');
 
-  if (hniButton) {
-    hniButton.click(); // Programmatically trigger the click
-  } else {
-    console.error('HNI button not found');
-  }
-}
+      if (hniButton) {
+        hniButton.click(); // Programmatically trigger the click
+      } else {
+        console.error('HNI button not found');
+      }
+    }
 
 
     // let investor
@@ -811,94 +811,94 @@ document.getElementById('logoimage').src = image
     //   });
     // };
 
-    
+
     let investor
-        const investmentfunction = (cacode) => {
-  const ipoDetails = getDecryptedData();
-  
-  // Show/hide NSE retail switch message
-  if (cacode === 'Retail' && ipoDetails.isCompanyFrom === 'NSE') {
-    document.getElementById('nseretail').classList.remove('hidden');
-  } else {
-    document.getElementById('nseretail').classList.add('hidden');
-  }
+    const investmentfunction = (cacode) => {
+      const ipoDetails = getDecryptedData();
 
-  // Reset lot count to 1 when switching investor types
-  document.getElementById('lotCount').innerText = 1;
-  investor = cacode;
+      // Show/hide NSE retail switch message
+      if (cacode === 'Retail' && ipoDetails.isCompanyFrom === 'NSE') {
+        document.getElementById('nseretail').classList.remove('hidden');
+      } else {
+        document.getElementById('nseretail').classList.add('hidden');
+      }
 
-  // Get the investor-specific values
-  const discountInput = document.getElementById(`${cacode}-discountprice`);
-  const minInput = document.getElementById(`${cacode}-minprice`);
-  const maxInput = document.getElementById(`${cacode}-maxprice`);
-  const shareval = document.getElementById('shareval').value;
-  const price = parseFloat(document.getElementById('price').value) || 0;
+      // Reset lot count to 1 when switching investor types
+      document.getElementById('lotCount').innerText = 1;
+      investor = cacode;
 
-  // Calculate maximum lots based on investor type
-  const maxInvestment = parseFloat(maxInput.value);
-  const maxPricePerLot = price * shareval;
-  const maxLots = Math.floor(maxInvestment / maxPricePerLot);
+      // Get the investor-specific values
+      const discountInput = document.getElementById(`${cacode}-discountprice`);
+      const minInput = document.getElementById(`${cacode}-minprice`);
+      const maxInput = document.getElementById(`${cacode}-maxprice`);
+      const shareval = document.getElementById('shareval').value;
+      const price = parseFloat(document.getElementById('price').value) || 0;
 
-  // Store the max lots in hidden field
-  document.getElementById('maxlots').value = maxLots;
+      // Calculate maximum lots based on investor type
+      const maxInvestment = parseFloat(maxInput.value);
+      const maxPricePerLot = price * shareval;
+      const maxLots = Math.floor(maxInvestment / maxPricePerLot);
+
+      // Store the max lots in hidden field
+      document.getElementById('maxlots').value = maxLots;
 
 
-  document.getElementById('maxlotsin').innerText = maxLots;
+      document.getElementById('maxlotsin').innerText = maxLots;
 
-  // Update the total amount display
-  updateTotalAmount(1, price);
-  checkInputs();
-
-  const lotCountDisplay = document.getElementById("lotCount");
-  let lotCount = 1;
-  const incrementButton = document.getElementById("increment");
-  const decrementButton = document.getElementById("decrement");
-  const priceAmount = document.getElementById('price');
-
-  function updateTotalAmount(lotSize, price) {
-    const shareval = document.getElementById('shareval').value;
-    const discountInput = document.getElementById(`${cacode}-discountprice`);
-    
-    const calculation = lotSize * price;
-    const totalval = calculation * shareval;
-    document.getElementById('qty').value = lotSize * shareval;
-    const discountrate = lotSize * (shareval * discountInput.value);
-    const finalamount = totalval - discountrate;
-    
-    document.getElementById('amount').innerText = "₹" + " " + totalval;
-    document.getElementById('discountamount').innerText = "₹" + " " + discountrate;
-    document.getElementById('finalamount').value = finalamount;
-    document.getElementById('totalAmount').innerText = "₹" + " " + finalamount;
-  }
-
-  priceAmount.addEventListener('input', function() {
-    const price = parseFloat(priceAmount.value) || 0;
-    const lotCountVal = parseInt(lotCountDisplay.innerText, 10);
-    updateTotalAmount(lotCountVal, price);
-    checkInputs();
-  });
-
-  incrementButton.addEventListener("click", () => {
-    const maxLots = parseInt(document.getElementById('maxlots').value);
-    if (lotCount < maxLots) {
-      lotCount++;
-      lotCountDisplay.textContent = lotCount;
-      const price = parseFloat(priceAmount.value) || 0;
-      updateTotalAmount(lotCount, price);
+      // Update the total amount display
+      updateTotalAmount(1, price);
       checkInputs();
-    }
-  });
 
-  decrementButton.addEventListener("click", () => {
-    if (lotCount > 1) {
-      lotCount--;
-      lotCountDisplay.textContent = lotCount;
-      const price = parseFloat(priceAmount.value) || 0;
-      updateTotalAmount(lotCount, price);
-      checkInputs();
-    }
-  });
-};
+      const lotCountDisplay = document.getElementById("lotCount");
+      let lotCount = 1;
+      const incrementButton = document.getElementById("increment");
+      const decrementButton = document.getElementById("decrement");
+      const priceAmount = document.getElementById('price');
+
+      function updateTotalAmount(lotSize, price) {
+        const shareval = document.getElementById('shareval').value;
+        const discountInput = document.getElementById(`${cacode}-discountprice`);
+
+        const calculation = lotSize * price;
+        const totalval = calculation * shareval;
+        document.getElementById('qty').value = lotSize * shareval;
+        const discountrate = lotSize * (shareval * discountInput.value);
+        const finalamount = totalval - discountrate;
+
+        document.getElementById('amount').innerText = "₹" + " " + totalval;
+        document.getElementById('discountamount').innerText = "₹" + " " + discountrate;
+        document.getElementById('finalamount').value = finalamount;
+        document.getElementById('totalAmount').innerText = "₹" + " " + finalamount;
+      }
+
+      priceAmount.addEventListener('input', function () {
+        const price = parseFloat(priceAmount.value) || 0;
+        const lotCountVal = parseInt(lotCountDisplay.innerText, 10);
+        updateTotalAmount(lotCountVal, price);
+        checkInputs();
+      });
+
+      incrementButton.addEventListener("click", () => {
+        const maxLots = parseInt(document.getElementById('maxlots').value);
+        if (lotCount < maxLots) {
+          lotCount++;
+          lotCountDisplay.textContent = lotCount;
+          const price = parseFloat(priceAmount.value) || 0;
+          updateTotalAmount(lotCount, price);
+          checkInputs();
+        }
+      });
+
+      decrementButton.addEventListener("click", () => {
+        if (lotCount > 1) {
+          lotCount--;
+          lotCountDisplay.textContent = lotCount;
+          const price = parseFloat(priceAmount.value) || 0;
+          updateTotalAmount(lotCount, price);
+          checkInputs();
+        }
+      });
+    };
 
 
 
@@ -909,16 +909,16 @@ document.getElementById('logoimage').src = image
     }
 
     document.getElementById("closeModal").addEventListener("click", () => {
-  const ipoDetails = getDecryptedData();
+      const ipoDetails = getDecryptedData();
 
-  document.getElementById("responseModal").classList.add("hidden");
+      document.getElementById("responseModal").classList.add("hidden");
 
-  let appValue = "yourapplication";
-  let clientCode = ipoDetails.clientCode;
+      let appValue = "yourapplication";
+      let clientCode = ipoDetails.clientCode;
 
-  const url = `index.html?app=${encodeURIComponent(appValue)}&clientcode=${encodeURIComponent(clientCode)}`;
-  window.location.href = url;
-});
+      const url = `index.html?app=${encodeURIComponent(appValue)}&clientcode=${encodeURIComponent(clientCode)}`;
+      window.location.href = url;
+    });
 
 
     let selectedInvestorType = "Retail";
@@ -932,129 +932,129 @@ document.getElementById('logoimage').src = image
 
 
     const upid = document.getElementById('upiIdInput');
-const price = document.getElementById('price');
-const applybutton = document.getElementById('applyButton');
+    const price = document.getElementById('price');
+    const applybutton = document.getElementById('applyButton');
 
-function checkInputs() {
-  let cacode = investor;
+    function checkInputs() {
+      let cacode = investor;
 
-  const minInput = document.getElementById(`${cacode}-minprice`);
-  const maxInput = document.getElementById(`${cacode}-maxprice`);
-  const minvalinput = Number(minInput.value);
-  const maxvalinput = Number(maxInput.value);
-  const finalvalue = Number(document.getElementById('finalamount').value);
+      const minInput = document.getElementById(`${cacode}-minprice`);
+      const maxInput = document.getElementById(`${cacode}-maxprice`);
+      const minvalinput = Number(minInput.value);
+      const maxvalinput = Number(maxInput.value);
+      const finalvalue = Number(document.getElementById('finalamount').value);
 
-  const minprice = Number(document.getElementById('minval').value);
-  const maxprice = Number(document.getElementById('maxval').value);
-  const priceValue = Number(price.value);
+      const minprice = Number(document.getElementById('minval').value);
+      const maxprice = Number(document.getElementById('maxval').value);
+      const priceValue = Number(price.value);
 
-  const isPriceInRange = priceValue >= minprice && priceValue <= maxprice;
+      const isPriceInRange = priceValue >= minprice && priceValue <= maxprice;
 
-  // Show error ONLY if price is out of range
-  if (price.value && !isPriceInRange) {
-    document.getElementById('errormsg').innerText = `Please enter a value between ${minprice} - ${maxprice}`;
-  } else {
-    document.getElementById('errormsg').innerText = "";
-  }
+      // Show error ONLY if price is out of range
+      if (price.value && !isPriceInRange) {
+        document.getElementById('errormsg').innerText = `Please enter a value between ${minprice} - ${maxprice}`;
+      } else {
+        document.getElementById('errormsg').innerText = "";
+      }
 
-  const isValid =
-    upid.value &&
-    price.value &&
-    isPriceInRange &&
-    finalvalue >= minvalinput &&
-    finalvalue <= maxvalinput;
+      const isValid =
+        upid.value &&
+        price.value &&
+        isPriceInRange &&
+        finalvalue >= minvalinput &&
+        finalvalue <= maxvalinput;
 
-  if (isValid) {
-    applybutton.disabled = false;
-    applybutton.classList.remove('bg-gray-400', 'cursor-not-allowed');
-    applybutton.classList.add('bg-blue-500', 'hover:bg-blue-600', 'cursor-pointer');
-  } else {
-    applybutton.disabled = true;
-    applybutton.classList.add('bg-gray-400', 'cursor-not-allowed');
-    applybutton.classList.remove('bg-blue-500', 'hover:bg-blue-600', 'cursor-pointer');
-  }
-}
+      if (isValid) {
+        applybutton.disabled = false;
+        applybutton.classList.remove('bg-gray-400', 'cursor-not-allowed');
+        applybutton.classList.add('bg-blue-500', 'hover:bg-blue-600', 'cursor-pointer');
+      } else {
+        applybutton.disabled = true;
+        applybutton.classList.add('bg-gray-400', 'cursor-not-allowed');
+        applybutton.classList.remove('bg-blue-500', 'hover:bg-blue-600', 'cursor-pointer');
+      }
+    }
 
-upid.addEventListener('input', checkInputs);
-price.addEventListener('input', checkInputs);
+    upid.addEventListener('input', checkInputs);
+    price.addEventListener('input', checkInputs);
 
 
 
 
     document.getElementById('applyButton').addEventListener('click', async function () {
-  const ipoDetails = getDecryptedData();
+      const ipoDetails = getDecryptedData();
 
-  console.log(ipoDetails, "details")
-const clientCode=ipoDetails.clientCode;
-  const isin = ipoDetails.isin;
-  const symbol = ipoDetails.ipoSymbol;
-  const source = ipoDetails.isCompanyFrom;
+      console.log(ipoDetails, "details")
+      const clientCode = ipoDetails.clientCode;
+      const isin = ipoDetails.isin;
+      const symbol = ipoDetails.ipoSymbol;
+      const source = ipoDetails.isCompanyFrom;
 
-  let investorModeRaw = ipoDetails.investortype;
-  let investorMode = (investorModeRaw === 'Retail' || investorModeRaw === 'HNI') ? 'IND' : 'OTHER';
+      let investorModeRaw = ipoDetails.investortype;
+      let investorMode = (investorModeRaw === 'Retail' || investorModeRaw === 'HNI') ? 'IND' : 'OTHER';
 
-  const upiId = document.getElementById('upiIdInput').value.trim();
-  const qty = document.getElementById('qty').value.trim();
-  const allowedPricesRaw = document.getElementById('maxval').value.trim();
-  const allowedPrices = allowedPricesRaw.split(',').map(p => Number(p.trim()));
-  const priceInput = Number(document.getElementById('price').value.trim());
+      const upiId = document.getElementById('upiIdInput').value.trim();
+      const qty = document.getElementById('qty').value.trim();
+      const allowedPricesRaw = document.getElementById('maxval').value.trim();
+      const allowedPrices = allowedPricesRaw.split(',').map(p => Number(p.trim()));
+      const priceInput = Number(document.getElementById('price').value.trim());
 
-  // Corrected cutOff logic
-  let cutOffValue = allowedPrices.includes(priceInput);
-  let cutOff = '';
+      // Corrected cutOff logic
+      let cutOffValue = allowedPrices.includes(priceInput);
+      let cutOff = '';
 
-  if (source === 'BSE') {
-    cutOff = cutOffValue ? '1' : '0';
-  } else {
-    cutOff = cutOffValue ? 'true' : 'false';
-  }
+      if (source === 'BSE') {
+        cutOff = cutOffValue ? '1' : '0';
+      } else {
+        cutOff = cutOffValue ? 'true' : 'false';
+      }
 
-  let apiUrl = '';
-  let authorization = '';
+      let apiUrl = '';
+      let authorization = '';
 
-  if (source === 'NSE') {
-    apiUrl = 'https://ipo.acumengroup.in/nse-api/api-apply-ipo.php';
-  } else if (source === 'BSE') {
-    apiUrl = 'https://ipo.acumengroup.in/api/bse/v1/applyipo';
-    authorization = '21279C8DC0753CD1A90DEBF3C1C5CEDB8B5B77E0455EE804C9CA03BB706CD02A';
-  } else {
-    console.error('Invalid IPO source');
-    showModal('Error', 'Invalid IPO source');
-    return;
-  }
+      if (source === 'NSE') {
+        apiUrl = 'https://ipo.acumengroup.in/nse-api/api-apply-ipo.php';
+      } else if (source === 'BSE') {
+        apiUrl = 'https://ipo.acumengroup.in/api/bse/v1/applyipo';
+        authorization = '21279C8DC0753CD1A90DEBF3C1C5CEDB8B5B77E0455EE804C9CA03BB706CD02A';
+      } else {
+        console.error('Invalid IPO source');
+        showModal('Error', 'Invalid IPO source');
+        return;
+      }
 
-  const formData = new FormData();
-  formData.append('clientCode', clientCode);
-  formData.append('ipoSymbol', symbol);
-  formData.append('isin', isin);
-  formData.append('upiId', upiId);
-  formData.append('category', investorMode);
-  formData.append('qty', qty);
-  formData.append('price', priceInput);
-  formData.append('cutOff', cutOff);
-  formData.append('clientCategory', investorModeRaw);
+      const formData = new FormData();
+      formData.append('clientCode', clientCode);
+      formData.append('ipoSymbol', symbol);
+      formData.append('isin', isin);
+      formData.append('upiId', upiId);
+      formData.append('category', investorMode);
+      formData.append('qty', qty);
+      formData.append('price', priceInput);
+      formData.append('cutOff', cutOff);
+      formData.append('clientCategory', investorModeRaw);
 
-  try {
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: authorization ? { 'Authorization': authorization } : {},
-      body: formData
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: authorization ? { 'Authorization': authorization } : {},
+          body: formData
+        });
+
+        if (!response.ok) {
+          throw new Error('Network error, please try again. Status: ' + response.status);
+        }
+
+        const data = await response.json();
+        console.log(data);
+
+        const title = "Application Status";
+        showModal(title, data.message || 'Response received');
+      } catch (error) {
+        console.error('Error:', error.message);
+        showModal('Error', error.message);
+      }
     });
-
-    if (!response.ok) {
-      throw new Error('Network error, please try again. Status: ' + response.status);
-    }
-
-    const data = await response.json();
-    console.log(data);
-
-    const title = "Application Status";
-    showModal(title, data.message || 'Response received');
-  } catch (error) {
-    console.error('Error:', error.message);
-    showModal('Error', error.message);
-  }
-});
 
 
 
