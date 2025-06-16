@@ -79,6 +79,41 @@
     .backdrop-leave {
       transition: opacity 0.5s ease-in-out;
     }
+
+
+
+
+    /* For mobile view - keep as is  and style for desktop view */  
+  .fixed-bottom-button {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+  }
+
+  /* For desktop view - adjust maincontent position */
+  @media (min-width: 768px) {
+    #maincontent {
+      position: relative;
+      min-height: 90vh; /* Take up 90% of viewport height */
+    }
+    
+    .fixed-bottom-button {
+      position: absolute;
+      bottom: 10%; /* Position at 10% from bottom of maincontent */
+      left: 0;
+      right: 0;
+      box-shadow: none;
+    }
+    
+    /* Optional: Add some margin to prevent content overlap */
+    #maincontent > div:first-child {
+      margin-bottom: 150px; /* Adjust based on your fixed content height */
+    }
+  }
+
+
   </style>
 </head>
 
@@ -206,7 +241,7 @@
 
           <!-- Main content -->
           <div id="maincontent" class="flex hidden  overflow-hidden">
-            <div class="rounded-md border mt-5 bg-white shadow-lg w-full max-w-4xl">
+            <div class="rounded-md border mt-3 bg-white shadow-lg w-full max-w-4xl">
               <!-- IPO Information -->
               <div class="w-full flex px-2">
 
