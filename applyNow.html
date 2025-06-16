@@ -80,38 +80,36 @@
     }
 
 
-    /* For mobile view - keep as is  and style for desktop view */
+     /* For mobile view - keep as is  and style for desktop view */  
+  .fixed-bottom-button {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+  }
+
+  /* For desktop view - adjust maincontent position */
+  @media (min-width: 768px) {
+    #maincontent {
+      position: relative;
+      min-height: 90vh; /* Take up 90% of viewport height */
+    }
+    
     .fixed-bottom-button {
-      position: fixed;
-      bottom: 0;
+      position: absolute;
+      bottom: 10%; /* Position at 10% from bottom of maincontent */
       left: 0;
       right: 0;
-      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: none;
     }
-
-    /* For desktop view - adjust maincontent position */
-    @media (min-width: 768px) {
-      #maincontent {
-        position: relative;
-        min-height: 90vh;
-        /* Take up 90% of viewport height */
-      }
-
-      .fixed-bottom-button {
-        position: absolute;
-        bottom: 10%;
-        /* Position at 10% from bottom of maincontent */
-        left: 0;
-        right: 0;
-        box-shadow: none;
-      }
-
-      /* Optional: Add some margin to prevent content overlap */
-      #maincontent>div:first-child {
-        margin-bottom: 150px;
-        /* Adjust based on your fixed content height */
-      }
+    
+    /* Optional: Add some margin to prevent content overlap */
+    #maincontent > div:first-child {
+      margin-bottom: 150px; /* Adjust based on your fixed content height */
     }
+  }
+
   </style>
 </head>
 
@@ -234,150 +232,150 @@
         </div>
 
         <!-- Right Non-Scrollable Column -->
-        <div id="maincontent" class="w-full md:w-1/2 bg-white md:mt-2  md:h-[620px] flex hidden rounded-md overflow-hidden">
-
-          
-          <div class="rounded-md border md:mt-0 bg-white   w-full ">
-            <!-- IPO Information -->
-            <div class="w-full flex px-2">
-              <div
-                class="size-12 flex items-center text-center justify-center mt-4 px-2 font-semibold rounded-lg bg-white object-cover ring-1 ring-gray-900/10">
-                <img src="" id="logoimage" alt="" class="size-12 rounded-full object-cover" />
-              </div>
-              <div class="w-full flex flex-col px-2 py-2">
-                <div class="w-full flex items-center gap-2 md:pt-3">
-                  <span id="companyName" class="text-2xl font-bold">Loading...</span>
-                  <span id="mode"
-                    class="rounded-sm bg-indigo-50 px-1 text-[10px] font-medium text-indigo-700 ring-1 ring-inset ring-indigo-600/10 flex text-center items-center my-2"></span>
-                  <span id="status"
-                    class="rounded-sm bg-indigo-50 px-1 text-[10px] font-medium text-indigo-700 ring-1 ring-inset ring-indigo-600/10 flex text-center items-center my-2"></span>
+        <div class="w-full md:w-1/2 bg-white md:mt-2  md:h-[620px]">
+          <div id="maincontent" class="flex hidden rounded-md overflow-hidden">
+            <div class="rounded-md border  md:mt-0 bg-white shadow-lg w-full max-w-4xl">
+              <!-- IPO Information -->
+              <div class="w-full flex px-2">
+                <div
+                  class="size-12 flex items-center text-center justify-center mt-4 px-2 font-semibold rounded-lg bg-white object-cover ring-1 ring-gray-900/10">
+                  <img src="" id="logoimage" alt="" class="size-12 rounded-full object-cover" />
                 </div>
-                <div class="text-gray-500 text-lg" id="priceRange">
-                  Loading...
-                </div>
-              </div>
-            </div>
-            <div class="bg-gray-100 h-2"></div>
-            <div id="investorTypesContainer" class="px-2 py-1"></div>
-            <div class="flex justify-between px-5 py-1">
-              <div class="text-gray-600">Number of lots</div>
-              <div class="text-gray-600 hidden">
-                Lot size:
-                <span id="lotSize"
-                  class="rounded-sm bg-indigo-50 px-1 py-0.5 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-600/10">Loading...</span>
-              </div>
-            </div>
-            <div class="px-5">
-              <div class="grid grid-cols-12 gap-x-2">
-                <div class="col-span-2">
-                  <div id="decrement"
-                    class="p-1 text-2xl font-bold rounded-md border border-gray-900/5 flex justify-center bg-gray-100 flex item-center text-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                      stroke="currentColor" class="h-8 w-8 py-2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
-                    </svg>
+                <div class="w-full flex flex-col px-2 py-2">
+                  <div class="w-full flex items-center gap-2">
+                    <span id="companyName" class="text-2xl font-bold">Loading...</span>
+                    <span id="mode"
+                      class="rounded-sm bg-indigo-50 px-1 text-[10px] font-medium text-indigo-700 ring-1 ring-inset ring-indigo-600/10 flex text-center items-center my-2"></span>
+                    <span id="status"
+                      class="rounded-sm bg-indigo-50 px-1 text-[10px] font-medium text-indigo-700 ring-1 ring-inset ring-indigo-600/10 flex text-center items-center my-2"></span>
                   </div>
-                </div>
-                <div class="col-span-8">
-                  <div class="p-2 rounded-md border border-gray-900/5 flex justify-center">
-                    <span id="lotCount">1</span>
-                  </div>
-                </div>
-                <div class="col-span-2">
-                  <div id="increment"
-                    class="p-1 text-2xl font-bold rounded-md border border-gray-900/5 flex justify-center bg-gray-100 flex item-center text-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                      stroke="currentColor" class="h-8 w-8 py-2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                    </svg>
+                  <div class="text-gray-500 text-lg" id="priceRange">
+                    Loading...
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="w-full flex justify-between">
-              <div class="px-5 py-2 text-gray-600 lotsizeget text-sm flex justify-start"></div>
-              <div class="p-1 flex gap-1 px-6">
-                <p class="text-gray-500">Maximum Lot Size:</p>
-                <p class="text-gray-500" id="maxlotsin"></p>
+              <div class="bg-gray-100 h-2"></div>
+              <div id="investorTypesContainer" class="px-2 py-1"></div>
+              <div class="flex justify-between px-5 py-1">
+                <div class="text-gray-600">Number of lots</div>
+                <div class="text-gray-600 hidden">
+                  Lot size:
+                  <span id="lotSize"
+                    class="rounded-sm bg-indigo-50 px-1 py-0.5 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-600/10">Loading...</span>
+                </div>
               </div>
-            </div>
-
-            <div class="px-5">
-              <input type="number" id="price" class="px-4 py-2 rounded-md border-2 w-full focus:outline-blue-500" />
-              <span id="errormsg" class="text-red-500"></span>
-            </div>
-            <div class="py-1 my-2 bg-gray-100"></div>
-            <div class="flex justify-between hidden px-5 py-2 bg-gray-100 m-2 rounded-md" id="nseretail">
-              <div>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="blue" class="h-6 w-6">
-                  <path fill-rule="evenodd"
-                    d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 0 1 .67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 1 1-.671-1.34l.041-.022ZM12 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
-                    clip-rule="evenodd" />
-                </svg>
+              <div class="px-5">
+                <div class="grid grid-cols-12 gap-x-2">
+                  <div class="col-span-2">
+                    <div id="decrement"
+                      class="p-1 text-2xl font-bold rounded-md border border-gray-900/5 flex justify-center bg-gray-100 flex item-center text-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="h-8 w-8 py-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="col-span-8">
+                    <div class="p-2 rounded-md border border-gray-900/5 flex justify-center">
+                      <span id="lotCount">1</span>
+                    </div>
+                  </div>
+                  <div class="col-span-2">
+                    <div id="increment"
+                      class="p-1 text-2xl font-bold rounded-md border border-gray-900/5 flex justify-center bg-gray-100 flex item-center text-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="h-8 w-8 py-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div>Switch to HNI to buy more lots</div>
-              <div class="font-bold text-sm text-blue-600 mt-1">
-                <button type="button" onclick="modifyBtn()">MODIFY</button>
+              <div class="w-full flex justify-between">
+                <div class="px-5 py-2 text-gray-600 lotsizeget text-sm flex justify-start"></div>
+                <div class="p-1 flex gap-1 px-6">
+                  <p class="text-gray-500">Maximum Lot Size:</p>
+                  <p class="text-gray-500" id="maxlotsin"></p>
+                </div>
               </div>
-            </div>
-            <div class="px-5 py-1">
-              <label class="block text-gray-600">Enter UPI ID</label>
-              <p class="text-gray-500 text-sm py-2">
-                Use UPI ID linked to your bank account
-              </p>
-              <div class="flex items-center mt-2 ">
-                <img alt="UPI logo" class="w-6 h-6" height="40" src="images/images.png" width="50" />
-                <input id="upiIdInput"
-                  class="w-full ml-2 px-4 py-2 border border-gray-300 rounded focus:outline-blue-500" type="text"
-                  placeholder="Enter your UPI (xxx@Bankname)" />
-                <i class="fas fa-check-circle text-green-500 ml-2"> </i>
+
+              <div class="px-5">
+                <input type="number" id="price" class="px-4 py-2 rounded-md border-2 w-full focus:outline-blue-500" />
+                <span id="errormsg" class="text-red-500"></span>
               </div>
-            </div>
-            <div class="">
-              <label class="block text-gray-600 px-5 py-2"></label>
-              <p class="bg-white text-sm h-[400px] md:h-auto"></p>
-            </div>
-
-            <!-- UPI Information Section -->
-            <div class="px-5 py-2" id="upiInfoSection">
-              <h3 class="text-gray-600 font-bold">UPI Information</h3>
-              <ul id="upiList" class="list-disc pl-5 text-gray-600"></ul>
-            </div>
-          </div>
-
-
-          <div class="fixed-bottom-button bg-white w-full mx-auto ">
-            <div class="flex justify-between px-4 w-full py-2">
-              <div class="flex cursor-pointer" id="open-drawer-btn">
-                Total Payable amount
-                <span>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="h-3 w-3 mx-3 my-2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+              <div class="py-1 my-2 bg-gray-100"></div>
+              <div class="flex justify-between hidden px-5 py-2 bg-gray-100 m-2 rounded-md" id="nseretail">
+                <div>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="blue" class="h-6 w-6">
+                    <path fill-rule="evenodd"
+                      d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 0 1 .67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 1 1-.671-1.34l.041-.022ZM12 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
+                      clip-rule="evenodd" />
                   </svg>
-                </span>
+                </div>
+                <div>Switch to HNI to buy more lots</div>
+                <div class="font-bold text-sm text-blue-600 mt-1">
+                  <button type="button" onclick="modifyBtn()">MODIFY</button>
+                </div>
               </div>
-              <div class="px-4 font-bold">
-                <span id="totalAmount"></span>
+              <div class="px-5 py-1">
+                <label class="block text-gray-600">Enter UPI ID</label>
+                <p class="text-gray-500 text-sm py-2">
+                  Use UPI ID linked to your bank account
+                </p>
+                <div class="flex items-center mt-2">
+                  <img alt="UPI logo" class="w-6 h-6" height="40" src="images/images.png" width="50" />
+                  <input id="upiIdInput"
+                    class="w-full ml-2 px-4 py-2 border border-gray-300 rounded focus:outline-blue-500" type="text"
+                    placeholder="Enter your UPI (xxx@Bankname)" />
+                  <i class="fas fa-check-circle text-green-500 ml-2"> </i>
+                </div>
+              </div>
+              <div class="">
+                <label class="block text-gray-600 px-5 py-2"></label>
+                <p class="bg-white text-sm h-[400px] md:h-auto"></p>
+              </div>
+
+              <!-- UPI Information Section -->
+              <div class="px-5 py-2" id="upiInfoSection">
+                <h3 class="text-gray-600 font-bold">UPI Information</h3>
+                <ul id="upiList" class="list-disc pl-5 text-gray-600"></ul>
               </div>
             </div>
 
-            <div class="px-2">
-              <button type="button" disabled
-                class="rounded-md custom-bg py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus:outline-none w-full  disabled:opacity-50 disabled:cursor-not-allowed"
-                id="applyButton">
-                Apply for IPO
-              </button>
+
+            <div class="fixed-bottom-button bg-white w-full mx-auto ">
+              <div class="flex justify-between px-4 w-full py-2">
+                <div class="flex cursor-pointer" id="open-drawer-btn">
+                  Total Payable amount
+                  <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor" class="h-3 w-3 mx-3 my-2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                    </svg>
+                  </span>
+                </div>
+                <div class="px-4 font-bold">
+                  <span id="totalAmount"></span>
+                </div>
+              </div>
+
+              <div class="px-2">
+                <button type="button" disabled
+                  class="rounded-md custom-bg py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus:outline-none w-full  disabled:opacity-50 disabled:cursor-not-allowed"
+                  id="applyButton">
+                  Apply for IPO
+                </button>
+              </div>
+
+              <div class=" py-2 flex justify-center text-gray-500 text-sm">
+                <p>
+                  By applying, you accept the
+                  <span class="text-blue-500 px-2">Terms and Conditions</span>
+                </p>
+              </div>
             </div>
 
-            <div class=" py-2 flex justify-center text-gray-500 text-sm">
-              <p>
-                By applying, you accept the
-                <span class="text-blue-500 px-2">Terms and Conditions</span>
-              </p>
-            </div>
           </div>
-
 
         </div>
       </div>
