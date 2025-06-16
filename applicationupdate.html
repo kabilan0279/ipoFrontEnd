@@ -83,34 +83,53 @@
 
 
 
-    /* For mobile view - keep as is  and style for desktop view */  
+   /* For mobile view - keep bottom button fixed */
   .fixed-bottom-button {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    background: white;
+    z-index: 10;
   }
 
-  /* For desktop view - adjust maincontent position */
+  /* For desktop view - adjust positioning */
   @media (min-width: 768px) {
-    #maincontent {
-      position: relative;
-      min-height: 90vh; /* Take up 90% of viewport height */
+    /* Make the right column a flex container with column direction */
+    .w-full.md\:w-1\/2 {
+      display: flex;
+      flex-direction: column;
+      height: 100vh; /* Take full viewport height */
+      position: relative; /* Needed for absolute positioning of children */
     }
-    
+
+    /* Main content should grow to fill available space */
+    #maincontent {
+      flex-grow: 1;
+      overflow-y: auto; /* Allow scrolling if content is long */
+      padding-bottom: 180px; /* Space for the fixed bottom button */
+    }
+
+    /* Fixed bottom button positioning for desktop */
     .fixed-bottom-button {
       position: absolute;
-      bottom: 10%; /* Position at 10% from bottom of maincontent */
+      bottom: 10%; /* Position 10% from bottom of container */
       left: 0;
       right: 0;
       box-shadow: none;
+      padding: 0 16px;
     }
-    
-    /* Optional: Add some margin to prevent content overlap */
-    #maincontent > div:first-child {
-      margin-bottom: 150px; /* Adjust based on your fixed content height */
+
+    /* Optional: Add some styling to the right column */
+    .md\:shadow-lg {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
+  }
+
+  /* Make sure the main content container doesn't overflow */
+  .overflow-hidden {
+    overflow: visible;
   }
 
 
