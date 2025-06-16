@@ -983,6 +983,9 @@
 
     function sendDataToNewPage(company, url, source) {
 
+
+
+
       const iporequiredDetails = {
         clientCode: cleanClientCode,
         isin: company.isin,
@@ -991,6 +994,7 @@
 
       }
       var jsonString = JSON.stringify(iporequiredDetails);
+      console.log(jsonString);
 
 alert('sendDataToNewPage');
 
