@@ -397,7 +397,7 @@
   <script>
 
     const params = new URLSearchParams(window.location.search);
-    const clientCode = params.get("clientcode") || '8883234632';
+    const clientCode = params.get("clientcode") || '';   //8883234632
 
 
     const cleanClientCode = clientCode?.replace(/^"|"$/g, "");
