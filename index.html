@@ -364,7 +364,8 @@
 
   <!-- popup up model -->
   <div id="modalOverlay" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
-    <div id="modalBox" class="bg-white p-6 rounded-lg shadow-lg w-full max-w-[60rem] max-h-[80vh] overflow-y-auto relative">
+    <div id="modalBox"
+      class="bg-white p-6 rounded-lg shadow-lg w-full max-w-[60rem] max-h-[80vh] overflow-y-auto relative">
       <!-- Close Button -->
       <button onclick="closeModal()"
         class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl font-bold">&times;</button>
@@ -1216,6 +1217,15 @@
         closeModal();
       }
     });
+    function signupH() {
+      document.getElementById("1").classList.remove("current");
+      document.getElementById("1").innerHTML = '<span class="las la-check"></span>';
+      document.getElementById("1").classList.add("completed");
+      document.getElementById("2").classList.add("current");
+      document.getElementById("1_data").style.display = "none";
+      document.getElementById("2_data").style.display = "block";
+    }
+
 
     function movenewpage(company, url, source) {
 
