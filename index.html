@@ -363,33 +363,226 @@
 
 
   <!-- popup up model -->
- <div id="modalOverlay" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
-  <div id="modalBox" class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md max-h-[80vh] overflow-y-auto relative">
-    <!-- Close Button -->
-    <button onclick="closeModal()"
-      class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl font-bold">&times;</button>
+  <div id="modalOverlay" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+    <div id="modalBox" class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md max-h-[80vh] overflow-y-auto relative">
+      <!-- Close Button -->
+      <button onclick="closeModal()"
+        class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl font-bold">&times;</button>
 
-    <!-- Modal Content -->
-    <h2 class="text-xl font-semibold mb-4">Scrollable Tailwind Popup</h2>
-    <p class="mb-2">This is a scrollable modal. Add more content to see it scroll.</p>
-    <!-- Dummy Scroll Content -->
-    <div class="space-y-2">
-      <p>Lorem ipsum dolor sit amet.</p>
-      <p>Consectetur adipiscing elit.</p>
-      <p>Vestibulum euismod, nisl sit amet.</p>
-      <p>Sed ut perspiciatis unde omnis.</p>
-      <p>Nemo enim ipsam voluptatem.</p>
-      <p>Ut enim ad minima veniam.</p>
-      <p>Quis autem vel eum iure reprehenderit.</p>
-      <p>Neque porro quisquam est.</p>
-      <p>Lorem ipsum dolor sit amet.</p>
-      <p>And more lines...</p>
-      <p>Keep scrolling...</p>
-      <p>More content...</p>
-      <p>Last line.</p>
+      <!-- Modal Content -->
+
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content bg-white">
+          <div class="modal-body">
+            <div class="wizard8 shadow-lg border px-4 sm:px-12 md:px-16 lg:px-20 mb-8 bg-white rounded-xl w-full">
+              <div class="row justify-center">
+                <div class="w-full xl:w-11/12">
+                  <div class="row justify-center">
+                    <!-- Left Column - Progress -->
+                    <div class="w-full xl:w-5/12">
+                      <div class="checkout-progress-indicator">
+                        <div class="flex justify-center px-0 space-x-4">
+                          <div
+                            class="step current w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center"
+                            id="1">
+                            <span>1</span>
+                          </div>
+                          <div
+                            class="step w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center"
+                            id="2">
+                            <span>2</span>
+                          </div>
+                          <div
+                            class="step w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center"
+                            id="3">
+                            <span>3</span>
+                          </div>
+                        </div>
+                        <div class="border-b-0 py-4">
+                          <h4 class="text-2xl font-bold">Create Account</h4>
+                          <p class="text-gray-600">Apply IPO in 30 seconds</p>
+                          <div class="mt-4">
+                            <img class="w-full" src="img/svg/progress1.svg" alt="progress indicator">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Right Column - Forms -->
+                    <div class="w-full xl:w-7/12 lg:w-8/12 sm:w-10/12">
+                      <div class="card pb-0">
+                        <div class="mt-4 p-0">
+                          <!-- Step 1: Login -->
+                          <div class="edit-profile__body" id="1_data">
+                            <form id="login">
+                              <input type="hidden" class="form-input" id="rowID" name="rowID">
+                              <div class="mb-4">
+                                <label for="clientCode" class="block text-gray-700 mb-2">Client Code</label>
+                                <input type="text"
+                                  class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase"
+                                  id="clientCode" name="clientCode" placeholder="Enter Clientcode" required
+                                  minlength="4" maxlength="10">
+                              </div>
+                              <div class="mb-4 hidden" id="txtOtpTab">
+                                <label for="txtOtp" class="block text-gray-700 mb-2">Enter OTP</label>
+                                <input type="text"
+                                  class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase"
+                                  id="txtOtp" name="txtOtp" placeholder="Enter Mobile OTP" minlength="6" maxlength="6">
+                              </div>
+
+                              <label class="hidden text-red-500 normal-case" id="errorMsg"></label>
+
+                              <div class="flex flex-wrap justify-center md:justify-end pt-5 mb-5 gap-2">
+                                <button type="button" id="resendOtp" onclick="resendLoginOtp()"
+                                  class="hidden bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                                  Resend OTP
+                                </button>
+                                <button type="submit" id="loginbtn"
+                                  class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center">
+                                  Login <i class="ml-2 las la-arrow-right"></i>
+                                </button>
+                              </div>
+                              <div class="flex flex-wrap justify-center items-center pt-5 mb-3 gap-2">
+                                <span class="text-gray-600">Don't Have Account</span>
+                                <button type="button" id="Signupbtn" onclick="signupH()"
+                                  class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center">
+                                  SignUp Here <i class="ml-2 las la-arrow-right"></i>
+                                </button>
+                              </div>
+                            </form>
+                          </div>
+
+                          <!-- Step 2: Signup Part 1 -->
+                          <div class="edit-profile__body hidden" id="2_data">
+                            <form id="signup-1">
+                              <div class="mb-4">
+                                <label for="clientName" class="block text-gray-700 mb-2">Name</label>
+                                <input type="text"
+                                  class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase"
+                                  id="clientName" name="clientName" required maxlength="100">
+                              </div>
+                              <div class="mb-4">
+                                <label for="clientEmailId" class="block text-gray-700 mb-2">Email</label>
+                                <input type="email"
+                                  class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase"
+                                  id="clientEmailId" name="clientEmailId" required minlength="5" maxlength="50">
+                              </div>
+                              <div class="mb-4">
+                                <label for="clientMobile" class="block text-gray-700 mb-2">Phone Number</label>
+                                <input type="tel"
+                                  class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase"
+                                  id="clientMobile" name="clientMobile" minlength="10" maxlength="10" required>
+                              </div>
+                              <div class="mb-4">
+                                <label for="clientPan" class="block text-gray-700 mb-2">PAN</label>
+                                <input type="tel"
+                                  class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase"
+                                  id="clientPan" name="clientPan" minlength="10" maxlength="10" required>
+                              </div>
+                              <input type="text" hidden name="signupPage" value="signup-1">
+                              <label id="errorExist" class="hidden text-red-500"></label>
+                              <div class="flex flex-wrap justify-between pt-3 mb-5 gap-2">
+                                <a href="#" onclick="previous('1')"
+                                  class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 flex items-center">
+                                  <i class="las la-arrow-left mr-2"></i>Previous
+                                </a>
+                                <button type="submit"
+                                  class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center">
+                                  Next <i class="ml-2 las la-arrow-right"></i>
+                                </button>
+                              </div>
+                            </form>
+                          </div>
+
+                          <!-- Step 3: Signup Part 2 -->
+                          <div class="edit-profile__body hidden" id="3_data">
+                            <form id="signup-2">
+                              <div class="mb-4">
+                                <label class="block text-gray-700 mb-2">DP Name</label>
+                                <div class="flex space-x-4">
+                                  <div class="flex items-center">
+                                    <input class="mr-2" onclick="changedep(this.id)" type="radio" name="clientDPname"
+                                      required checked value="CDSL" id="radio-vl01">
+                                    <label for="radio-vl01" class="text-gray-700">
+                                      <span>CDSL</span>
+                                    </label>
+                                  </div>
+                                  <div class="flex items-center">
+                                    <input class="mr-2" onclick="changedep(this.id)" type="radio" name="clientDPname"
+                                      required value="NSDL" id="radio-vl02">
+                                    <label for="radio-vl02" class="text-gray-700">
+                                      <span>NSDL</span>
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="mb-4">
+                                <label for="clientDPid" class="block text-gray-700 mb-2">Client DP ID</label>
+                                <input type="text"
+                                  class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase"
+                                  id="clientDPid" minlength="16" maxlength="16" name="clientDPid" required
+                                  placeholder="Beneficiary Id">
+                              </div>
+                              <input type="text" hidden name="signupPage" value="signup-2">
+                              <div class="mb-4">
+                                <label for="signupOtp" class="block text-gray-700 mb-2">OTP</label>
+                                <input type="text"
+                                  class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase"
+                                  id="signupOtp" name="signupOtp" minlength="6" maxlength="6" required>
+                                <label for="resendSignupOtp" onclick="resendSignUpOtp()" id="resendSignupOtp"
+                                  class="text-blue-600 cursor-pointer">Resend OTP</label>
+                              </div>
+                              <label id="errorSignupOtp" class="hidden text-red-500"></label>
+                              <div class="flex flex-wrap justify-between pt-3 mb-5 gap-2">
+                                <a href="#" onclick="previous('2')"
+                                  class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 flex items-center">
+                                  <i class="las la-arrow-left mr-2"></i>Previous
+                                </a>
+                                <button type="submit"
+                                  class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center">
+                                  Submit <i class="ml-2 las la-arrow-right"></i>
+                                </button>
+                              </div>
+                            </form>
+                          </div>
+
+                          <!-- Notes Section -->
+                          <div class="mt-6">
+                            <div class="font-semibold mb-2">Note :</div>
+                            <ol class="list-decimal pl-5 space-y-2">
+                              <li class="text-justify">
+                                Bidding is possible on all trading days (Monday-Friday) between 10am and 5pm.
+                              </li>
+                              <li class="text-justify">
+                                You have to authenticate the mandate request to block funds you receive from
+                                bank. This may take from few minutes to few hours.
+                              </li>
+                              <li class="text-justify">
+                                Bidding done on holidays and after-market hours will get executed the very next
+                                trading day. Mandate request will receive only after this execution, this may
+                                take from few minutes to few hours.
+                              </li>
+                              <li class="text-justify">
+                                If you have not received the bank mandate for blocking funds even after 6 hours,
+                                then you have to cancel the application and reapply.
+                              </li>
+                            </ol>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
     </div>
   </div>
-</div>
 
 
 
