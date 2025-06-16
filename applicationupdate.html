@@ -83,56 +83,60 @@
 
 
 
-   /* For mobile view - keep bottom button fixed */
-  .fixed-bottom-button {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-    background: white;
-    z-index: 10;
-  }
-
-  /* For desktop view - adjust positioning */
-  @media (min-width: 768px) {
-    /* Make the right column a flex container with column direction */
-    .w-full.md\:w-1\/2 {
-      display: flex;
-      flex-direction: column;
-      height: 100vh; /* Take full viewport height */
-      position: relative; /* Needed for absolute positioning of children */
-    }
-
-    /* Main content should grow to fill available space */
-    #maincontent {
-      flex-grow: 1;
-      overflow-y: auto; /* Allow scrolling if content is long */
-      padding-bottom: 180px; /* Space for the fixed bottom button */
-    }
-
-    /* Fixed bottom button positioning for desktop */
+    /* For mobile view - keep bottom button fixed */
     .fixed-bottom-button {
-      position: absolute;
-      bottom: 10%; /* Position 10% from bottom of container */
+      position: fixed;
+      bottom: 0;
       left: 0;
       right: 0;
-      box-shadow: none;
-      padding: 0 16px;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      background: white;
+      z-index: 10;
     }
 
-    /* Optional: Add some styling to the right column */
-    .md\:shadow-lg {
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    /* For desktop view - adjust positioning */
+    @media (min-width: 768px) {
+
+      /* Make the right column a flex container with column direction */
+      .w-full.md\:w-1\/2 {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        /* Take full viewport height */
+        position: relative;
+        /* Needed for absolute positioning of children */
+      }
+
+      /* Main content should grow to fill available space */
+      #maincontent {
+        flex-grow: 1;
+        overflow-y: auto;
+        /* Allow scrolling if content is long */
+        padding-bottom: 180px;
+        /* Space for the fixed bottom button */
+      }
+
+      /* Fixed bottom button positioning for desktop */
+      .fixed-bottom-button {
+        position: absolute;
+        bottom: 10%;
+        /* Position 10% from bottom of container */
+        left: 0;
+        right: 0;
+        box-shadow: none;
+        padding: 0 16px;
+      }
+
+      /* Optional: Add some styling to the right column */
+      .md\:shadow-lg {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
     }
-  }
 
-  /* Make sure the main content container doesn't overflow */
-  .overflow-hidden {
-    overflow: visible;
-  }
-
-
+    /* Make sure the main content container doesn't overflow */
+    .overflow-hidden {
+      overflow: visible;
+    }
   </style>
 </head>
 
@@ -387,7 +391,7 @@
 
 
 
-          <div class="fixed-bottom-button bg-white w-full mx-auto">
+          <div class="fixed-bottom-button ">
             <div class="flex justify-between px-4 w-full py-2">
               <div class="flex cursor-pointer " id="open-drawer-btn">
                 Total Payable amount
@@ -446,7 +450,7 @@
 
 
     <div class="w-full md:hidden" id="hiddencontent">
-      
+
     </div>
 
     <input type="text" class="hidden" id="qty">
@@ -485,31 +489,40 @@
                 </button>
               </div>
 
-              <div class="flex h-full flex-col overflow-y-scroll bg-white py-4 shadow-xl">
-                <div class="px-4 sm:px-6">
+              <div class="flex flex-col md:flex-row">
+                <!-- Empty Left Side (to push content to right in desktop) -->
+                <div class="hidden md:block md:w-1/2"></div>
 
-                </div>
-                <div class="relative mt-4 flex-1 px-4 sm:px-6">
-                  <!-- Your content here -->
-                  <div class="w-full" style="height: 200px;">
+                <!-- Right Side Container (your original div) -->
+                <div class="w-full md:w-1/2">
 
-                    <div class="w-full flex gap-2 mt-2">
-                      <div class="w-full ">
-                        <p class="text-left text-gray-600">Total Amount</p>
-                      </div>
-                      <div class="w-full ">
-                        <p class="text-right text-gray-600 px-4" id="amount"></p>
+                  <div class="flex h-full flex-col overflow-y-scroll bg-white py-4 shadow-xl">
+                    <div class="px-4 sm:px-6">
+
+                    </div>
+                    <div class="relative mt-4 flex-1 px-4 sm:px-6">
+                      <!-- Your content here -->
+                      <div class="w-full" style="height: 200px;">
+
+                        <div class="w-full flex gap-2 mt-2">
+                          <div class="w-full ">
+                            <p class="text-left text-gray-600">Total Amount</p>
+                          </div>
+                          <div class="w-full ">
+                            <p class="text-right text-gray-600 px-4" id="amount"></p>
+                          </div>
+                        </div>
+                        <div class="w-full flex gap-2 mt-2">
+                          <div class="w-full">
+                            <p class="text-left text-gray-600">Discount Amount (-)</p>
+                          </div>
+                          <div class="w-full px-4">
+                            <p class="text-right text-gray-600" id="discountamount"></p>
+                          </div>
+                        </div>
+
                       </div>
                     </div>
-                    <div class="w-full flex gap-2 mt-2">
-                      <div class="w-full">
-                        <p class="text-left text-gray-600">Discount Amount (-)</p>
-                      </div>
-                      <div class="w-full px-4">
-                        <p class="text-right text-gray-600" id="discountamount"></p>
-                      </div>
-                    </div>
-
                   </div>
                 </div>
               </div>
@@ -517,6 +530,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
   </section>
 
