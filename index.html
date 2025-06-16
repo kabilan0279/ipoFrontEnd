@@ -992,6 +992,7 @@
       }
       var jsonString = JSON.stringify(iporequiredDetails);
 
+alert('sendDataToNewPage');
 
 
       var secretKey = "ipodetailsdata01"; // Choose a strong key
@@ -1015,8 +1016,7 @@
       }
       var jsonString = JSON.stringify(iporequiredDetails);
 
-
-
+alert('sendupdatedata');
       var secretKey = "ipodetailsdata01"; // Choose a strong key
       var encrypted = CryptoJS.AES.encrypt(jsonString, secretKey).toString();
       var encoded = encodeURIComponent(encrypted);
