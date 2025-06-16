@@ -224,7 +224,7 @@
 
 
 
-  <div class="flex justify-center items-center absolute top-12 left-0 right-0">
+  <div id="contentDiv" class="flex justify-center items-center absolute top-12 left-0 right-0">
     <div class="rounded-md border mt-5 bg-white shadow-lg w-full max-w-4xl md:max-w-none min-h-screen">
       <div class="tabs px-3 py-3">
         <input type="radio" id="tab1" name="tab" checked />
@@ -1192,15 +1192,22 @@
 
 
     function sendDataToNewPage(company, url, source) {
+      alert('popup');
+      const modalWrapper = document.getElementById('contentDiv');
+      modalWrapper.classList.remove('hidden');
 
-alert('popup')
-      document.getElementById('modal-login-signup').classList.remove('hidden');
-
+      // Add event listener to close modal when clicking outside
+      modalWrapper.addEventListener('click', function (e) {
+        const modalBox = document.getElementById('modal-login-signup');
+        if (!modalBox.contains(e.target)) {
+          modalWrapper.classList.add('hidden');
+        }
+      });
 
     }
 
-    function movenewpage(company, url, source){
-      
+    function movenewpage(company, url, source) {
+
       const iporequiredDetails = {
         clientCode: cleanClientCode,
         isin: company.isin,
