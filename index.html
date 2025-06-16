@@ -367,8 +367,12 @@
     <div id="modalBox"
       class="bg-white p-6 rounded-lg shadow-lg w-full max-w-[40rem] max-h-[80vh] overflow-y-auto relative">
       <!-- Close Button -->
-      <button onclick="closeModal()"
-        class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl font-bold bg-gray-100 rounded-full">&times;</button>
+      <button onclick="closeModal()" class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center 
+         rounded-full bg-gray-200 text-gray-600 hover:bg-red-500 hover:text-white 
+         shadow-md transition duration-200 ease-in-out focus:outline-none">
+        <span class="text-xl font-bold leading-none">&times;</span>
+      </button>
+
 
       <!-- Modal Content -->
       <div class="modal-dialog modal-xl" role="document">
@@ -1226,8 +1230,24 @@
       document.getElementById("2_data").style.display = "block";
     }
 
+    function previous(value) {
 
-    function movenewpage(company, url, source) {
+      var value2 = parseInt(value) + 1;
+      document.getElementById(value).innerHTML = "<span>" + value + "</span>";
+      document.getElementById(value).classList.add("current");
+      document.getElementById(value).classList.remove("completed");
+      document.getElementById(value).classList.remove("completed");
+
+
+      document.getElementById(value2).classList.remove("current");
+
+      document.getElementById(value + "_data").style.display = "block";
+      document.getElementById(value2 + "_data").style.display = "none";
+
+    }
+
+
+    function movenewpage(company, url, source) {    // actual script for move to next page
 
       const iporequiredDetails = {
         clientCode: cleanClientCode,
